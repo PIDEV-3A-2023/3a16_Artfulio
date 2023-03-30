@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Artwork{% endblock %}
+
+{% block body %}
+    <h1>Artwork</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id_artwork</th>
+                <td>{{ artwork.idArtwork }}</td>
+            </tr>
+            <tr>
+                <th>Nom_artwork</th>
+                <td>{{ artwork.nomArtwork }}</td>
+            </tr>
+            <tr>
+                <th>Description_artwork</th>
+                <td>{{ artwork.descriptionArtwork }}</td>
+            </tr>
+            <tr>
+                <th>Prix_artwork</th>
+                <td>{{ artwork.prixArtwork }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ artwork.date ? artwork.date|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Lien_artwork</th>
+                <td>{{ artwork.lienArtwork }}</td>
+            </tr>
+            <tr>
+                <th>Dimension_artwork</th>
+                <td>{{ artwork.dimensionArtwork }}</td>
+            </tr>
+            <tr>
+                <th>Img_artwork</th>
+                <td> <img src="file://{{ artwork.imgArtwork }}" alt="Workplace" usemap="#workmap" width="400" height="379">
+                
+                {{ artwork.imgArtwork }}</td>
+                
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_artwork_index') }}">back to list</a>
+
+    <a href="{{ path('app_artwork_edit', {'id_artwork': artwork.idartwork}) }}">edit</a>
+
+    {{ include('artwork/_delete_form.html.twig') }}
+{% endblock %}
