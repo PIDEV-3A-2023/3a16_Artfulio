@@ -2,3 +2,10 @@ td {
     word-wrap: break-word;
     max-width: 150px;
 }
+#show {
+    
+   height: fit-content;
+}
+.table{
+    border: 1px solid;
+  }
