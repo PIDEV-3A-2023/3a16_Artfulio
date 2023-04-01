@@ -6,7 +6,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Repository;
 use App\Repository\ArtworkRepository;
-
+use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: ArtworkRepository::class)]
 class Artwork
 {
@@ -16,23 +16,30 @@ class Artwork
     private ?int $id_artwork   = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"nom peut pas etre vide")]
     private ?string $nom_artwork	 = null;
    
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"description peut pas etre vide")]
     private ?string $description_artwork = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message:"prix peut pas etre vide")]
     private ?int $prix_artwork = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Assert\NotBlank(message:"date peut pas etre vide")]
     private ?\DateTimeInterface $date = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"lien peut pas etre vide")]
     private ?string $lien_artwork = null;
    
     #[ORM\Column]
+    #[Assert\NotBlank(message:"dimension peut pas etre vide")]
     private ?int $dimension_artwork = null;
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"image peut pas etre vide")]
     private ?string $img_artwork = null;
    
     // #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'Artwork')]

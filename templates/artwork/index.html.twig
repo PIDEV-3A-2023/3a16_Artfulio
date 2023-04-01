@@ -1,269 +1,291 @@
-<!DOCTYPE html>
-<html  >
-<head>
-  <!-- Site made with Mobirise Website Builder v5.7.12, https://mobirise.com -->
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="generator" content="Mobirise v5.7.12, mobirise.com">
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-  <link rel="shortcut icon" href="assets/images/logoblack-350x96.png" type="image/x-icon">
-  <meta name="description" content="">
+{% extends 'base.html.twig' %}
+{% block title %}Artwork{% endblock %}
+
+{% block body %}
+<link rel="stylesheet" href="{{asset("style.css")}}">
+    <body >
+    <div class="main">
+
   
-  
-  <title>Image</title>
-  {% block stylesheets %}
-  <link rel="stylesheet" href="{{asset("assets/web/assets/mobirise-icons/mobirise-icons.css")}}">
-  <link rel="stylesheet" href="{{asset("assets/bootstrap/css/bootstrap.min.css")}}">
-  <link rel="stylesheet" href="{{asset("assets/bootstrap/css/bootstrap-grid.min.css")}}">
-  <link rel="stylesheet" href="{{asset("assets/bootstrap/css/bootstrap-reboot.min.css")}}">
-  <link rel="stylesheet" href="{{asset("assets/dropdown/css/style.css")}}">
-  <link rel="stylesheet" href="{{asset("assets/socicon/css/styles.css")}}">
-  <link rel="stylesheet" href="{{asset("assets/theme/css/style.css")}}">
-  
-  <link rel="preload" href="https://fonts.googleapis.com/css?family=Lexend:100,200,300,400,500,600,700,800,900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lexend:100,200,300,400,500,600,700,800,900&display=swap"></noscript>
-  <link rel="preload" as="style" href="{{asset("assets/mobirise/css/mbr-additional.css")}}">
-  <link rel="stylesheet" href="{{asset("assets/mobirise/css/mbr-additional.css")}}" type="text/css">
-<link rel="stylesheet" href="{{asset("custom.css")}}">
-    {% endblock %}
-  
-  
-</head>
-<body>
-   
-  <section data-bs-version="5.1" class="menu menu2 cid-sFF0ciwnEL" once="menu" id="menu2-q">
-    
-    <nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
-        <div class="container">
-            <div class="navbar-brand">
-                <span class="navbar-logo">
-                    <a href="index.html">
-                        <img src="{{asset("assets/images/logoblack.png")}}" alt="Mobirise Website Builder" style="height: 3rem;">
-                    </a>
-                </span>
-                
+
+        <div class="left cid-tueYvJrawH">
+
+            <div class="img ">
+                <img src="image/profile.png">
+                <p>John Deo</p>
             </div>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbarSupportedContent" data-bs-target="#navbarSupportedContent" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <div class="hamburger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav nav-dropdown" data-app-modern-menu="true"><li class="nav-item"><a class="nav-link link text-black display-4" href="page2.html"><span class="mbri-image-slider mbr-iconfont mbr-iconfont-btn"></span>Image</a></li>
-                    <li class="nav-item"><a class="nav-link link text-black display-4" href="page3.html"><span class="mbri-video-play mbr-iconfont mbr-iconfont-btn"></span>Video</a></li><li class="nav-item"><a class="nav-link link text-black display-4" href="page5.html"><span class="mbri-music mbr-iconfont mbr-iconfont-btn"></span>Musique</a></li>
-                    <li class="nav-item"><a class="nav-link link text-black display-4" href="page4.html"><span class="mbri-shopping-cart mbr-iconfont mbr-iconfont-btn"></span>Shop</a>
-                    </li></ul>
-                
-                <div class="navbar-buttons mbr-section-btn"><a class="btn btn-secondary display-4" href="index.html">Log in</a></div>
+
+            <div class="img">
+                <img src="image/friend.png">
+                <p>Friends</p>
             </div>
+
+            <div class="img">
+                <img src="image/saved.png">
+                <p>Saved</p>
+            </div>
+
+            <div class="img">
+                <img src="image/group.png">
+                <p>Groups</p>
+            </div>
+
+            <div class="img">
+                <img src="image/marketplace.png">
+                <p>Marketplace</p>
+            </div>
+
+            <div class="img">
+                <img src="image/watch.png">
+                <p>Watch</p>
+            </div>
+
+            <div class="img">
+                <img src="image/down_arrow.png">
+                <p>See more</p>
+            </div>
+
+            <hr>
+
+            
+
         </div>
-    </nav>
-</section>
 
 
-<section data-bs-version="5.1" class="gallery2 cid-tueENDWKwP" id="gallery2-r">
-    
-    
-    <div class="container">
-        <div class="mbr-section-head">
-            <h4 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2"><strong>Illustraions</strong></h4>
-            
-        </div>
-        <div class="row mt-4">
-            <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Description</th>
-                <th>Prix</th>
-                <th>Date</th>
-                <th>Lien</th>
-                <th>Dimension</th>
-                <th>Img</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        
-        {% for artwork in artworks %}
-            <tr>
-                <td>{{ artwork.idArtwork }}</td>
-                <td>{{ artwork.nomArtwork }}</td>
-                <td>{{ artwork.descriptionArtwork }}</td>
-                <td>{{ artwork.prixArtwork }}</td>
-                <td>{{ artwork.date ? artwork.date|date('Y-m-d') : '' }}</td>
-                <td>{{ artwork.lienArtwork }}</td>
-                <td>{{ artwork.dimensionArtwork }}</td>
-                <td id=hamma>{{ artwork.imgArtwork }}</td>
-                <td>
-                    <a href="{{ path('app_artwork_show', {'id_artwork': artwork.idartwork}) }}">show</a>
-                    <a href="{{ path('app_artwork_edit', {'id_artwork': artwork.idartwork}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="9">no records found</td>
-            </tr>
-        {% endfor %}
-       
-    </table>
+        <div class="center">
 
-    <a href="{{ path('app_artwork_new') }}">Create new</a>
-    
-            </div>
-            
-            
-            
-</section>
+            <div class="my_post">
 
-{# <section data-bs-version="5.1" class="gallery2 cid-tueFPLeLgY" id="gallery2-z">
-    
-    
-    <div class="container">
-        <div class="mbr-section-head">
-            <h4 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2"><strong>3D</strong></h4>
-            
-        </div>
-        <div class="row mt-4">
-            
-            
-            
-            <div class="item features-image сol-12 col-md-6 col-lg-6 active">
-                <div class="item-wrapper">
-                    <div class="item-img">
-                        <img src="assets/images/artworks-000629623312-1mf2ue-t500x500-1-500x500.jpg" alt="Mobirise Website Builder" title="" data-slide-to="1" data-bs-slide-to="1">
-                    </div>
-                    <div class="item-content">
-                        <h5 class="item-title mbr-fonts-style display-5">Create Site Today!</h5>
-                        
-                        
-                    </div>
-                    <div class="mbr-section-btn item-footer mt-2"><a href="" class="btn item-btn btn-secondary display-7" target="_blank">Start
-                            Now!</a></div>
+                <div class="post_top">
+
+                    <img src="image/profile.png">
+                    <input type="text" placeholder="What's on you mind, John?">
+
                 </div>
-            </div><div class="item features-image сol-12 col-md-6 col-lg-6 active">
-                <div class="item-wrapper">
-                    <div class="item-img">
-                        <img src="assets/images/rufus-du-sol-bloom-album-cover-775x775.jpg" alt="Mobirise Website Builder" title="" data-slide-to="2" data-bs-slide-to="2">
+
+                <hr>
+
+                <div class="post_bottom">
+
+                    <div class="post_icon">
+                        <i class="fa-solid fa-video red"></i>
+                        <p>Live video</p>
                     </div>
-                    <div class="item-content">
-                        <h5 class="item-title mbr-fonts-style display-5">Create Site Today!</h5>
-                        
-                        
+
+                    <div class="post_icon">
+                        <i class="fa-solid fa-images green"></i>
+                        <p>Photo/video</p>
                     </div>
-                    <div class="mbr-section-btn item-footer mt-2"><a href="" class="btn item-btn btn-secondary display-7" target="_blank">Start
-                            Now!</a></div>
+
+                    <div class="post_icon">
+                        <i class="fa-regular fa-face-grin yellow"></i>
+                        <p>Feeling/activity</p>
+                    </div>
+
                 </div>
-            </div><div class="item features-image сol-12 col-md-6 col-lg-6 active">
-                <div class="item-wrapper">
-                    <div class="item-img">
-                        <img src="assets/images/400x400cc-400x400.jpg" alt="Mobirise Website Builder" title="" data-slide-to="3" data-bs-slide-to="3">
-                    </div>
-                    <div class="item-content">
-                        <h5 class="item-title mbr-fonts-style display-5">Create Site Today!</h5>
-                        
-                        
-                    </div>
-                    <div class="mbr-section-btn item-footer mt-2"><a href="" class="btn item-btn btn-secondary display-7" target="_blank">Start
-                            Now!</a></div>
-                </div>
-            </div><div class="item features-image сol-12 col-md-6 col-lg-6 active">
-                <div class="item-wrapper">
-                    <div class="item-img">
-                        <img src="assets/images/d3c4e744046205a49d06beb874df3b39da7c9c73-1-690x690.jpg" alt="Mobirise Website Builder" title="" data-slide-to="4" data-bs-slide-to="4">
-                    </div>
-                    <div class="item-content">
-                        <h5 class="item-title mbr-fonts-style display-5">Create Site Today!</h5>
-                        
-                        
-                    </div>
-                    <div class="mbr-section-btn item-footer mt-2"><a href="" class="btn item-btn btn-secondary display-7" target="_blank">Start
-                            Now!</a></div>
-                </div>
+
             </div>
+
+
+            
+
+
+            {% for artwork in artworks %}
+
+            <div class="friends_post">
+
+                <div class="friend_post_top">
+
+                    <div class="img_and_name">
+
+                        <img src="image/profile_9.png">
+
+                        <div class="friends_name">
+                            <p class="friends_name">
+                               {{ artwork.descriptionArtwork }}
+                            </p>
+                            <p class="time">{{ artwork.date ? artwork.date|date('Y-m-d') : '' }}<i class="fa-solid fa-user-group"></i></p>
+                        </div>
+                        
+
+                    </div>
+
+                    <div class="menu">
+
+                        <i class="fa-solid fa-ellipsis"></i>
+
+                    </div>
+
+                </div>
+
+                <img src="{{asset( artwork.imgArtwork )}}">
+
+                <div class="info">
+
+                    <div class="emoji_img">
+                        <img src="image/like.png">
+                        <img src="image/haha.png">
+                        <img src="image/heart.png">
+                        <p>You, Charith Disanayaka and 25K others</p>
+                    </div>
+
+                    <div class="comment">
+                        <p>421 Comments</p>
+                        <p>1.3K Shares</p>
+                    </div>
+
+                </div>
+
+                <hr>
+
+                <div class="like">
+
+                    <div class="like_icon">
+                        <i class="fa-solid fa-thumbs-up activi"></i>
+                        <p>Like</p>
+                    </div>
+
+                    <div class="like_icon">
+                        <i class="fa-solid fa-message"></i>
+                        <p>Comments</p>
+                    </div>
+
+                    <div class="like_icon">
+                        <i class="fa-solid fa-share"></i>
+                        <p>Share</p>
+                    </div>
+
+                </div>
+
+                <hr>
+
+                <div class="comment_warpper">
+
+                    <img src="image/profile.png">
+                    <div class="circle"></div>
+
+                    <div class="comment_search">
+
+                        <input type="text" placeholder="Write a comment">
+                        <i class="fa-regular fa-face-smile"></i>
+                        <i class="fa-solid fa-camera"></i>
+                        <i class="fa-regular fa-note-sticky"></i>
+
+                    </div>
+
+                </div>
+
+            </div>
+ {% endfor %}
         </div>
+  
+        <div class="right">
+
+            <div class="third_warpper">
+
+                <div class="contact_tag">
+
+                    <h2>Contacts</h2>
+
+                    <div class="contact_icon">
+
+                        <i class="fa-solid fa-video"></i>
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <i class="fa-solid fa-ellipsis"></i>
+
+                    </div>
+
+                </div>
+
+                <div class="contact">
+
+                    <img src="image/contact_1.jpg">
+                    <p>Senuda De Silva</p>
+
+                </div>
+
+                <div class="contact">
+
+                    <img src="image/contact_2.jpg">
+                    <p>Senuda De Silva</p>
+
+                </div>
+
+                <div class="contact">
+
+                    <img src="image/contact_3.jpg">
+                    <p>Senuda De Silva</p>
+
+                </div>
+
+                <div class="contact">
+
+                    <img src="image/contact_4.jpg">
+                    <p>Senuda De Silva</p>
+
+                </div>
+
+                <div class="contact">
+
+                    <img src="image/contact_5.jpg">
+                    <p>Senuda De Silva</p>
+
+                </div>
+
+                <div class="contact">
+
+                    <img src="image/profile_1.jpg">
+                    <p>Senuda De Silva</p>
+
+                </div>
+
+                <div class="contact">
+
+                    <img src="image/profile_2.jpg">
+                    <p>Senuda De Silva</p>
+
+                </div>
+
+                <div class="contact">
+
+                    <img src="image/profile_3.jpg">
+                    <p>Senuda De Silva</p>
+
+                </div>
+
+                <div class="contact">
+
+                    <img src="image/profile_4.png">
+                    <p>Senuda De Silva</p>
+
+                </div>
+
+                <div class="contact">
+
+                    <img src="image/profile_5.png">
+                    <p>Senuda De Silva</p>
+
+                </div>
+
+                <div class="contact">
+
+                    <img src="image/profile_6.png">
+                    <p>Senuda De Silva</p>
+
+                </div>
+
+                <div class="contact">
+
+                    <img src="image/profile_7.png">
+                    <p>Senuda De Silva</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
-</section> #}
-
-<section data-bs-version="5.1" class="footer3 cid-tuf0QbPikU" once="footers" id="footer3-1a">
 
     
-
-    
-
-    <div class="container">
-        <div class="media-container-row align-center mbr-white">
-            <div class="row row-links">
-                <ul class="foot-menu">
-                    
-                    
-                    
-                    
-                    
-                <li class="foot-menu-item mbr-fonts-style display-7">
-                        <a class="text-white" href="#" target="_blank">About us</a>
-                    </li><li class="foot-menu-item mbr-fonts-style display-7">
-                        <a class="text-white" href="#" target="_blank">Services</a>
-                    </li><li class="foot-menu-item mbr-fonts-style display-7">
-                        <a class="text-white" href="#" target="_blank">Contact Us</a>
-                    </li><li class="foot-menu-item mbr-fonts-style display-7">
-                        <a class="text-white" href="#" target="_blank">Careers</a>
-                    </li><li class="foot-menu-item mbr-fonts-style display-7">
-                        <a class="text-white" href="#" target="_blank">Work</a>
-                    </li></ul>
-            </div>
-            <div class="row social-row">
-                <div class="social-list align-right pb-2">
-                    
-                    
-                    
-                    
-                    
-                    
-                <div class="soc-item">
-                        <a href="https://twitter.com/mobirise" target="_blank">
-                            <span class="socicon-twitter socicon mbr-iconfont mbr-iconfont-social"></span>
-                        </a>
-                    </div><div class="soc-item">
-                        <a href="https://www.facebook.com/pages/Mobirise/1616226671953247" target="_blank">
-                            <span class="socicon-facebook socicon mbr-iconfont mbr-iconfont-social"></span>
-                        </a>
-                    </div><div class="soc-item">
-                        <a href="https://www.youtube.com/c/mobirise" target="_blank">
-                            <span class="socicon-youtube socicon mbr-iconfont mbr-iconfont-social"></span>
-                        </a>
-                    </div><div class="soc-item">
-                        <a href="https://instagram.com/mobirise" target="_blank">
-                            <span class="socicon-instagram socicon mbr-iconfont mbr-iconfont-social"></span>
-                        </a>
-                    </div><div class="soc-item">
-                        <a href="https://plus.google.com/u/0/+Mobirise" target="_blank">
-                            <span class="socicon-googleplus socicon mbr-iconfont mbr-iconfont-social"></span>
-                        </a>
-                    </div><div class="soc-item">
-                        <a href="https://www.behance.net/Mobirise" target="_blank">
-                            <span class="socicon-behance socicon mbr-iconfont mbr-iconfont-social"></span>
-                        </a>
-                    </div></div>
-            </div>
-            <div class="row row-copirayt">
-                <p class="mbr-text mb-0 mbr-fonts-style mbr-white align-center display-7">
-                    © Copyright 2025 Artfulio. All Rights Reserved.
-                </p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script> 
- <script src="assets/smoothscroll/smooth-scroll.js"></script> 
-  <script src="assets/ytplayer/index.js"></script>
-  <script src="assets/dropdown/js/navbar-dropdown.js"></script> 
-   <script src="assets/theme/js/script.js"></script>  
-  
-  
-</body>
-</html>
+{% endblock %}

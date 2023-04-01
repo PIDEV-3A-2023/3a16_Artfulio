@@ -9,3 +9,10 @@ td {
 .table{
     border: 1px solid;
   }
+  .main .center{
+    width: 50%;
+    height: auto;
+    padding: 20px 20px 0 20px;
+    background: #a20c0c;
+    margin-left: 25%;
+}
