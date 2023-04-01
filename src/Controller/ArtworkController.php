@@ -21,7 +21,13 @@ class ArtworkController extends AbstractController
             'artworks' => $artworkRepository->findAll(),
         ]);
     }
-
+    #[Route('/admin', name: 'app_admin')]
+    public function admin(ArtworkRepository $artworkRepository): Response
+    {
+      
+        return $this->render('artwork/admin.html.twig', [
+            'artworks' => $artworkRepository->findAll(),  ]);
+    }
     #[Route('/new', name: 'app_artwork_new', methods: ['GET', 'POST'])]
     public function new(Request $request, ArtworkRepository $artworkRepository): Response
     {

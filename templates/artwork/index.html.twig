@@ -177,61 +177,7 @@
 
             </div>
  {% endfor %}
-{# 
- <section data-bs-version="5.1" class="gallery2 cid-tueENDWKwP" id="gallery2-r">
-    
-    
-    <div class="container">
-        <div class="mbr-section-head">
-            <h4 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2"><strong>Illustraions</strong></h4>
-            
-        </div>
-        <div class="row mt-4">
-            <table class="container">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Description</th>
-                <th>Prix</th>
-                <th>Date</th>
-                <th>Lien</th>
-                <th>Dimension</th>
-                <th>Img</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        
-        {% for artwork in artworks %}
-            <tr>
-                <td>{{ artwork.idArtwork }}</td>
-                <td>{{ artwork.nomArtwork }}</td>
-                <td>{{ artwork.descriptionArtwork }}</td>
-                <td>{{ artwork.prixArtwork }}</td>
-                <td>{{ artwork.date ? artwork.date|date('Y-m-d') : '' }}</td>
-                <td>{{ artwork.lienArtwork }}</td>
-                <td>{{ artwork.dimensionArtwork }}</td>
-                <td id=hamma>{{ artwork.imgArtwork }}</td>
-                <td>
-                    <a href="{{ path('app_artwork_show', {'id_artwork': artwork.idartwork}) }}">show</a>
-                    <a href="{{ path('app_artwork_edit', {'id_artwork': artwork.idartwork}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="9">no records found</td>
-            </tr>
-        {% endfor %}
-       
-    </table>
 
-    <a href="{{ path('app_artwork_new') }}">Create new</a>
-    
-            </div>
-            
-            
-            
-</section> #}
         </div>
   
         <div class="right">
