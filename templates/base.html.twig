@@ -37,6 +37,10 @@
 </head>
 <body>
 
+<div class="loader_bg">
+    <div class="loader"></div>
+</div>
+
   <section data-bs-version="5.1" class="menu menu2 cid-sFF0ciwnEL" once="menu" id="menu2-0">
     
     <nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
@@ -68,8 +72,11 @@
         </div>
     </nav>
 </section>
+
   {% block body %}
+ 
   {% endblock %}
+    
 <section data-bs-version="5.1" class="footer3 cid-tuf0QbPikU" once="footers" id="footer3-1a">
 
     
@@ -143,14 +150,22 @@
 <p style="margin: 0;text-align: center;" class="display-7">Made with &#8204;</p>
 <a style="z-index:1" href="https://mobirise.com/builder/no-code-website-builder.html">No Code Website Builder</a>
 </section> #}
+
 {% block js %}
+
 <script src="{{asset("assets/bootstrap/js/bootstrap.bundle.min.js")}}"></script> 
  <script src="{{asset("assets/smoothscroll/smooth-scroll.js")}}"></script> 
   <script src="{{asset("assets/ytplayer/index.js")}}"></script>
     <script src="{{asset("assets/dropdown/js/navbar-dropdown.js")}}"></script> 
      <script src="{{asset("assets/sociallikes/social-likes.js")}}"></script>
        <script src="{{asset("assets/theme/js/script.js")}}"></script>  
-  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        setTimeout(function(){
+            $('.loader_bg').fadeToggle();
+        }, 1500);
+    </script>
 {% endblock %}
+
 </body>
 </html>
