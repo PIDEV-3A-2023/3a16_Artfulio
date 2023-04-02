@@ -634,6 +634,8 @@
                 <th>Description</th>
                 <th>Prix</th>
                 <th>Date</th>
+                {# <th>artiste</th> #}
+                
                 <th>Lien</th>
                 <th>Dimension</th>
                 <th>Img</th>
@@ -648,6 +650,7 @@
                 <td>{{ artwork.descriptionArtwork }}</td>
                 <td>{{ artwork.prixArtwork }}</td>
                 <td>{{ artwork.date ? artwork.date|date('Y-m-d') : '' }}</td>
+                {# <td>{{ artwork.IdArtist.username }}</td> #}
                 <td>{{ artwork.lienArtwork }}</td>
                 <td>{{ artwork.dimensionArtwork }}</td>
                 <td id=hamma>{{ artwork.imgArtwork }}</td>
