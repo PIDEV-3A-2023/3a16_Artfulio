@@ -5,60 +5,81 @@ namespace App\Entity;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-use Repository;
-use App\Repository\ArtisteCollaborationRepository;
-
-#[ORM\Entity(repositoryClass: ArtisteCollaborationRepository::class)]
+/**
+ * ArtisteCollaboration
+ *
+ * @ORM\Table(name="artiste_collaboration", uniqueConstraints={@ORM\UniqueConstraint(name="id_artiste", columns={"id_artiste_fk", "id_collaboration_fk"}), @ORM\UniqueConstraint(name="id_collaboration", columns={"id_collaboration_fk"})})
+ * @ORM\Entity
+ */
 class ArtisteCollaboration
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id  = null;
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $date_entree = null;
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
 
-    #[ORM\ManyToOne(targetEntity: Collaboration::class, inversedBy: 'ArtisteCollaboration')]
-    #[ORM\JoinColumn(name: 'id_collaboration_fk', referencedColumnName: 'id_collaboration')]
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id_artiste_fk", type="integer", nullable=false)
+     */
+    private $idArtisteFk;
 
-    private ?int $id_collaboration_fk  = null;
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'ArtisteCollaboration')]
-    #[ORM\JoinColumn(name: 'id_artiste_fk', referencedColumnName: 'id_user')]
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id_collaboration_fk", type="integer", nullable=false)
+     */
+    private $idCollaborationFk;
 
-    private ?int $id_artiste_fk  = null;
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_entree", type="date", nullable=false)
+     */
+    private $dateEntree;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getIdArtisteFk(): ?int
+    {
+        return $this->idArtisteFk;
+    }
+
+    public function setIdArtisteFk(int $idArtisteFk): self
+    {
+        $this->idArtisteFk = $idArtisteFk;
+
+        return $this;
+    }
+
+    public function getIdCollaborationFk(): ?int
+    {
+        return $this->idCollaborationFk;
+    }
+
+    public function setIdCollaborationFk(int $idCollaborationFk): self
+    {
+        $this->idCollaborationFk = $idCollaborationFk;
+
+        return $this;
+    }
 
     public function getDateEntree(): ?\DateTimeInterface
     {
-        return $this->date_entree;
+        return $this->dateEntree;
     }
 
     public function setDateEntree(\DateTimeInterface $dateEntree): self
     {
-        $this->date_entree = $dateEntree;
-
-        return $this;
-    }
-
-    public function getIdCollaborationFk(): ?Collaboration
-    {
-        return $this->id_collaboration_fk;
-    }
-
-    public function setIdCollaborationFk(?Collaboration $idCollaborationFk): self
-    {
-        $this->id_collaboration_fk = $id_collaboration_fk;
-
-        return $this;
-    }
-
-    public function getIdArtisteFk(): ?User
-    {
-        return $this->id_artiste_fk;
-    }
-
-    public function setIdArtisteFk(?User $idArtisteFk): self
-    {
-        $this->id_artiste_fk = $idArtisteFk;
+        $this->dateEntree = $dateEntree;
 
         return $this;
     }

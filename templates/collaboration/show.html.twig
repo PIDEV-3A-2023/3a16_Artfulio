@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Collaboration{% endblock %}
+
+{% block body %}
+    <h1>Collaboration</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>IdCollaboration</th>
+                <td>{{ collaboration.idCollaboration }}</td>
+            </tr>
+            <tr>
+                <th>TypeCollaboration</th>
+                <td>{{ collaboration.typeCollaboration }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ collaboration.titre }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ collaboration.description }}</td>
+            </tr>
+            <tr>
+                <th>DateSortie</th>
+                <td>{{ collaboration.dateSortie ? collaboration.dateSortie|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ collaboration.status }}</td>
+            </tr>
+            <tr>
+                <th>NomUser</th>
+                <td>{{ collaboration.nomUser }}</td>
+            </tr>
+            <tr>
+                <th>EmailUser</th>
+                <td>{{ collaboration.emailUser }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_collaboration_index') }}">back to list</a>
+
+    <a href="{{ path('app_collaboration_edit', {'idCollaboration': collaboration.idCollaboration}) }}">edit</a>
+
+    {{ include('collaboration/_delete_form.html.twig') }}
+{% endblock %}

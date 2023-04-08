@@ -5,56 +5,85 @@ namespace App\Entity;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-use Repository;
-use App\Repository\CollaborationRepository;
-
-#[ORM\Entity(repositoryClass: CollaborationRepository::class)]
+/**
+ * Collaboration
+ *
+ * @ORM\Table(name="collaboration")
+ * @ORM\Entity
+ */
 class Collaboration
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id_collaboration   = null;
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id_collaboration", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idCollaboration;
 
-    #[ORM\Column(length: 255)]
-    private ?string $type_collaboration = null;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type_collaboration", type="string", length=50, nullable=false)
+     */
+    private $typeCollaboration;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="titre", type="string", length=50, nullable=false)
+     */
+    private $titre;
 
-    #[ORM\Column(length: 255)]
-    private ?string $titre = null;
-   
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="string", length=300, nullable=false)
+     */
+    private $description;
 
-    #[ORM\Column(length: 255)]
-    private ?string $description = null;
-    
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $date_sortie = null;
-   
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_sortie", type="date", nullable=false)
+     */
+    private $dateSortie;
 
-    #[ORM\Column(length: 255)]
-    private ?string $status = null;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="status", type="string", length=20, nullable=false)
+     */
+    private $status;
 
-    #[ORM\Column(length: 255)]
-    private ?string $nom_user = null;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom_user", type="string", length=50, nullable=false)
+     */
+    private $nomUser;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email_user", type="string", length=50, nullable=false)
+     */
+    private $emailUser;
 
-    #[ORM\Column(length: 255)]
-    private ?string $email_user = null;
-
-   
     public function getIdCollaboration(): ?int
     {
-        return $this->id_collaboration ;
+        return $this->idCollaboration;
     }
 
     public function getTypeCollaboration(): ?string
     {
-        return $this->type_collaboration;
+        return $this->typeCollaboration;
     }
 
     public function setTypeCollaboration(string $typeCollaboration): self
     {
-        $this->type_collaboration = $typeCollaboration;
+        $this->typeCollaboration = $typeCollaboration;
 
         return $this;
     }
@@ -85,12 +114,12 @@ class Collaboration
 
     public function getDateSortie(): ?\DateTimeInterface
     {
-        return $this->date_sortie;
+        return $this->dateSortie;
     }
 
     public function setDateSortie(\DateTimeInterface $dateSortie): self
     {
-        $this->date_sortie = $dateSortie;
+        $this->dateSortie = $dateSortie;
 
         return $this;
     }
@@ -109,24 +138,24 @@ class Collaboration
 
     public function getNomUser(): ?string
     {
-        return $this->nom_user;
+        return $this->nomUser;
     }
 
     public function setNomUser(string $nomUser): self
     {
-        $this->nom_user = $nomUser;
+        $this->nomUser = $nomUser;
 
         return $this;
     }
 
     public function getEmailUser(): ?string
     {
-        return $this->email_user;
+        return $this->emailUser;
     }
 
     public function setEmailUser(string $emailUser): self
     {
-        $this->email_user = $emailUser;
+        $this->emailUser = $emailUser;
 
         return $this;
     }

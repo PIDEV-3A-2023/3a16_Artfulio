@@ -4,51 +4,82 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-use Repository;
-use App\Repository\UserRepository;
-
-#[ORM\Entity(repositoryClass: UserRepository::class)]
+/**
+ * User
+ *
+ * @ORM\Table(name="user", indexes={@ORM\Index(name="email_user", columns={"email_user"}), @ORM\Index(name="is_pro", columns={"is_pro"}), @ORM\Index(name="username", columns={"username"}), @ORM\Index(name="role", columns={"type_role"})})
+ * @ORM\Entity
+ */
 class User
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id_user    = null;
-    #[ORM\Column(length: 255)]
-    private ?string $username = null;
- 
-    #[ORM\Column(length: 255)]
-    private ?string $cin_user = null;
- 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id_user", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idUser;
 
-    #[ORM\Column(length: 255)]
-    private ?string $adresse_user = null;
- 
-  
-    #[ORM\Column(length: 255)]
-    private ?string $password_user = null;
- 
-  
-    #[ORM\Column(length: 255)]
-    private ?string $email_user  = null;
- 
-  
-    #[ORM\Column]
-    private ?bool $is_pro  = false;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="username", type="string", length=50, nullable=false)
+     */
+    private $username;
 
-    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cin_user", type="string", length=8, nullable=false)
+     */
+    private $cinUser;
 
-    #[ORM\Column(length: 255)]
-    private ?string $img_user	 = null;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="adresse_user", type="string", length=50, nullable=false)
+     */
+    private $adresseUser;
 
-    #[ORM\ManyToOne(targetEntity: Role::class, inversedBy: 'User')]
-    #[ORM\JoinColumn(name: 'type_role', referencedColumnName: 'type_role')]
-    
-    private ?string $type_role  = null;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="password_user", type="string", length=50, nullable=false)
+     */
+    private $passwordUser;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email_user", type="string", length=50, nullable=false)
+     */
+    private $emailUser;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type_role", type="string", length=20, nullable=false)
+     */
+    private $typeRole;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="is_pro", type="boolean", nullable=false)
+     */
+    private $isPro;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="img_user", type="string", length=255, nullable=true)
+     */
+    private $imgUser;
 
     public function getIdUser(): ?int
     {
-        return $this->id_user ;
+        return $this->idUser;
     }
 
     public function getUsername(): ?string
@@ -65,91 +96,86 @@ class User
 
     public function getCinUser(): ?string
     {
-        return $this->cin_user	;
+        return $this->cinUser;
     }
 
     public function setCinUser(string $cinUser): self
     {
-        $this->cin_user	 = $cinUser;
+        $this->cinUser = $cinUser;
 
         return $this;
     }
 
     public function getAdresseUser(): ?string
     {
-        return $this->adresse_user;
+        return $this->adresseUser;
     }
 
     public function setAdresseUser(string $adresseUser): self
     {
-        $this->adresse_user = $adresseUser;
+        $this->adresseUser = $adresseUser;
 
         return $this;
     }
 
     public function getPasswordUser(): ?string
     {
-        return $this->password_user;
+        return $this->passwordUser;
     }
 
     public function setPasswordUser(string $passwordUser): self
     {
-        $this->password_user = $passwordUser;
+        $this->passwordUser = $passwordUser;
 
         return $this;
     }
 
     public function getEmailUser(): ?string
     {
-        return $this->email_user ;
+        return $this->emailUser;
     }
 
     public function setEmailUser(string $emailUser): self
     {
-        $this->email_user  = $emailUser;
+        $this->emailUser = $emailUser;
+
+        return $this;
+    }
+
+    public function getTypeRole(): ?string
+    {
+        return $this->typeRole;
+    }
+
+    public function setTypeRole(string $typeRole): self
+    {
+        $this->typeRole = $typeRole;
 
         return $this;
     }
 
     public function isIsPro(): ?bool
     {
-        return $this->is_pro ;
+        return $this->isPro;
     }
 
     public function setIsPro(bool $isPro): self
     {
-        $this->is_pro  = $isPro;
+        $this->isPro = $isPro;
 
         return $this;
     }
 
     public function getImgUser(): ?string
     {
-        return $this->img_user;
+        return $this->imgUser;
     }
 
     public function setImgUser(?string $imgUser): self
     {
-        $this->img_user = $imgUser;
+        $this->imgUser = $imgUser;
 
         return $this;
-    }
-
-    public function getTypeRole(): ?Role
-    {
-        return $this->type_role ;
-    }
-
-    public function setTypeRole(?Role $typeRole): self
-    {
-        $this->type_role  = $typeRole;
-
-        return $this;
-    }
-
-    public function getIsPro(): ?string
-    {
-        return $this->is_pro ;
     }
 
 
