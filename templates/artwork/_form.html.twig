@@ -1,4 +1,92 @@
 {{ form_start(form,{'attr': {'novalidate': 'novalidate'}}) }}
-    {{ form_widget(form) }}
+    {# {{ form_widget(form) }} #}
+   
+    {{ form_row(form.nom_artwork, {
+    label: 'Nom de l\'oeuvre',
+    attr: {
+        placeholder: 'Name'
+    },
+    row_attr: {
+        class: 'form-floating'
+    }
+}) }}
+{{ form_row(form.description_artwork, {
+    label: 'Description de l\'oeuvre',
+    attr: {
+        placeholder: 'Description'
+    },
+    row_attr: {
+        class: 'form-floating'
+    }
+}) }}
+
+{{ form_row(form.lien_artwork, {
+    label: 'Lien de l\'oeuvre',
+    attr: {
+        placeholder: 'lien'
+    },
+    row_attr: {
+        class: 'form-floating'
+    }
+}) }}
+{{ form_row(form.prix_artwork, {
+    label: 'Prix de l\'oeuvre',
+    attr: {
+        placeholder: 'prix'
+    },
+    row_attr: {
+        class: 'form-floating'
+    }
+}) }}
+{{ form_row(form.id_artist, {
+    label: 'Artiste de l\'oeuvre',
+    attr: {
+        placeholder: 'Artiste'
+    },
+    row_attr: {
+        class: 'form-floating'
+    }
+}) }}
+{{ form_row(form.date, {
+    label: 'Date de creation de l\'oeuvre',
+    attr: {
+        placeholder: 'Date'
+    },
+    row_attr: {
+        class: 'form-floating'
+    }
+}) }}
+{{ form_row(form.id_type, {
+    label: 'Type de l\'oeuvre',
+    attr: {
+        placeholder: 'Type'
+    },
+    row_attr: {
+        class: 'form-floating'
+    }
+}) }}
+{{ form_row(form.img_artwork, {
+    label: 'Image de l\'oeuvre',
+    attr: {
+        placeholder: 'Image'
+    },
+    row_attr: {
+        class: 'form-floating'
+    }
+}) }}
+
+{{ form_row(form.dimension_artwork, {
+    label: 'Dimension de l\'oeuvre',
+    attr: {
+        placeholder: 'Dimension'
+    },
+    row_attr: {
+        class: 'form-floating'
+    }
+}) }}
+<small>{{ form_help(form.lien_artwork) }}</small>
+<div>
+
     <button class="btn">{{ button_label|default('Save') }}</button>
+</div>
 {{ form_end(form) }}
