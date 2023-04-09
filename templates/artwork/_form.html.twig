@@ -90,6 +90,13 @@
       button:hover {
       background: #ff0066;
       }
+      .c{
+        width : 70%;
+        height:120%;
+        display: block;
+  margin-left: auto;
+  padding-top: 41px;
+  margin-right: auto;}
       @media (min-width: 568px) {
       .name-item, .contact-item {
       display: flex;
@@ -105,8 +112,10 @@
       .contact-item input {
       width: calc(100% - 12px);
       }
+
       }
     </style>
+    <div class="c">
 {{ form_start(form,{'attr': {'novalidate': 'novalidate'}}) }}
     {# {{ form_widget(form) }} #}
    
@@ -196,6 +205,7 @@
 <small>{{ form_help(form.lien_artwork) }}</small>
 <div>
 
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    <button class="btn btn-secondary display-4">{{ button_label|default('Save') }}</button>
 </div>
 {{ form_end(form) }}
+</div>
