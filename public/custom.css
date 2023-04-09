@@ -20,7 +20,7 @@ td {
 body, html {
     height: 100%;
     text-align: center;
-    
+    background-color: #f2ebe9;  
 }
 
 #animationWindow {
