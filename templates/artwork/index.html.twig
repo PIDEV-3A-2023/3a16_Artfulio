@@ -157,7 +157,27 @@
 
                 </div>
 
+              {% for commentaire in commentaires %}
+
                 <hr>
+ <div class="info">
+
+                    <div class="emoji_img comment_warpper">
+                       <img src="image/profile.png">
+                            <p>{{ commentaire.texte }}</p>
+                    </div>
+
+                    <div class="comment">
+                            <p>{{ commentaire.DatePost ? commentaire.DatePost|date('Y-m-d H:i:s') : '' }}</p>
+                    </div>
+
+                </div>
+                 {% else %}
+            <tr>
+                <td colspan="4"></td>
+            </tr>
+        {% endfor %}
+                 <hr>
 
                 <div class="comment_warpper">
 
@@ -174,6 +194,7 @@
                     </div>
 
                 </div>
+
 
             </div>
  {% endfor %}

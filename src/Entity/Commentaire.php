@@ -21,15 +21,15 @@ class Commentaire
     private ?int $Id_com   = null;
  
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+      #[ORM\Column(type: 'datetime')]
     private ?\DateTimeInterface $Date_post = null;
    
-    #[ORM\ManyToOne(targetEntity: Artwork::class, inversedBy: 'Commentaire')]
-    #[ORM\JoinColumn(name: 'id_artwork', referencedColumnName: 'id_artwork')]
+    //#[ORM\ManyToOne(targetEntity: Artwork::class, inversedBy: 'Commentaire')]
+   // #[ORM\JoinColumn(name: 'id_artwork', referencedColumnName: 'id_artwork')]
    
     private ?int $idArtwork  = null;
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'Commentaire')]
-    #[ORM\JoinColumn(name: 'id_util', referencedColumnName: 'id_user')]
+    //#[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'Commentaire')]
+    //#[ORM\JoinColumn(name: 'id_util', referencedColumnName: 'id_user')]
   
     private ?int $id_util   = null;
 

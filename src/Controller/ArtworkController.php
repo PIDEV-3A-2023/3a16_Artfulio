@@ -10,16 +10,21 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\src\Controller\CommentaireController;
+use App\Repository\CommentaireRepository;
+
 
 #[Route('/artwork')]
 class ArtworkController extends AbstractController
 {
     #[Route('/', name: 'app_artwork_index', methods: ['GET'])]
-    public function index(ArtworkRepository $artworkRepository): Response
+    public function index(ArtworkRepository $artworkRepository,CommentaireRepository $commentaireRepository): Response
     {
         return $this->render('artwork/index.html.twig', [
             'artworks' => $artworkRepository->findAll(),
+                'commentaires' => $commentaireRepository->findAll(),
+           
         ]);
+
     }
     #[Route('/admin', name: 'app_admin')]
     public function admin(ArtworkRepository $artworkRepository): Response
