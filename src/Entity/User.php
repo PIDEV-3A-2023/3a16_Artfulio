@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 use Repository;
@@ -13,7 +15,7 @@ class User
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id_user= null;
+    private ?int $id= null;
     #[ORM\Column(length: 255)]
     private ?string $username = null;
  
@@ -46,9 +48,17 @@ class User
     
     private ?string $type_role  = null;
 
-    public function getIdUser(): ?int
+    #[ORM\OneToMany(mappedBy: 'id_artist', targetEntity: Artwork::class)]
+    private Collection $artworks;
+
+    public function __construct()
     {
-        return $this->id_user ;
+        $this->artworks = new ArrayCollection();
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
     }
 
     public function getUsername(): ?string
@@ -150,6 +160,36 @@ class User
     public function getIsPro(): ?string
     {
         return $this->is_pro ;
+    }
+
+    /**
+     * @return Collection<int, Artwork>
+     */
+    public function getArtworks(): Collection
+    {
+        return $this->artworks;
+    }
+
+    public function addArtwork(Artwork $artwork): self
+    {
+        if (!$this->artworks->contains($artwork)) {
+            $this->artworks->add($artwork);
+            $artwork->setIdArtist($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArtwork(Artwork $artwork): self
+    {
+        if ($this->artworks->removeElement($artwork)) {
+            // set the owning side to null (unless already changed)
+            if ($artwork->getIdArtist() === $this) {
+                $artwork->setIdArtist(null);
+            }
+        }
+
+        return $this;
     }
 
 

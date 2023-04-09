@@ -41,17 +41,24 @@ class Artwork
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message:"image peut pas etre vide")]
     private ?string $img_artwork = null;
+
+    #[ORM\ManyToOne(inversedBy: 'artworks')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $id_artist = null;
+
+    #[ORM\ManyToOne(inversedBy: 'artworks')]
+    private ?SousCat $id_type = null;
    
     // #[ORM\ManyToOne(targetEntity:"App\Entity\User", inversedBy: 'Artwork')]
     // #[ORM\JoinColumn(name: 'id_artist', referencedColumnName: 'id_user')]
     // #[ORM\ManyToOne(inversedBy: 'Artwork')]
     // #[ORM\JoinColumn(nullable: false)]
     // private ?User $id_artist = null;
-    private ?int $id_artist = null;
+   // private ?int $id_artist = null;
      //#[ORM\ManyToOne(targetEntity:"App\Entity\SousCat", inversedBy: 'Artwork')]
      //#[ORM\JoinColumn(name: 'id_type', referencedColumnName: 'id_sous_cat')]
    
-    private ?int $id_type  = null;
+    //private ?int $id_type  = null;
     // #[ORM\ManyToOne(inversedBy: 'Artwork')]
     // #[ORM\JoinColumn(nullable: false)]
     // private ?SousCat $id_type  = null;

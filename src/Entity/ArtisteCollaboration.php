@@ -23,7 +23,7 @@ class ArtisteCollaboration
 
     private ?int $id_collaboration_fk  = null;
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'ArtisteCollaboration')]
-    #[ORM\JoinColumn(name: 'id_artiste_fk', referencedColumnName: 'id_user')]
+    #[ORM\JoinColumn(name: 'id_artiste_fk', referencedColumnName: 'id')]
 
     private ?int $id_artiste_fk  = null;
 
