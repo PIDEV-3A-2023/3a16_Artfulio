@@ -13,7 +13,7 @@ class User
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id_user    = null;
+    private ?int $id_user= null;
     #[ORM\Column(length: 255)]
     private ?string $username = null;
  
@@ -41,8 +41,8 @@ class User
     #[ORM\Column(length: 255)]
     private ?string $img_user	 = null;
 
-    #[ORM\ManyToOne(targetEntity: Role::class, inversedBy: 'User')]
-    #[ORM\JoinColumn(name: 'type_role', referencedColumnName: 'type_role')]
+    // #[ORM\ManyToOne(targetEntity: Role::class, inversedBy: 'User')]
+    // #[ORM\JoinColumn(name: 'type_role', referencedColumnName: 'type_role')]
     
     private ?string $type_role  = null;
 

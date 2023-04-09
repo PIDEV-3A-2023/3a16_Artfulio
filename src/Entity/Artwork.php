@@ -44,15 +44,17 @@ class Artwork
    
     // #[ORM\ManyToOne(targetEntity:"App\Entity\User", inversedBy: 'Artwork')]
     // #[ORM\JoinColumn(name: 'id_artist', referencedColumnName: 'id_user')]
-    //#[ORM\ManyToOne(inversedBy: 'Artwork')]
-    //#[ORM\JoinColumn(nullable: false)]
-    //private ?User $id_artist = null;
+    // #[ORM\ManyToOne(inversedBy: 'Artwork')]
+    // #[ORM\JoinColumn(nullable: false)]
+    // private ?User $id_artist = null;
     private ?int $id_artist = null;
      //#[ORM\ManyToOne(targetEntity:"App\Entity\SousCat", inversedBy: 'Artwork')]
      //#[ORM\JoinColumn(name: 'id_type', referencedColumnName: 'id_sous_cat')]
    
     private ?int $id_type  = null;
-    //private ?SousCat $id_type  = null;
+    // #[ORM\ManyToOne(inversedBy: 'Artwork')]
+    // #[ORM\JoinColumn(nullable: false)]
+    // private ?SousCat $id_type  = null;
     
 
 
