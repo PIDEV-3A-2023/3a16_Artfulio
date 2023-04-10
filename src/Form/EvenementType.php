@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Evenement;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\Length;
@@ -15,9 +16,35 @@ class EvenementType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $choices = [
+            'Concert' => 'Consert ou spectacle',
+            'Gala' => 'Gala ou dinner',
+            'Formation' => 'Formation, cours ou atelier',
+            'Jeu' => 'Jeux ou Competition',
+            'Expostion' => 'Expostion',
+            'Seminaire' => 'Seminaire',
+            'Autre' => 'Autre',
+        ];
         $builder
             ->add('titre')
-            ->add('type')
+            ->add('type', ChoiceType::class, [
+                'choices' => [
+                    'Concert ou spectacle' => 'Consert ou spectacle',
+                    'Gala ou dinner' => 'Gala ou dinner',
+                    'Formation ,cours ou atelier' => 'Formation, cours ou atelier',
+                    'Jeu ou Competition' => 'Jeux ou Competition',
+                    'Expostion' => 'Expostion',
+                    'Seminaire' => 'Seminaire',
+                    'Autre' => 'Autre',
+                ],
+                'label' => 'type de collaboration :',
+                'required' => true,
+                'placeholder' => '-- Choisissez un type --',
+                'attr' => [
+                    'class' => 'selectType'
+                ],
+
+            ])
             ->add('description', TextareaType::class, [
                 'constraints' => [
                     new Length([

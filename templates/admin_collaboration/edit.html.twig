@@ -1,0 +1,13 @@
+{% extends '/admin/index.html.twig' %}
+
+{% block title %}Edit Collaboration{% endblock %}
+
+{% block body %}
+    <h1>Edit Collaboration</h1>
+
+    {{ include('collaboration/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('adm_collaboration_index') }}">back to list</a>
+
+    {{ include('collaboration/_delete_form.html.twig') }}
+{% endblock %}

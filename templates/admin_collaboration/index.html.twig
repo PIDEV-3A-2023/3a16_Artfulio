@@ -1,0 +1,47 @@
+{% extends '/admin/index.html.twig' %}
+
+{% block title %}Collaboration index{% endblock %}
+
+{% block body %}
+    <h1>Collaboration index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>IdCollaboration</th>
+                <th>TypeCollaboration</th>
+                <th>Titre</th>
+                <th>Description</th>
+                <th>DateSortie</th>
+                <th>Status</th>
+                <th>NomUser</th>
+                <th>EmailUser</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for collaboration in collaborations %}
+            <tr>
+                <td>{{ collaboration.idCollaboration }}</td>
+                <td>{{ collaboration.typeCollaboration }}</td>
+                <td>{{ collaboration.titre }}</td>
+                <td>{{ collaboration.description }}</td>
+                <td>{{ collaboration.dateSortie ? collaboration.dateSortie|date('Y-m-d') : '' }}</td>
+                <td>{{ collaboration.status }}</td>
+                <td>{{ collaboration.nomUser }}</td>
+                <td>{{ collaboration.emailUser }}</td>
+                <td>
+                    <a href="{{ path('adm_collaboration_show', {'idCollaboration': collaboration.idCollaboration}) }}">show</a>
+                    <a href="{{ path('adm_collaboration_edit', {'idCollaboration': collaboration.idCollaboration}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('adm_collaboration_new') }}">Create new</a>
+{% endblock %}

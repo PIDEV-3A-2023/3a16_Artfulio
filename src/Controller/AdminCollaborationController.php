@@ -11,22 +11,32 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/collaboration')]
-class CollaborationController extends AbstractController
+
+
+class AdminCollaborationController extends AbstractController
 {
-    #[Route('/', name: 'app_collaboration_index', methods: ['GET'])]
+    /* #[Route('/admin/collaboration', name: 'app_admin_collaboration')]
+    public function index(): Response
+    {
+        return $this->render('admin_collaboration/index.html.twig', [
+            'controller_name' => 'AdminCollaborationController',
+        ]);
+    } */
+
+    // #[Route('/admin/collaboration', name: 'app_collaboration_index', methods: ['GET'])]
+    #[Route('/aa', name: 'adm_collaboration_index', methods: ['GET'])]
     public function index(EntityManagerInterface $entityManager): Response
     {
         $collaborations = $entityManager
             ->getRepository(Collaboration::class)
             ->findAll();
 
-        return $this->render('collaboration/index.html.twig', [
+        return $this->render('admin_collaboration/index.html.twig', [
             'collaborations' => $collaborations,
         ]);
     }
 
-    #[Route('/new', name: 'app_collaboration_new', methods: ['GET', 'POST'])]
+    #[Route('/admin/collaboration/new', name: 'adm_collaboration_new', methods: ['GET', 'POST'])]
     public function ajouter(Request $request, EntityManagerInterface $entityManager): Response
     {
         $collaboration = new Collaboration();
@@ -49,7 +59,7 @@ class CollaborationController extends AbstractController
             $artCollaborat->setDateEntree($date);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_collaboration_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('adm_collaboration_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('collaboration/new.html.twig', [
@@ -58,15 +68,15 @@ class CollaborationController extends AbstractController
         ]);
     }
 
-    #[Route('/{idCollaboration}', name: 'app_collaboration_show', methods: ['GET'])]
+    #[Route('/admin/collaboration/{idCollaboration}', name: 'adm_collaboration_show', methods: ['GET'])]
     public function detail(Collaboration $collaboration): Response
     {
-        return $this->render('collaboration/show.html.twig', [
+        return $this->render('admin_collaboration/show.html.twig', [
             'collaboration' => $collaboration,
         ]);
     }
 
-    #[Route('/{idCollaboration}/edit', name: 'app_collaboration_edit', methods: ['GET', 'POST'])]
+    #[Route('/admin/collaboration/{idCollaboration}/edit', name: 'adm_collaboration_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Collaboration $collaboration, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(CollaborationType::class, $collaboration);
@@ -75,16 +85,16 @@ class CollaborationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_collaboration_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('adm_collaboration_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('collaboration/edit.html.twig', [
+        return $this->renderForm('/admin_collaboration/edit.html.twig', [
             'collaboration' => $collaboration,
             'form' => $form,
         ]);
     }
 
-    #[Route('/{idCollaboration}', name: 'app_collaboration_delete', methods: ['POST'])]
+    #[Route('/admin/collaboration/{idCollaboration}', name: 'adm_collaboration_delete', methods: ['POST'])]
     public function delete(Request $request, Collaboration $collaboration, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $collaboration->getIdCollaboration(), $request->request->get('_token'))) {
@@ -92,6 +102,6 @@ class CollaborationController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_collaboration_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('adm_collaboration_index', [], Response::HTTP_SEE_OTHER);
     }
 }
