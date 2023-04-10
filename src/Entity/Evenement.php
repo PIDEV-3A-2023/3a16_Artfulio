@@ -6,6 +6,8 @@ use App\Repository\EvenementRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Evenement
  *
@@ -27,6 +29,8 @@ class Evenement
      * @var string|null
      *
      * @ORM\Column(name="titre", type="string", length=255, nullable=true)
+     * @Assert\NotBlank(message ="veuillez renseigner ce champs")
+     * @Assert\Length(min= 4, minMessage= "le nom doit avoir plus de 4 caracteres")
      */
     private $titre;
 
@@ -34,6 +38,8 @@ class Evenement
      * @var string|null
      *
      * @ORM\Column(name="type", type="string", length=100, nullable=true)
+     * @Assert\NotBlank(message ="veuillez renseigner ce champs")
+     * @Assert\Length(min= 4, minMessage= "le nom doit avoir plus de 4 caracteres")
      */
     private $type;
 
@@ -41,6 +47,7 @@ class Evenement
      * @var string|null
      *
      * @ORM\Column(name="description", type="text", length=0, nullable=true)
+     * @Assert\NotBlank(message ="veuillez renseigner ce champs")
      */
     private $description;
 
@@ -48,6 +55,8 @@ class Evenement
      * @var string|null
      *
      * @ORM\Column(name="lieu", type="string", length=255, nullable=true)
+     * @Assert\NotBlank(message ="veuillez renseigner ce champs")
+     * @Assert\Length(min= 4, minMessage= "le nom doit avoir plus de 4 caracteres")
      */
     private $lieu;
 
@@ -55,6 +64,7 @@ class Evenement
      * @var \DateTime|null
      *
      * @ORM\Column(name="date_debut", type="date", nullable=true)
+     * @Assert\LessThan(propertyPath="dateFin", message="La date de début doit être antérieure à la date de fin")
      */
     private $dateDebut;
 
@@ -62,6 +72,7 @@ class Evenement
      * @var \DateTime|null
      *
      * @ORM\Column(name="date_fin", type="date", nullable=true)
+     * @Assert\NotBlank(message ="veuillez renseigner ce champs")
      */
     private $dateFin;
 

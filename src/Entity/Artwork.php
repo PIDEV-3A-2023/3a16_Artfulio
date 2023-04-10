@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Artwork
  *
- * @ORM\Table(name="artwork")
+ * @ORM\Table(name="artwork", indexes={@ORM\Index(name="fk_id_artist", columns={"id_artist_id"}), @ORM\Index(name="fk_id_type", columns={"id_type_id"})})
  * @ORM\Entity
  */
 class Artwork
@@ -44,11 +44,25 @@ class Artwork
     private $prixArtwork;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="id_type_id", type="integer", nullable=false)
+     */
+    private $idTypeId;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="date", type="date", nullable=false)
      */
     private $date;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id_artist_id", type="integer", nullable=false)
+     */
+    private $idArtistId;
 
     /**
      * @var string
@@ -112,6 +126,18 @@ class Artwork
         return $this;
     }
 
+    public function getIdTypeId(): ?int
+    {
+        return $this->idTypeId;
+    }
+
+    public function setIdTypeId(int $idTypeId): self
+    {
+        $this->idTypeId = $idTypeId;
+
+        return $this;
+    }
+
     public function getDate(): ?\DateTimeInterface
     {
         return $this->date;
@@ -120,6 +146,18 @@ class Artwork
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
+
+        return $this;
+    }
+
+    public function getIdArtistId(): ?int
+    {
+        return $this->idArtistId;
+    }
+
+    public function setIdArtistId(int $idArtistId): self
+    {
+        $this->idArtistId = $idArtistId;
 
         return $this;
     }

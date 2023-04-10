@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * SousCat
  *
- * @ORM\Table(name="sous_cat", indexes={@ORM\Index(name="type_sous_cat", columns={"type_sous_cat"}), @ORM\Index(name="fk_type", columns={"nom_sous_cat"}), @ORM\Index(name="fk_id_categorie", columns={"id_categorie"})})
+ * @ORM\Table(name="sous_cat", indexes={@ORM\Index(name="fk_id_categorie", columns={"id_categorie"}), @ORM\Index(name="type_sous_cat", columns={"type_sous_cat"}), @ORM\Index(name="fk_type", columns={"nom_sous_cat"})})
  * @ORM\Entity
  */
 class SousCat
@@ -15,11 +15,11 @@ class SousCat
     /**
      * @var int
      *
-     * @ORM\Column(name="id_sous_cat", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idSousCat;
+    private $id;
 
     /**
      * @var string
@@ -42,9 +42,9 @@ class SousCat
      */
     private $idCategorie;
 
-    public function getIdSousCat(): ?int
+    public function getId(): ?int
     {
-        return $this->idSousCat;
+        return $this->id;
     }
 
     public function getNomSousCat(): ?string

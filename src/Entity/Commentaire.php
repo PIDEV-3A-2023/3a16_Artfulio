@@ -8,15 +8,22 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Commentaire
  *
- * @ORM\Table(name="commentaire", indexes={@ORM\Index(name="fk_id_artwork", columns={"id_artwork"}), @ORM\Index(name="fk_id_user", columns={"id_util"})})
+ * @ORM\Table(name="commentaire", indexes={@ORM\Index(name="fk_id_user", columns={"id_util"}), @ORM\Index(name="fk_id_artwork", columns={"id_artwork"})})
  * @ORM\Entity
  */
 class Commentaire
 {
     /**
+     * @var int
+     *
+     * @ORM\Column(name="id_util", type="integer", nullable=false)
+     */
+    private $idUtil;
+
+    /**
      * @var string
      *
-     * @ORM\Column(name="texte", type="string", length=255, nullable=false)
+     * @ORM\Column(name="Texte", type="string", length=200, nullable=false)
      */
     private $texte;
 
@@ -30,31 +37,30 @@ class Commentaire
     private $idCom;
 
     /**
-     * @var \DateTime
+     * @var int
      *
-     * @ORM\Column(name="date_post", type="date", nullable=false)
-     */
-    private $datePost;
-
-    /**
-     * @var \Artwork
-     *
-     * @ORM\ManyToOne(targetEntity="Artwork")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_artwork", referencedColumnName="id_artwork")
-     * })
+     * @ORM\Column(name="id_artwork", type="integer", nullable=false)
      */
     private $idArtwork;
 
     /**
-     * @var \User
+     * @var \DateTime
      *
-     * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_util", referencedColumnName="id_user")
-     * })
+     * @ORM\Column(name="Date_post", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      */
-    private $idUtil;
+    private $datePost = 'CURRENT_TIMESTAMP';
+
+    public function getIdUtil(): ?int
+    {
+        return $this->idUtil;
+    }
+
+    public function setIdUtil(int $idUtil): self
+    {
+        $this->idUtil = $idUtil;
+
+        return $this;
+    }
 
     public function getTexte(): ?string
     {
@@ -73,6 +79,18 @@ class Commentaire
         return $this->idCom;
     }
 
+    public function getIdArtwork(): ?int
+    {
+        return $this->idArtwork;
+    }
+
+    public function setIdArtwork(int $idArtwork): self
+    {
+        $this->idArtwork = $idArtwork;
+
+        return $this;
+    }
+
     public function getDatePost(): ?\DateTimeInterface
     {
         return $this->datePost;
@@ -81,30 +99,6 @@ class Commentaire
     public function setDatePost(\DateTimeInterface $datePost): self
     {
         $this->datePost = $datePost;
-
-        return $this;
-    }
-
-    public function getIdArtwork(): ?Artwork
-    {
-        return $this->idArtwork;
-    }
-
-    public function setIdArtwork(?Artwork $idArtwork): self
-    {
-        $this->idArtwork = $idArtwork;
-
-        return $this;
-    }
-
-    public function getIdUtil(): ?User
-    {
-        return $this->idUtil;
-    }
-
-    public function setIdUtil(?User $idUtil): self
-    {
-        $this->idUtil = $idUtil;
 
         return $this;
     }

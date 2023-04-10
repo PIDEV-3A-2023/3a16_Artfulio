@@ -12,6 +12,8 @@
   
   <title>{% block title %}Home{% endblock %}</title>
    {% block stylesheets %}
+   <!-- Load Flashy default CSS -->
+    <link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
   <link rel="stylesheet" href="{{asset("assets/web/assets/mobirise-icons/mobirise-icons.css")}}">
   <link rel="stylesheet" href="{{asset("assets/web/assets/mobirise-icons2/mobirise2.css")}}">
   <link rel="stylesheet" href="{{asset("assets/bootstrap/css/bootstrap.min.css")}}">
@@ -72,7 +74,7 @@
         </div>
     </nav>
 </section>
-
+    {{ include('@MercurySeriesFlashy/flashy.html.twig') }}
   {% block body %}
  
   {% endblock %}
@@ -160,6 +162,15 @@
      <script src="{{asset("assets/sociallikes/social-likes.js")}}"></script>
        <script src="{{asset("assets/theme/js/script.js")}}"></script>  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+  <!-- Flashy depends on jQuery -->
+    <script src="//code.jquery.com/jquery.js"></script>
+
+    <!-- Load Flashy default JavaScript -->
+    <script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
+    <!-- Include Flashy default partial -->
+
+
     <script>
         setTimeout(function(){
             $('.loader_bg').fadeToggle();
