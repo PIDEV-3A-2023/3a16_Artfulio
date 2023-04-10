@@ -51,9 +51,13 @@ class User
     #[ORM\OneToMany(mappedBy: 'id_artist', targetEntity: Artwork::class)]
     private Collection $artworks;
 
+    #[ORM\OneToMany(mappedBy: 'id_util', targetEntity: Commentaire::class)]
+    private Collection $commentaires;
+
     public function __construct()
     {
         $this->artworks = new ArrayCollection();
+        $this->commentaires = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -186,6 +190,36 @@ class User
             // set the owning side to null (unless already changed)
             if ($artwork->getIdArtist() === $this) {
                 $artwork->setIdArtist(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Commentaire>
+     */
+    public function getCommentaires(): Collection
+    {
+        return $this->commentaires;
+    }
+
+    public function addCommentaire(Commentaire $commentaire): self
+    {
+        if (!$this->commentaires->contains($commentaire)) {
+            $this->commentaires->add($commentaire);
+            $commentaire->setIdUtil($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaire(Commentaire $commentaire): self
+    {
+        if ($this->commentaires->removeElement($commentaire)) {
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getIdUtil() === $this) {
+                $commentaire->setIdUtil(null);
             }
         }
 

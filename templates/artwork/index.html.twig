@@ -158,7 +158,7 @@
                 </div>
 
               {% for commentaire in commentaires %}
-            {% if commentaire.getIdArtwork() != artwork.getIdArtwork() %}
+            {% if commentaire.getIdArtwork().getIdArtwork() == artwork.getIdArtwork() %}
                 <hr>
  <div class="info">
 

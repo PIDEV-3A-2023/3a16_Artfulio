@@ -20,7 +20,7 @@ table{
   background-color: rgba(255,255,255,0.3);
  }
 .tbl-content{
-  height:300px;
+  height:481px;
   overflow-x:auto;
   margin-top: 0px;
   border: 1px solid rgba(255,255,255,0.3);
@@ -55,7 +55,7 @@ body{
 
 }
 section{
-  margin: 50px;
+  margin: 0px;
 }
 
 
@@ -565,7 +565,7 @@ section{
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Dashboard</h1>
+      {# <h1>Dashboard</h1> #}
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html">Home</a></li>
@@ -596,7 +596,7 @@ section{
                 </div>
 
                 <div class="card-body">
-                  <h5 class="card-title">Reports <span>/Today</span></h5>
+                  {# <h5 class="card-title">Reports <span>/Today</span></h5> #}
 
                   <!-- Line Chart -->
                   <div id="reportsChart"></div>
@@ -605,7 +605,7 @@ section{
 <div class="container">
         <section>
   <!--for demo wrap-->
-  <h1>Fixed Table header</h1>
+  <h1>Artwork</h1>
   <div class="tbl-header">
     <table cellpadding="0" cellspacing="0" border="0">
       <thead>
@@ -654,7 +654,7 @@ section{
 </section>
 
 <!-- follow me template -->
-<div class="made-with-love">
+{# <div class="made-with-love"> #}
  <script>.
 $(window).on("load resize ", function() {
   var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
