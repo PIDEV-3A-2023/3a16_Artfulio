@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 use Repository;
 use App\Repository\UserRepository;
 
@@ -16,24 +16,59 @@ class User
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id= null;
+
+
+
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"Ce champs est obligatoire")]
+            #[Assert\Length(
+                min: 2,
+                minMessage: 'Votre mot de passe ne contient pas {{
+                    limit }} caractères'
+            )]
     private ?string $username = null;
  
+
+
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"Ce champs est obligatoire")]
+    #[Assert\Length(
+          exact:8,
+          exactMessage:'La valeur du CIN doit contenir exactement {{ limit }} caractères.'
+        )]
+    #[Assert\Regex(
+        pattern:'/^0/',
+         message:'La valeur du CIN doit commencer par "0".'
+        )]
     private ?string $cin_user = null;
  
 
+
+
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"Ce champs est obligatoire")]
     private ?string $adresse_user = null;
  
   
+
+
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"Ce champs est obligatoire")]
+    #[Assert\Regex(
+     pattern:'/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/',
+     message:'Le mot de passe doit contenir au moins une lettre minuscule, une lettre majuscule et un chiffre.' )]
     private ?string $password_user = null;
  
   
+
+
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"Ce champs est obligatoire")]
+    #[Assert\Email(message:"L'adresse email '{{ value }}' n'est pas valide.")]
     private ?string $email_user  = null;
  
+
+
   
     #[ORM\Column]
     private ?bool $is_pro  = false;
