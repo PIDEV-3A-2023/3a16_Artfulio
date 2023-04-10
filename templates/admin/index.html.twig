@@ -50,7 +50,7 @@
                 <div class="d-flex align-items-center justify-content-between">
                     <a href="index.html" class="logo d-flex align-items-center">
                         <img src="assets/img/logo.png" alt="">
-                        <span class="d-none d-lg-block">NiceAdmin</span>
+                        <span class="d-none d-lg-block">Artfulio Admin</span>
                     </a>
                     <i class="bi bi-list toggle-sidebar-btn"></i>
                 </div><!-- End Logo -->
@@ -398,34 +398,35 @@
                     </li><!-- End Forms Nav -->
 
                     <li class="nav-item">
-                        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-                            <i class="bi bi-layout-text-window-reverse"></i><span>Tables</span><i class="bi bi-chevron-down ms-auto"></i>
+                    
+                        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="{{ path('adm_evenement_index') }}">
+                            <i class="bi bi-layout-text-window-reverse"></i><span>Evenement</span><i class="bi bi-chevron-down ms-auto"></i>
                         </a>
                         <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                             <li>
-                                <a href="tables-general.html">
-                                    <i class="bi bi-circle"></i><span>General Tables</span>
+                                <a href="{{ path('adm_evenement_index') }}">
+                                    <i class="bi bi-circle"></i><span>Evenement</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="tables-data.html">
+                             <!--   <a href="tables-data.html">
                                     <i class="bi bi-circle"></i><span>Data Tables</span>
                                 </a>
-                            </li>
+                            </li> -->
                         </ul>
                     </li><!-- End Tables Nav -->
 
                     <li class="nav-item">
-                        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
-                            <i class="bi bi-bar-chart"></i><span>Charts</span><i class="bi bi-chevron-down ms-auto"></i>
+                        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="{{ path('adm_collaboration_index') }}">
+                            <i class="bi bi-bar-chart"></i><span>Collaborations</span><i class="bi bi-chevron-down ms-auto"></i>
                         </a>
                         <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                             <li>
-                                <a href="charts-chartjs.html">
-                                    <i class="bi bi-circle"></i><span>Chart.js</span>
+                                <a href="{{ path('adm_collaboration_index') }}">
+                                    <i class="bi bi-circle"></i><span>Collaboration</span>
                                 </a>
                             </li>
-                            <li>
+                            <!--<li>
                                 <a href="charts-apexcharts.html">
                                     <i class="bi bi-circle"></i><span>ApexCharts</span>
                                 </a>
@@ -434,7 +435,7 @@
                                 <a href="charts-echarts.html">
                                     <i class="bi bi-circle"></i><span>ECharts</span>
                                 </a>
-                            </li>
+                            </li>  -->
                         </ul>
                     </li><!-- End Charts Nav -->
 
@@ -526,7 +527,7 @@
         <!-- ======= Footer ======= -->
         <footer id="footer" class="footer">
             <div class="copyright">
-                &copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
+                &copy; Copyright <strong><span>Artfulio Admin</span></strong>. All Rights Reserved
             </div>
             <div class="credits">
                 <!-- All the links in the footer should remain intact. -->

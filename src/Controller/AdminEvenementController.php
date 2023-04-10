@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Evenement;
+use App\Form\EvenementType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use MercurySeries\FlashyBundle\FlashyNotifier;
@@ -89,7 +90,7 @@ class AdminEvenementController extends AbstractController
     #[Route('/{id}', name: 'adm_evenement_show', methods: ['GET'])]
     public function show(Evenement $evenement): Response
     {
-        return $this->render('evenement/show.html.twig', [
+        return $this->render('admin_evenement/show.html.twig', [
             'evenement' => $evenement,
         ]);
     }
