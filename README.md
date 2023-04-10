@@ -1,49 +1,37 @@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@&#BB#&@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#PYJJ??JJYP#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@PJ??JJJJJJJ??5&@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@5?JJJJJJJJJJJJ?JB@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#JJJJJJJJJJJJJJJJJG@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@&JJJJJJJJJJJJJJJJJ?5@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@BJJJJJJJJJJJJJJJJJ?Y&@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#J?JJJJJJJJJJJJJJJ?Y#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#Y?JJJJJJJJJJJJJJJ?J#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@&Y?JJJJJJJJJJJJJJJJJB@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@5?JJJJJJJJJJJJJJJJJG@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@P?JJJJJJJJJJJJJJJJ?G@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@P?JJJJJJJJJJJJJJJJ?P@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@&#BGGGG#&@@@@@@@@@@GJJJJJJJJJJJJJJJJJ?5@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#PJJ??????JYG&@@@@@@@@BJJJJJJJJJJJJJJJJJ?5&@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@GJ?JJJJJJJJJ??Y#@@@@@@@@#J?JJJJJJJJJJJJJJJ?Y#@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@5?JJJJJJJJJJJJJ?J&@@@@@@@@&Y?JJJJJJJJJJJJJJJ?J#@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@&5?JJJJJJJJJJJJJJJ?#@@@@@@@@@&Y?JJJJJJJJJJJJJJJJJB@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@&Y?JJJJJJJJJJJJJJJ?Y&@@@@@@@@@@@5?JJJJJJJJJJJJJJJJJG@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@#J?JJJJJJJJJJJJJJJ?J#@@@@@@@@@@@@@P?JJJJJJJJJJJJJJJJ?P@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@BJJJJJJJJJJJJJJJJJ?Y&@@@@@@@@@@@@@@@G?JJJJJJJJJJJJJJJJ?5@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@GJJJJJJJJJJJJJJJJJ?5&@@@@@@@@@@@@@@@@@GJJJJJJJJJJJJJJJJJ?5&@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@G?JJJJJJJJJJJJJJJJ?P@@@@@@@@@@@@@@@@@@@@BJ?JJJJJJJJJJJJJJJ?Y&@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@P?JJJJJJJJJJJJJJJJJG@@@@@@@@@@@@@@@@@@@@@@#J?JJJJJJJJJJJJJJJ?J#@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@&5?JJJJJJJJJJJJJJJJJB@@@@@@@@@@@@@@@@@@@@@@@@&Y?JJJJJJJJJJJJJJJ?JB@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@&Y?JJJJJJJJJJJJJJJ?J#@@@@@@@@@@@@@@@@@@@@@@@@@@&5?JJJJJJJJJJJJJJJJJG@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@#Y?JJJJJJJJJJJJJJJ?Y#@@@@@@@@@@&#GPPGB#@@@@@@@@@@@5?JJJJJJJJJJJJJJJJ?P@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@#J?JJJJJJJJJJJJJJJ?Y&@@@@@@@@&P?!~^^^^~~!J#@@@@@@@@@P?JJJJJJJJJJJJJJJJ?5@@@@@@@@@@@@@@
-@@@@@@@@@@@@@BJJJJJJJJJJJJJJJJJ?Y&@@@@@@@@B7^^~~~~~~~~~^~Y@@@@@@@@@GJJJJJJJJJJJJJJJJJ?Y&@@@@@@@@@@@@
-@@@@@@@@@@@@GJJJJJJJJJJJJJJJJJ?5@@@@@@@@@B~^~~~~~~~~~~~~~^Y@@@@@@@@@BJJJJJJJJJJJJJJJJJ?Y&@@@@@@@@@@@
-@@@@@@@@@@@P?JJJJJJJJJJJJJJJJ?P@@@@@@@@@@Y^~~~~~~~~~~~~~~~~#@@@@@@@@@#J?JJJJJJJJJJJJJJJ?J#@@@@@@@@@@
-@@@@@@@@@@P?JJJJJJJJJJJJJJJJ?G@@@@@@@@@@@G^~~~~~~~~~~~~~~^!&@@@@@@@@@@#Y?JJJJJJJJJJJJJJJJJB@@@@@@@@@
-@@@@@@@@&5?JJJJJJJJJJJJJJJJJG@@@@@@@@@@@@@5~^^~~~~~~~~~^^7B@@@@@@@@@@@@&Y?JJJJJJJJJJJJJJJJJG@@@@@@@@
-@@@@@@@&Y?JJJJJJJJJJJJJJJ?JB@@@@@@@@@@@@@@@#Y7~^^^^^^^~?P@@@@@@@@@@@@@@@&5?JJJJJJJJJJJJJJJJ?G@@@@@@@
-@@@@@@&Y?JJJJJJJJJJJJJJJ?J#@@@@@@@@@@@@@@@@@@@BPYJJY5G#@@@@@@@@@@@@@@@@@@@5?JJJJJJJJJJJJJJJJ?P@@@@@@
-@@@@@&Y?JJJJJJJJJJJJJJJ?Y&@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@P?JJJJJJJJJJJJJJJJ?B@@@@@
-@@@@@B?JJJJJJJJJJJJJJJ?Y&@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@GJJJJJJJJJJJJJJJJ?P@@@@@
-@@@@@#JJJJJJJJJJJJJJJ?5@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@BJ?JJJJJJJJJJJJJ?B@@@@@
-@@@@@@BJ?JJJJJJJJJJ??P@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#Y??JJJJJJJJJ?JP@@@@@@
-@@@@@@@&GYJ???????J5#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@BYJ??????JJ5#@@@@@@@
-@@@@@@@@@@#BGPPPGB&@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@&BGPPPG#&@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+Artfulio
+Artfulio is a web application built with Symfony/Doctrine/PHP that serves as a portfolio for artists. It allows artists to showcase their work in various formats such as images, audio, and video.
+
+Installation:
+
+Clone the repository: git clone https://github.com/YOUR-USERNAME/Artfulio.git
+Install dependencies: composer install
+Configure database connection in .env file
+Run migrations: php bin/console doctrine:migrations:migrate
+Start the Symfony server: symfony server:start
+Usage:
+
+Open the application in your browser: http://localhost:8000
+Register a new account or log in with an existing one
+Navigate to the dashboard to add/edit/delete your artwork
+Browse other artists' portfolios in the "Explore" section
+Features:
+
+User authentication and authorization using Symfony's security system
+CRUD functionality for artwork using Doctrine ORM and Symfony forms
+Ability to upload and display images, audio, and video files
+Pagination and search functionality in the Explore section
+Responsive design using Bootstrap
+
+Contributing:
+
+Contributions to Artfulio are welcome! If you want to contribute, please follow these steps:
+
+Fork the repository:
+
+Create a new branch: git checkout -b feature/my-new-feature
+Make changes and commit them: git commit -am 'Add some feature'
+Push to the branch: git push origin feature/my-new-feature
+Create a pull request on GitHub
+License:
+
+Artfulio is open-source software licensed under the Esprit License.
