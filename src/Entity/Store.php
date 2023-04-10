@@ -25,8 +25,8 @@ class Store
     #[ORM\Column(length: 255)]
     private ?string $img_artwork = null;
   
-    #[ORM\ManyToOne(targetEntity: Artwork::class, inversedBy: 'Store')]
-    #[ORM\JoinColumn(name: 'id_piece_art', referencedColumnName: 'id_artwork')]
+   // #[ORM\ManyToOne(targetEntity: Artwork::class, inversedBy: 'Store')]
+   // #[ORM\JoinColumn(name: 'id_piece_art', referencedColumnName: 'id_artwork')]
     private ?int $id_piece_art  = null;
  
     public function getIdProduit(): ?int

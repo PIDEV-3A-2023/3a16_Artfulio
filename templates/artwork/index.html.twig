@@ -118,7 +118,7 @@
 
                 </div>
 
-                <img src="{{asset(artwork.imgArtwork)}}">
+                <img src="{{ asset('uploads/images/' ~ artwork.imgArtwork) }}"  />
 
                 <div class="info">
 
@@ -158,7 +158,7 @@
                 </div>
 
               {% for commentaire in commentaires %}
-
+            {% if commentaire.getIdArtwork().getIdArtwork() == artwork.getIdArtwork() %}
                 <hr>
  <div class="info">
 
@@ -172,10 +172,12 @@
                     </div>
 
                 </div>
-                 {% else %}
+                 {# {% else %}
             <tr>
                 <td colspan="4"></td>
-            </tr>
+            </tr> #}
+            {% endif %}
+
         {% endfor %}
                  <hr>
 
@@ -185,7 +187,7 @@
                     <div class="circle"></div>
 
                     <div class="comment_search">
-
+                <a href="{{ path('app_commentaire_new') }}">Write a comment</a>
                         <input type="text" placeholder="Write a comment">
                         <i class="fa-regular fa-face-smile"></i>
                         <i class="fa-solid fa-camera"></i>
