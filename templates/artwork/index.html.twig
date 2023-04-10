@@ -158,7 +158,7 @@
                 </div>
 
               {% for commentaire in commentaires %}
-
+            {# {% if commentaire.getIdArtwork() == artwork.getIdArtwork() %} #}
                 <hr>
  <div class="info">
 
@@ -176,6 +176,8 @@
             <tr>
                 <td colspan="4"></td>
             </tr>
+            {# {% endif %} #}
+
         {% endfor %}
                  <hr>
 
@@ -185,7 +187,7 @@
                     <div class="circle"></div>
 
                     <div class="comment_search">
-
+                <a href="{{ path('app_commentaire_new') }}">Write a comment</a>
                         <input type="text" placeholder="Write a comment">
                         <i class="fa-regular fa-face-smile"></i>
                         <i class="fa-solid fa-camera"></i>

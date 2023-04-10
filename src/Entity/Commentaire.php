@@ -33,6 +33,9 @@ class Commentaire
   
     private ?int $id_util   = null;
 
+    // #[ORM\ManyToOne(inversedBy: 'commentaires')]
+//private ?Artwork $idArtwork = null;
+    private ?int $idArtwork  = null;
     public function getTexte(): ?string
     {
         return $this->texte;
@@ -62,14 +65,14 @@ class Commentaire
         return $this;
     }
 
-    public function getIdArtwork(): ?Artwork
+    public function getIdArtwork(): ?int
     {
-        return $this->id_artwork ;
+        return $this->idArtwork ;
     }
 
     public function setIdArtwork(?Artwork $idArtwork): self
     {
-        $this->id_artwork  = $idArtwork;
+        $this->idArtwork  = $idArtwork;
 
         return $this;
     }

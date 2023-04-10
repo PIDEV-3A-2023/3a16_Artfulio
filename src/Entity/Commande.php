@@ -21,7 +21,7 @@ class Commande
     #[ORM\Column(length: 255)]
     private ?string $paiement = null;
     #[ORM\ManyToOne(targetEntity: Artwork::class, inversedBy: 'Commande')]
-    #[ORM\JoinColumn(name: 'id_produit', referencedColumnName: 'id_artwork')]
+    #[ORM\JoinColumn(name: 'id_produit', referencedColumnName: 'id')]
   
     private  ?int $id_produit    = null;
 
