@@ -3,7 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Artwork;
+use App\Entity\Commentaire;
+
 use App\Form\ArtworkType;
+
 use App\Repository\ArtworkRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,6 +44,22 @@ class ArtworkController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+           
+            $file = $form['img_artwork']->getData();
+            $imageFile = $form->get('img_artwork')->getData();
+            
+            // génération d un nom de fichier unique
+            $newFilename = uniqid().'.'.$imageFile->guessExtension();
+
+            // déplacement du file dans le dossier public/images
+            $imageFile->move(
+                $this->getParameter('images_directory'),
+                $newFilename
+            );
+
+            // mise à jour de l'attribut "image" de l'objet véhicule
+            $artwork->setImgArtwork($newFilename);
+
             $artworkRepository->save($artwork, true);
 
             return $this->redirectToRoute('app_artwork_index', [], Response::HTTP_SEE_OTHER);
@@ -82,6 +101,7 @@ class ArtworkController extends AbstractController
     public function delete(Request $request, Artwork $artwork, ArtworkRepository $artworkRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$artwork->getIdArtwork(), $request->request->get('_token'))) {
+            // $commentaireRepository->findAll()
             $artworkRepository->remove($artwork, true);
         }
 

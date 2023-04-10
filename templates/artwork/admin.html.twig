@@ -637,7 +637,7 @@ section{
                 {# <td>{{ artwork.IdArtist.username }}</td> #}
                 <td>{{ artwork.lienArtwork }}</td>
                 <td>{{ artwork.dimensionArtwork }}</td>
-                <td >{{ artwork.imgArtwork }}</td>
+                <td ><img style="width : 100px;height:100px;" src="{{ asset('uploads/images/' ~ artwork.imgArtwork) }}"  /></td>
                 <td>
                     <a class="btn btn-secondary display-4" href="{{ path('app_artwork_show', {'id_artwork': artwork.idartwork}) }}">show</a>
                     <a class="btn btn-secondary display-4" href="{{ path('app_artwork_edit', {'id_artwork': artwork.idartwork}) }}">edit</a>
