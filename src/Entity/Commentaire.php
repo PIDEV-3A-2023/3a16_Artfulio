@@ -30,12 +30,13 @@ class Commentaire
    // private ?int $idArtwork  = null;
     //#[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'Commentaire')]
     //#[ORM\JoinColumn(name: 'id_util', referencedColumnName: 'id_user')]
-  
-    private ?int $id_util   = null;
+    #[ORM\ManyToOne(inversedBy: 'commentaires')]
+    private ?User $id_util = null;
+    //private ?int $id_util   = null;
 
-    // #[ORM\ManyToOne(inversedBy: 'commentaires')]
-//private ?Artwork $idArtwork = null;
-    private ?int $idArtwork  = null;
+     #[ORM\ManyToOne(inversedBy: 'commentaires')]
+private ?Artwork $idArtwork = null;
+//    private ?int $idArtwork  = null;
     public function getTexte(): ?string
     {
         return $this->texte;
@@ -65,7 +66,7 @@ class Commentaire
         return $this;
     }
 
-    public function getIdArtwork(): ?int
+    public function getIdArtwork(): ?Artwork
     {
         return $this->idArtwork ;
     }

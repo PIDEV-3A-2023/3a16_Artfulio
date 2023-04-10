@@ -158,7 +158,7 @@
                 </div>
 
               {% for commentaire in commentaires %}
-            {# {% if commentaire.getIdArtwork() == artwork.getIdArtwork() %} #}
+            {% if commentaire.getIdArtwork() != artwork.getIdArtwork() %}
                 <hr>
  <div class="info">
 
@@ -172,11 +172,11 @@
                     </div>
 
                 </div>
-                 {% else %}
+                 {# {% else %}
             <tr>
                 <td colspan="4"></td>
-            </tr>
-            {# {% endif %} #}
+            </tr> #}
+            {% endif %}
 
         {% endfor %}
                  <hr>
