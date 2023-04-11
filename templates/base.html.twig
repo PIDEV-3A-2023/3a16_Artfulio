@@ -12,6 +12,8 @@
   
   <title>{% block title %}Home{% endblock %}</title>
    {% block stylesheets %}
+
+   {% endblock %}
    <!-- Load Flashy default CSS -->
     <link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
   <link rel="stylesheet" href="{{asset("assets/web/assets/mobirise-icons/mobirise-icons.css")}}">
@@ -33,7 +35,7 @@
        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
    
- {% endblock %}
+ 
   
   
 </head>
@@ -156,6 +158,7 @@
 
 {% block js %}
 
+{% endblock %}
 <script src="{{asset("assets/bootstrap/js/bootstrap.bundle.min.js")}}"></script> 
  <script src="{{asset("assets/smoothscroll/smooth-scroll.js")}}"></script> 
   <script src="{{asset("assets/ytplayer/index.js")}}"></script>
@@ -177,7 +180,7 @@
             $('.loader_bg').fadeToggle();
         }, 1500);
     </script>
-{% endblock %}
+
 
 </body>
 </html>

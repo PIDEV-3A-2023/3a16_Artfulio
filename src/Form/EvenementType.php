@@ -26,26 +26,36 @@ class EvenementType extends AbstractType
             'Autre' => 'Autre',
         ];
         $builder
-            ->add('titre')
+            ->add('titre', null, [
+                'label' => 'Titre de l\'événement',
+                'attr' => [
+                    'class' => 'form-control mb-3',
+                    'placeholder' => 'Entrez le titre de l\'événement'
+                ]
+            ])
             ->add('type', ChoiceType::class, [
                 'choices' => [
                     'Concert ou spectacle' => 'Consert ou spectacle',
                     'Gala ou dinner' => 'Gala ou dinner',
                     'Formation ,cours ou atelier' => 'Formation, cours ou atelier',
                     'Jeu ou Competition' => 'Jeux ou Competition',
-                    'Expostion' => 'Expostion',
-                    'Seminaire' => 'Seminaire',
+                    'Exposition' => 'Exposition',
+                    'Séminaire' => 'Séminaire',
                     'Autre' => 'Autre',
                 ],
-                'label' => 'type de collaboration :',
+                'label' => 'Type de collaboration',
                 'required' => true,
                 'placeholder' => '-- Choisissez un type --',
                 'attr' => [
-                    'class' => 'selectType'
+                    'class' => 'form-control mb-3'
                 ],
-
             ])
             ->add('description', TextareaType::class, [
+                'label' => 'Description de l\'événement',
+                'attr' => [
+                    'class' => 'form-control mb-3',
+                    'placeholder' => 'Entrez une description de l\'événement'
+                ],
                 'constraints' => [
                     new Length([
                         'max' => 250,
@@ -53,20 +63,32 @@ class EvenementType extends AbstractType
                     ])
                 ]
             ])
-            ->add('lieu')
-            ->add('dateDebut')
-            ->add('dateFin')
+            ->add('lieu', null, [
+                'label' => 'Lieu de l\'événement',
+                'attr' => [
+                    'class' => 'form-control mb-3',
+                    'placeholder' => 'Entrez le lieu de l\'événement'
+                ]
+            ])
+            ->add('dateDebut', null, [
+                'label' => 'Date de début de l\'événement',
+                'attr' => [
+                    'class' => 'form-control mb-3'
+                ]
+            ])
+            ->add('dateFin', null, [
+                'label' => 'Date de fin de l\'événement',
+                'attr' => [
+                    'class' => 'form-control mb-3'
+                ]
+            ])
             ->add('image', FileType::class, [
-                'label' => 'image pour levenement (fichier image uniquement)',
-                // unmapped means that this field is not associated to any entity property
+                'label' => 'Image pour l\'événement (fichier image uniquement)',
                 'mapped' => false,
-
-                // make it optional so you don't have to re-upload the PDF file
-                // every time you edit the Product details
                 'required' => false,
-
-                // unmapped fields can't define their validation using annotations
-                // in the associated entity, so you can use the PHP constraint classes
+                'attr' => [
+                    'class' => 'form-control-file mb-3'
+                ],
                 'constraints' => [
                     new File([
                         'maxSize' => '1024k',
@@ -76,7 +98,7 @@ class EvenementType extends AbstractType
                             'image/png',
                             'image/jpg',
                         ],
-                        'mimeTypesMessage' => 'svp chargez une photo',
+                        'mimeTypesMessage' => 'Veuillez charger une',
                     ])
                 ],
             ])

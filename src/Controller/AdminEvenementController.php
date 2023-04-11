@@ -87,8 +87,8 @@ class AdminEvenementController extends AbstractController
     }
 
 
-    #[Route('/{id}', name: 'adm_evenement_show', methods: ['GET'])]
-    public function show(Evenement $evenement): Response
+    #[Route('show/{id?156}', name: 'adm_evenement_show', methods: ['GET'])]
+    public function show(Evenement $evenement = null): Response
     {
         return $this->render('admin_evenement/show.html.twig', [
             'evenement' => $evenement,

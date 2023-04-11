@@ -17,15 +17,15 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 class EvenementController extends AbstractController
 {
     #[Route('/', name: 'app_evenement_index', methods: ['GET'])]
-    public function index(EntityManagerInterface $entityManager, FlashyNotifier $flashy): Response
+    public function index(EntityManagerInterface $entityManager /*, FlashyNotifier $flashy */): Response
     {
-        $flashy->success('Event created!', 'http://your-awesome-link.com');
+        //    $flashy->success('Event created!', 'http://your-awesome-link.com');
         $evenements = $entityManager
             ->getRepository(Evenement::class)
             ->findAll();
 
         return $this->render('evenement/index.html.twig', [
-            'evenements' => $evenements,
+            'evenements' => $evenements
         ]);
     }
 
@@ -79,8 +79,8 @@ class EvenementController extends AbstractController
     }
 
 
-    #[Route('/{id}', name: 'app_evenement_show', methods: ['GET'])]
-    public function show(Evenement $evenement): Response
+    #[Route('/{id?10}', name: 'app_evenement_show', methods: ['GET'])]
+    public function show(Evenement $evenement = null): Response
     {
         return $this->render('evenement/show.html.twig', [
             'evenement' => $evenement,
