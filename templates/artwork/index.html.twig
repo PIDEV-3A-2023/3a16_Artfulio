@@ -2,169 +2,112 @@
 {% block title %}Artwork{% endblock %}
 
 {% block body %}
-<link rel="stylesheet" href="{{asset("style.css")}}">
-    <body >
-    <div class="main">
+<section data-bs-version="5.1" class="slider2 cid-tue4YqiKkn" id="slider2-4">
+    
 
-  
-
-        <div class="left cid-tueYvJrawH">
-
-            <div class="img ">
-                <img src="image/profile.png">
-                <p>John Deo</p>
-            </div>
-
-            <div class="img">
-                <img src="image/friend.png">
-                <p>Friends</p>
-            </div>
-
-            <div class="img">
-                <img src="image/saved.png">
-                <p>Saved</p>
-            </div>
-
-            <div class="img">
-                <img src="image/group.png">
-                <p>Groups</p>
-            </div>
-
-            <div class="img">
-                <img src="image/marketplace.png">
-                <p>Marketplace</p>
-            </div>
-
-            <div class="img">
-                <img src="image/watch.png">
-                <p>Watch</p>
-            </div>
-
-            <div class="img">
-                <img src="image/down_arrow.png">
-                <p>See more</p>
-            </div>
-
-            <hr>
-
-            
-
-        </div>
-
-
-        <div class="center">
-
-            <div class="my_post">
-
-                <div class="post_top">
-
-                    <img src="image/profile.png">
-                    <input type="text" placeholder="What's on you mind, John?">
-
-                </div>
-
-                <hr>
-
-                <div class="post_bottom">
-
-                    <div class="post_icon">
-                        <i class="fa-solid fa-video red"></i>
-                        <p>Live video</p>
-                    </div>
-
-                    <div class="post_icon">
-                        <i class="fa-solid fa-images green"></i>
-                        <p>Photo/video</p>
-                    </div>
-
-                    <div class="post_icon">
-                        <i class="fa-regular fa-face-grin yellow"></i>
-                        <p>Feeling/activity</p>
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            
-
-
-            {% for artwork in artworks %}
-
-            <div class="friends_post">
-
-                <div class="friend_post_top">
-
-                    <div class="img_and_name">
-
-                        <img src="image/profile_9.png">
-
-                        <div class="friends_name">
-                            <p class="friends_name">
-                               {{ artwork.descriptionArtwork }}
-                            </p>
-                            <p class="time">{{ artwork.date ? artwork.date|date('Y-m-d') : '' }}<i class="fa-solid fa-user-group"></i></p>
+    
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10">
+                <div class="carousel slide" id="twwwZvLyHA" data-interval="5000" data-bs-interval="5000">
+                    
+                    <ol class="carousel-indicators">
+                        <li data-slide-to="0" data-bs-slide-to="0" class="active" data-target="#twwwZvLyHA" data-bs-target="#twwwZvLyHA"></li>
+                        <li data-slide-to="1" data-bs-slide-to="1" data-target="#twwwZvLyHA" data-bs-target="#twwwZvLyHA"></li>
+                        <li data-slide-to="2" data-bs-slide-to="2" data-target="#twwwZvLyHA" data-bs-target="#twwwZvLyHA"></li><li data-slide-to="3" data-bs-slide-to="3" data-target="#twwwZvLyHA" data-bs-target="#twwwZvLyHA"></li><li data-slide-to="4" data-bs-slide-to="4" data-target="#twwwZvLyHA" data-bs-target="#twwwZvLyHA"></li><li data-slide-to="5" data-bs-slide-to="5" data-target="#twwwZvLyHA" data-bs-target="#twwwZvLyHA"></li><li data-slide-to="6" data-bs-slide-to="6" data-target="#twwwZvLyHA" data-bs-target="#twwwZvLyHA"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="carousel-item slider-image item active">
+                            <div class="item-wrapper">
+                                <img class="d-block w-100" src="{{ asset('assets/images/background3.jpg') }}" alt="Mobirise Website Builder" data-slide-to="0" data-bs-slide-to="0">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5 class="mbr-section-subtitle mbr-fonts-style display-5">
+                                        <strong>Check some of our </strong>
+                                    </h5>
+                                    <p class="mbr-section-text mbr-fonts-style display-7">
+                                        Popular artowrks</p>
+                                </div>
+                            </div>
                         </div>
-                        
+                            {% for artwork in artworks %}
+
+                        <div class="carousel-item slider-image item">
+                            <div class="item-wrapper">
+                                <img class="d-block w-100" src="{{ asset('uploads/images/' ~ artwork.imgArtwork) }}" alt="Mobirise Website Builder" data-slide-to="1" data-bs-slide-to="1">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5 class="mbr-section-subtitle mbr-fonts-style display-5">
+                                        <strong>{{ artwork.nomArtwork }}</strong>
+                                    </h5>
+                                    <p class="mbr-section-text mbr-fonts-style display-7">
+                                       By {{ artwork.IdArtist.username }}</p>
+                                </div>
+                            </div>
+                        </div>
+                                {% endfor %}
 
                     </div>
-
-                    <div class="menu">
-
-                        <i class="fa-solid fa-ellipsis"></i>
-
-                    </div>
-
+                    <a class="carousel-control carousel-control-prev" role="button" data-slide="prev" data-bs-slide="prev" href="#twwwZvLyHA">
+                        <span class="mobi-mbri mobi-mbri-arrow-prev" aria-hidden="true"></span>
+                        <span class="sr-only visually-hidden">Previous</span>
+                    </a>
+                    <a class="carousel-control carousel-control-next" role="button" data-slide="next" data-bs-slide="next" href="#twwwZvLyHA">
+                        <span class="mobi-mbri mobi-mbri-arrow-next" aria-hidden="true"></span>
+                        <span class="sr-only visually-hidden">Next</span>
+                    </a>
                 </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section data-bs-version="5.1" class="timeline3 cid-tue5rhUPY8" id="timeline3-6">
+    
 
-                <img src="{{ asset('uploads/images/' ~ artwork.imgArtwork) }}"  />
-
-                <div class="info">
-
-                    <div class="emoji_img">
-                        <img src="{{asset("image/like.png")}}">
-                        <img src="{{asset("image/haha.png")}}">
-                        <img src="{{asset("image/heart.png")}}">
-                        <p>You, Charith Disanayaka and 25K others</p>
+    
+    <div class="container">
+        <div class="mbr-section-head">
+            <h3 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2">
+                <strong>Images</strong>
+            </h3>
+            
+    {% for artwork in artworks %}
+    
+        </div>
+        <div class="timelines-container mt-4">
+            <div class="row timeline-element first-separline mb-5">
+                <div class="timeline-date col-12">
+                    <div class="timeline-date-wrapper">
+                        <p class="mbr-timeline-date display-7">
+                            {{ artwork.date ? artwork.date|date('Y-m-d') : '' }}</p>
                     </div>
-
-                    <div class="comment">
-                        <p>421 Comments</p>
-                        <p>1.3K Shares</p>
-                    </div>
-
                 </div>
+                <span class="iconBackground"></span>
+                <div class="col-12 col-md-6">
+                    <div class="image-wrapper">
+                        <img src="{{ asset('uploads/images/' ~ artwork.imgArtwork) }}"  />
+                                             <br><br>
+                                               <h5> By {{ artwork.IdArtist.username }}</h4>
 
-                <hr>
-
-                <div class="like">
-
-                    <div class="like_icon">
-                        <i class="fa-solid fa-thumbs-up activi"></i>
-                        <p>Like</p>
                     </div>
-
-                    <div class="like_icon">
-                        <i class="fa-solid fa-message"></i>
-                        <p>Comments</p>
-                    </div>
-
-                    <div class="like_icon">
-                        <i class="fa-solid fa-share"></i>
-                        <p>Share</p>
-                    </div>
-
                 </div>
-
+                <div class="col-12 col-md-6">
+                    <div class="timeline-text-wrapper">
+                        <h4 class="mbr-timeline-title mbr-fonts-style mb-0 display-5">
+                            <strong>{{ artwork.nomArtwork }}</strong>
+                            <h5>{{ artwork.idtype.typesouscat }}</h4>
+                        </h4>
+                        <p class="mbr-text mbr-fonts-style mt-3 mb-0 display-7">
+   {{ artwork.descriptionArtwork }}                        </p>
+                    </div>
+                    
               {% for commentaire in commentaires %}
             {% if commentaire.getIdArtwork().getIdArtwork() == artwork.getIdArtwork() %}
                 <hr>
  <div class="info">
 
                     <div class="emoji_img comment_warpper">
-                       <img src="image/profile.png">
-                            <p>{{ commentaire.texte }}</p>
+                        <img src="image/profile.png"> 
+                       
+                            <p>{{ commentaire.idutil.username }} : {{ commentaire.texte }}</p>
                     </div>
 
                     <div class="comment">
@@ -179,7 +122,11 @@
             {% endif %}
 
         {% endfor %}
-                 <hr>
+
+                {# </div>
+            </div> #}
+           
+             <hr>
 
                 <div class="comment_warpper">
 
@@ -188,7 +135,7 @@
 
                     <div class="comment_search">
                 <a href="{{ path('app_commentaire_new') }}">Write a comment</a>
-                        <input type="text" placeholder="Write a comment">
+                    {# <input type="text" placeholder="Write a comment"> #}
                         <i class="fa-regular fa-face-smile"></i>
                         <i class="fa-solid fa-camera"></i>
                         <i class="fa-regular fa-note-sticky"></i>
@@ -199,117 +146,18 @@
 
 
             </div>
- {% endfor %}
 
+
+            
+            {% endfor %} 
+            
+            
+            
+            
+            
+            
         </div>
-  
-        <div class="right">
-
-            <div class="third_warpper">
-
-                <div class="contact_tag">
-
-                    <h2>Contacts</h2>
-
-                    <div class="contact_icon">
-
-                        <i class="fa-solid fa-video"></i>
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                        <i class="fa-solid fa-ellipsis"></i>
-
-                    </div>
-
-                </div>
-
-                <div class="contact">
-
-                    <img src="image/contact_1.jpg">
-                    <p>Senuda De Silva</p>
-
-                </div>
-
-                <div class="contact">
-
-                    <img src="image/contact_2.jpg">
-                    <p>Senuda De Silva</p>
-
-                </div>
-
-                <div class="contact">
-
-                    <img src="image/contact_3.jpg">
-                    <p>Senuda De Silva</p>
-
-                </div>
-
-                <div class="contact">
-
-                    <img src="image/contact_4.jpg">
-                    <p>Senuda De Silva</p>
-
-                </div>
-
-                <div class="contact">
-
-                    <img src="image/contact_5.jpg">
-                    <p>Senuda De Silva</p>
-
-                </div>
-
-                <div class="contact">
-
-                    <img src="image/profile_1.jpg">
-                    <p>Senuda De Silva</p>
-
-                </div>
-
-                <div class="contact">
-
-                    <img src="image/profile_2.jpg">
-                    <p>Senuda De Silva</p>
-
-                </div>
-
-                <div class="contact">
-
-                    <img src="image/profile_3.jpg">
-                    <p>Senuda De Silva</p>
-
-                </div>
-
-                <div class="contact">
-
-                    <img src="image/profile_4.png">
-                    <p>Senuda De Silva</p>
-
-                </div>
-
-                <div class="contact">
-
-                    <img src="image/profile_5.png">
-                    <p>Senuda De Silva</p>
-
-                </div>
-
-                <div class="contact">
-
-                    <img src="image/profile_6.png">
-                    <p>Senuda De Silva</p>
-
-                </div>
-
-                <div class="contact">
-
-                    <img src="image/profile_7.png">
-                    <p>Senuda De Silva</p>
-
-                </div>
-
-            </div>
-
-        </div>
-
     </div>
+</section>
 
-    
 {% endblock %}

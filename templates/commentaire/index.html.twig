@@ -1,15 +1,16 @@
-{% extends 'base.html.twig' %}
+{% extends '/admin/index.html.twig' %}
 
 {% block title %}Commentaire index{% endblock %}
 
 {% block body %}
+<div class="table">
     <h1>Commentaire index</h1>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Texte</th>
-                <th>Id_com</th>
+                <th>username</th>
                 <th>Date_post</th>
                 <th>actions</th>
             </tr>
@@ -18,7 +19,7 @@
         {% for commentaire in commentaires %}
             <tr>
                 <td>{{ commentaire.texte }}</td>
-                <td>{{ commentaire.IdCom }}</td>
+                <td>{{ commentaire.idutil.username }}</td>
                 <td>{{ commentaire.DatePost ? commentaire.DatePost|date('Y-m-d') : '' }}</td>
                 <td>
                     <a href="{{ path('app_commentaire_show', {'Id_com': commentaire.Idcom}) }}">show</a>
@@ -34,4 +35,5 @@
     </table>
 
     <a href="{{ path('app_commentaire_new') }}">Create new</a>
+</div>
 {% endblock %}
