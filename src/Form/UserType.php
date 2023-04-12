@@ -6,6 +6,11 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+
+
 
 class UserType extends AbstractType
 {
@@ -17,8 +22,16 @@ class UserType extends AbstractType
             ->add('adresse_user')
             ->add('password_user')
             ->add('email_user')
-            ->add('is_pro')
-            ->add('img_user')
+            ->add('is_pro',ChoiceType::class,[ 
+                'choices' => [
+                    ' ' => 'pro',
+                    'Oui' => 'pro_yes',
+                    'Non' => 'pro_no',
+                    ]
+            ])
+            ->add('img_user', FileType::class, [
+                'required' => true,
+            ])
         ;
     }
 

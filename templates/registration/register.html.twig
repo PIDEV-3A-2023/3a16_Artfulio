@@ -1,0 +1,117 @@
+{% extends 'base.html.twig' %}
+
+
+{% block header %}
+
+{% endblock %}
+
+{% block sidebar %}
+
+{% endblock %}
+
+{% block footer %}
+
+{% endblock %}
+{% block body %}
+
+    <div class="container">
+
+        <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+
+                        <div class="card mb-3">
+
+                            <div class="card-body">
+
+                                <div class="pt-4 pb-2">
+                                    <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
+                                    <p class="text-center small">Enter your personal details to create account</p>
+                                </div>
+
+
+                                {{ form_start(form,{attr:{novalidate:'novalidate'}}) }}
+                                <div class="col-12">
+                                        <label for="yourName" class="form-label">Username</label>
+
+                                        <div class="invalid-feedback">Please, enter your name!</div>
+                                    {{ form_widget(form.username,{'attr':{'class':'form-control'}}) }}
+
+                                </div>
+
+                                    <div class="col-12">
+                                        <label for="yourEmail" class="form-label">Email</label>
+                                        {{ form_widget(form.email_user,{'attr':{'class':'form-control'}}) }}
+                                        <div class="invalid-feedback">Please enter a valid Email adddress!</div>
+                                    </div>
+
+
+
+                                    <div class="col-12">
+                                        <label for="yourPassword" class="form-label">Mot de passe</label>
+                                        {{ form_widget(form.password_user,{'attr':{'class':'form-control'}}) }}
+                                        <div class="invalid-feedback">Please enter your password!</div>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="yourCIN" class="form-label">Carte d'identité nationale</label>
+                                        {{ form_widget(form.cin_user,{'attr':{'class':'form-control'}}) }}
+                                        <div class="invalid-feedback">Please enter your CIN!</div>
+                                    </div>
+
+                                     
+                                    <div class="col-12">
+                                        <label for="yourAddress" class="form-label">Adresse</label>
+                                        {{ form_widget(form.adresse_user,{'attr':{'class':'form-control'}}) }}
+                                        <div class="invalid-feedback">Please enter your address!</div>
+                                    </div>
+                                  
+                                     <div class="col-12">
+                                         
+                                        <label class="form-check-label" for="pro">vous etes profesionnel?</label>
+                                        {{ form_widget(form.is_pro,{'attr':{'class':'form-control'}}) }}
+                                        <div class="form-check">
+                                        
+                                        </div>
+                                        
+                                     </div>
+                                    
+                                     <div class="col-12">
+                                        
+                                        <label class="form-check-label" for="img_user">Inserer une photo de profil</label>
+                                            {{ form_widget(form.img_user,{'attr':{'class':'form-control'}}) }}
+                                        
+                                        </div>
+                                   
+
+                               
+                                    <div class="col-12">
+                                        <div class="form-check">
+                                            <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required="">
+                                            <label class="form-check-label" for="acceptTerms">I agree and accept the <a href="#">terms and conditions</a></label>
+                                            <div class="invalid-feedback">You must agree before submitting.</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <button class="btn btn-primary w-100" type="submit">Create Account</button>
+                                    </div>
+                                    <div class="col-12">
+                                        <p class="small mb-0">Already have an account? <a href="pages-login.html">Log in</a></p>
+                                    </div>
+                               
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </section>
+        
+
+    </div>
+     {{ form_end(form) }}
+
+{% endblock %}

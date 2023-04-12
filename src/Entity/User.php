@@ -33,8 +33,10 @@ class User
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message:"Ce champs est obligatoire")]
     #[Assert\Length(
-          exact:8,
-          exactMessage:'La valeur du CIN doit contenir exactement {{ limit }} caractères.'
+          min:8,
+          max:8,
+          minMessage:'La valeur du CIN doit contenir exactement {{ limit }} caractères.',
+          maxMessage:'La valeur du CIN doit contenir exactement {{ limit }} caractères.'
         )]
     #[Assert\Regex(
         pattern:'/^0/',
@@ -71,7 +73,7 @@ class User
 
   
     #[ORM\Column]
-    private ?bool $is_pro  = false;
+    private ?bool $is_pro = false;
 
     
 
@@ -166,11 +168,10 @@ class User
     }
 
     public function setIsPro(bool $isPro): self
-    {
-        $this->is_pro  = $isPro;
-
-        return $this;
-    }
+{
+    $this->is_pro = $isPro;
+    return $this;
+}
 
     public function getImgUser(): ?string
     {
@@ -196,10 +197,11 @@ class User
         return $this;
     }
 
-    public function getIsPro(): ?string
+    /*public function getIsPro(): ?string
     {
         return $this->is_pro ;
     }
+    */
 
     /**
      * @return Collection<int, Artwork>
