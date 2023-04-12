@@ -67,7 +67,8 @@ class EvenementType extends AbstractType
                 'label' => 'Lieu de l\'événement',
                 'attr' => [
                     'class' => 'form-control mb-3',
-                    'placeholder' => 'Entrez le lieu de l\'événement'
+                    'placeholder' => 'Entrez le lieu de l\'événement',
+                    'id' => 'lieu'
                 ]
             ])
             ->add('dateDebut', null, [
