@@ -77,8 +77,31 @@ class ArtworkController extends AbstractController
         return $this->render('artwork/show.html.twig', [
             'artwork' => $artwork,
         ]);
+        
     }
-
+    #[Route('/order',name:"order")]
+    function ordernsc(ArtworkRepository $repo){
+    
+        $student = $repo->orderbyname();
+        return $this->render('artwork/admin.html.twig',['artworks' => $student]);
+    
+    }
+    
+    #[Route('/search',name:"search")]
+    function search(ArtworkRepository $repo,request $request){
+        $email=$request->get("mail");
+        $student=$repo->findByname($email);
+        return $this->render('artwork/admin.html.twig',['artworks' => $student]);
+    }
+    #[Route('/searchartx', name: 'searchartx')]
+    public function searchStudentx(Request $request,NormalizerInterface $Normalizer,StudentRepository $sr)
+    {
+        $repository = $this->getDoctrine()->getRepository(Artwork::class);
+        $requestString=$request->get('searchValue');
+        $students = $sr->findByname($requestString);
+        $jsonContent = $Normalizer->normalize($students, 'json',['groups'=>'artworks']);
+        $retour=json_encode($jsonContent);
+        return new Response($retour);    }
     #[Route('/{id_artwork}/edit', name: 'app_artwork_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Artwork $artwork, ArtworkRepository $artworkRepository): Response
     {
@@ -123,4 +146,5 @@ class ArtworkController extends AbstractController
 
         return $this->redirectToRoute('app_artwork_index', [], Response::HTTP_SEE_OTHER);
     }
+ 
 }
