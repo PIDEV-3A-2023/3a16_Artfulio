@@ -1,10 +1,32 @@
+{% extends 'base.html.twig' %}
 
-<div >
-    <h1>Create new Evenement</h1>
-</div>
+{% block css %}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+<div class="container my-5">
+    
+    <div class="row"
+        <div>
+            <h1>Nouvel Evenement</h1>
+        </div>
  
             {{ include('evenement/_form.html.twig') }}
 
-            <a href="{{ path('app_evenement_index') }}">back to list</a>
+            <a href="{{ path('app_evenement_index') }}">retour</a>
         </div>
+    </div>
+ </div>   
+{% endblock %}
 
+
+{% block javascript %}
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+    $(document).ready(function() {
+    $('.select22').select2();
+});
+    </script>
+{% endblock %}

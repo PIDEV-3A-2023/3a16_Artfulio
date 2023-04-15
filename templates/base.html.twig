@@ -11,11 +11,12 @@
   
   
   <title>{% block title %}Home{% endblock %}</title>
-   {% block stylesheets %}
+   {% block css %}
 
    {% endblock %}
-   <!-- Load Flashy default CSS -->
-    <link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
+
+   {% block stylesheets %}
+     <link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
   <link rel="stylesheet" href="{{asset("assets/web/assets/mobirise-icons/mobirise-icons.css")}}">
   <link rel="stylesheet" href="{{asset("assets/web/assets/mobirise-icons2/mobirise2.css")}}">
   <link rel="stylesheet" href="{{asset("assets/bootstrap/css/bootstrap.min.css")}}">
@@ -25,6 +26,10 @@
   <link rel="stylesheet" href="{{asset("assets/dropdown/css/style.css")}}">
   <link rel="stylesheet" href="{{asset("assets/theme/css/style.css")}}">
    <link rel="stylesheet" href="{{asset("custom.css")}}">
+   {% endblock %}
+   
+   <!-- Load Flashy default CSS -->
+   
    <link rel="preload" href="https://fonts.googleapis.com/css?family=Lexend:100,200,300,400,500,600,700,800,900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
  
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lexend:100,200,300,400,500,600,700,800,900&display=swap"></noscript>
@@ -156,30 +161,26 @@
 <a style="z-index:1" href="https://mobirise.com/builder/no-code-website-builder.html">No Code Website Builder</a>
 </section> #}
 
-{% block js %}
 
-{% endblock %}
+
+{% block js %}
 <script src="{{asset("assets/bootstrap/js/bootstrap.bundle.min.js")}}"></script> 
  <script src="{{asset("assets/smoothscroll/smooth-scroll.js")}}"></script> 
   <script src="{{asset("assets/ytplayer/index.js")}}"></script>
     <script src="{{asset("assets/dropdown/js/navbar-dropdown.js")}}"></script> 
      <script src="{{asset("assets/sociallikes/social-likes.js")}}"></script>
        <script src="{{asset("assets/theme/js/script.js")}}"></script>  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-  <!-- Flashy depends on jQuery -->
-    <script src="//code.jquery.com/jquery.js"></script>
-
-    <!-- Load Flashy default JavaScript -->
-    <script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
-    <!-- Include Flashy default partial -->
-
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script>
         setTimeout(function(){
             $('.loader_bg').fadeToggle();
         }, 1500);
     </script>
+{% endblock %}
+{% block javascript %}
+
+{% endblock %}
+
 
 
 </body>

@@ -30,6 +30,9 @@ class CollaborationController extends AbstractController
     public function ajouter(Request $request, EntityManagerInterface $entityManager): Response
     {
         $collaboration = new Collaboration();
+        $collaboration->setStatus("en attente");
+        $collaboration->setNomUser("lelouche");
+        $collaboration->setEmailUser("lelouche@gmail.com");
         $artCollaborat = new ArtisteCollaboration();
         $form = $this->createForm(CollaborationType::class, $collaboration);
         $form->remove('status');

@@ -1,99 +1,166 @@
 {% extends 'base.html.twig' %}
 
-{% block stylesheets %}
+{% block css %}
 <link rel="stylesheet" href="{{asset("assets/css/col_ind.css")}}">
    {% endblock %}
 
-{% block title %}Collaboration index{% endblock %}
+{% block title %}{% endblock %} 
 
 {% block body %}
-    <h1>Collaboration index</h1>
+                <h1>Collaboration index</h1>
+            {#
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>IdCollaboration</th>
+                            <th>TypeCollaboration</th>
+                            <th>Titre</th>
+                            <th>Description</th>
+                            <th>DateSortie</th>
+                            <th>Status</th>
+                            <th>NomUser</th>
+                            <th>EmailUser</th>
+                            <th>actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for collaboration in collaborations %}
+                        <tr>
+                            <td>{{ collaboration.idCollaboration }}</td>
+                            <td>{{ collaboration.typeCollaboration }}</td>
+                            <td>{{ collaboration.titre }}</td>
+                            <td>{{ collaboration.description }}</td>
+                            <td>{{ collaboration.dateSortie ? collaboration.dateSortie|date('Y-m-d') : '' }}</td>
+                            <td>{{ collaboration.status }}</td>
+                            <td>{{ collaboration.nomUser }}</td>
+                            <td>{{ collaboration.emailUser }}</td>
+                            <td>
+                                <a href="{{ path('app_collaboration_show', {'idCollaboration': collaboration.idCollaboration}) }}">show</a>
+                                <a href="{{ path('app_collaboration_edit', {'idCollaboration': collaboration.idCollaboration}) }}">edit</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="9">no records found</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                            #}
+                
+
+
+                {# -********************************************************************************************************#}
+
+                
+            <button id="switch">Switch</button>
+
+            <section class="dark" id="section2" >
+                <div class="container py-4">
+                
+                    <h1 class="h1 text-center" id="pageHeaderTitle">Vos collaborations</h1>
+                        <a href="{{ path('app_collaboration_new') }}">Créer nouveaux</a>
+
+                    {% for collaboration in collaborations %}
+
+                    <article class="postcard dark blue">
+                        <a class="postcard__img_link" href="#">
+                            <img class="postcard__img" src="https://picsum.photos/1000/1000" alt="Image Title" />
+                        </a>
+                        <div class="postcard__text">
+                            <h1 class="postcard__title blue"><a href="#">{{ collaboration.titre }}</a></h1>
+                            <div class="postcard__subtitle small">
+                                <time datetime="2020-05-25 12:00:00">
+                                    <i class="fas fa-calendar-alt mr-2"></i>date fin: {{ collaboration.dateSortie ? collaboration.dateSortie|date('Y-m-d') : '' }}
+                                </time>
+                            </div>
+                            <div class="postcard__bar"></div>
+                            <div class="postcard__preview-txt">{{ collaboration.description }}</div>
+                            <ul class="postcard__tagbox">
+                                {#<li class="tag__item"><i class="fas fa-tag mr-2"></i>Podcast</li>
+                                <li class="tag__item"><i class="fas fa-clock mr-2"></i>55 mins.</li> #}
+                                <li class="tag__item play blue">
+                                    <a href="{{ path('app_collaboration_show', {'idCollaboration': collaboration.idCollaboration}) }}"><i class="fas fa-play mr-2"></i>plus de detail</a>
+                                </li>
+                                <li class="tag__item play blue">
+                                    <a href="{{ path('app_collaboration_edit', {'idCollaboration': collaboration.idCollaboration}) }}"><i class="fas fa-play mr-2"></i>modifier</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </article>
+                    {% else %}
+                        <tr>
+                            <td colspan="9">pas de collaborations actuellement</td>
+                        </tr>
+                    {% endfor %}
+                </div>
+            </section>
+
+            {#******************************#}
+
+            <section class="light" id="section1" class="active">
+                <div class="container py-2">
+                    <div class="h1 text-center text-dark" id="pageHeaderTitle">Vos Collaborations</div>
+                                    <a href="{{ path('app_collaboration_new') }}">Créer nouveaux</a>
+            {% for collaboration in collaborations %}
+
+                    <article class="postcard light red">
+                        <a class="postcard__img_link" href="#">
+                            <img class="postcard__img" src="https://picsum.photos/1000/1000" alt="Image Title" />
+                        </a>
+                        <div class="postcard__text t-dark">
+                            <h1 class="postcard__title blue"><a href="#">{{ collaboration.titre }}</a></h1>
+                            <div class="postcard__subtitle small">
+                                <time datetime="2020-05-25 12:00:00">
+                                    <i class="fas fa-calendar-alt mr-2"></i>date fin: {{ collaboration.dateSortie ? collaboration.dateSortie|date('Y-m-d') : '' }}
+                                </time>
+                            </div>
+                            <div class="postcard__bar"></div>
+                            <div class="postcard__preview-txt">{{ collaboration.description }}</div>
+                            <ul class="postcard__tagbox">
+                                {#<li class="tag__item"><i class="fas fa-tag mr-2"></i>Podcast</li>
+                                <li class="tag__item"><i class="fas fa-clock mr-2"></i>55 mins.</li> #}
+                                <li class="tag__item play blue">
+                                    <a href="{{ path('app_collaboration_show', {'idCollaboration': collaboration.idCollaboration}) }}"><i class="fas fa-play mr-2"></i>plus de detail</a>
+                                </li>
+                                <li class="tag__item play blue">
+                                    <a href="{{ path('app_collaboration_edit', {'idCollaboration': collaboration.idCollaboration}) }}"><i class="fas fa-play mr-2"></i>modifier</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </article>	
+
+                    {% else %}
+                        <tr>
+                            <td colspan="9">pas de collaborations actuellement</td>
+                        </tr>
+                    {% endfor %}	
+                </div>
+            </section>
+
+                {# -********************************************************************************************************#}
+            {% endblock %}
+
+{% block javascript %}
 {#
-    <table class="table">
-        <thead>
-            <tr>
-                <th>IdCollaboration</th>
-                <th>TypeCollaboration</th>
-                <th>Titre</th>
-                <th>Description</th>
-                <th>DateSortie</th>
-                <th>Status</th>
-                <th>NomUser</th>
-                <th>EmailUser</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for collaboration in collaborations %}
-            <tr>
-                <td>{{ collaboration.idCollaboration }}</td>
-                <td>{{ collaboration.typeCollaboration }}</td>
-                <td>{{ collaboration.titre }}</td>
-                <td>{{ collaboration.description }}</td>
-                <td>{{ collaboration.dateSortie ? collaboration.dateSortie|date('Y-m-d') : '' }}</td>
-                <td>{{ collaboration.status }}</td>
-                <td>{{ collaboration.nomUser }}</td>
-                <td>{{ collaboration.emailUser }}</td>
-                <td>
-                    <a href="{{ path('app_collaboration_show', {'idCollaboration': collaboration.idCollaboration}) }}">show</a>
-                    <a href="{{ path('app_collaboration_edit', {'idCollaboration': collaboration.idCollaboration}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="9">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-                #}
-    <a href="{{ path('app_collaboration_new') }}">Create new</a>
-
-
-    {# -********************************************************************************************************#}
-
-
-<section class="light">
-	<div class="container py-2">
-		<div class="h1 text-center text-dark" id="pageHeaderTitle">Vos Collaborations</div>
-
-{% for collaboration in collaborations %}
-
-		<article class="postcard light red">
-			<a class="postcard__img_link" href="#">
-				<img class="postcard__img" src="https://picsum.photos/1000/1000" alt="Image Title" />
-			</a>
-			<div class="postcard__text t-dark">
-				<h1 class="postcard__title blue"><a href="#">{{ collaboration.titre }}</a></h1>
-				<div class="postcard__subtitle small">
-					<time datetime="2020-05-25 12:00:00">
-						<i class="fas fa-calendar-alt mr-2"></i>date fin: {{ collaboration.dateSortie ? collaboration.dateSortie|date('Y-m-d') : '' }}
-					</time>
-				</div>
-				<div class="postcard__bar"></div>
-				<div class="postcard__preview-txt">{{ collaboration.description }}</div>
-				<ul class="postcard__tagbox">
-					{#<li class="tag__item"><i class="fas fa-tag mr-2"></i>Podcast</li>
-					<li class="tag__item"><i class="fas fa-clock mr-2"></i>55 mins.</li> #}
-					<li class="tag__item play blue">
-						<a href="{{ path('app_collaboration_show', {'idCollaboration': collaboration.idCollaboration}) }}"><i class="fas fa-play mr-2"></i>plus de detail</a>
-					</li>
-					<li class="tag__item play blue">
-						<a href="{{ path('app_collaboration_edit', {'idCollaboration': collaboration.idCollaboration}) }}"><i class="fas fa-play mr-2"></i>modifier</a>
-					</li>
-
-				</ul>
-			</div>
-		</article>	
-
-        {% else %}
-            <tr>
-                <td colspan="9">pas de collaborations actuellement</td>
-            </tr>
-        {% endfor %}	
-	</div>
-</section>
-
-
-    {# -********************************************************************************************************#}
+<script>
+$(document).ready(function(){
+    $("#section2").hide();
+    $("#switch").click(function(){
+        $("#section1").toggle().toggleClass("active");
+        $("#section2").toggle().toggleClass("active");
+    });
+});
+c
+#}
+<script>
+$(document).ready(function(){
+    $("#section2").hide();
+    $("#switch").click(function(){
+        $("#section1").slideToggle().toggleClass("active");
+        $("#section2").slideToggle().toggleClass("active");
+    });
+});
+</script>
 {% endblock %}

@@ -43,12 +43,11 @@ class EvenementType extends AbstractType
                     'Séminaire' => 'Séminaire',
                     'Autre' => 'Autre',
                 ],
-                'label' => 'Type de collaboration',
+                'label' => "-- Type d'evenement --",
                 'required' => true,
-                'placeholder' => '-- Choisissez un type --',
                 'attr' => [
-                    'class' => 'form-control mb-3'
-                ],
+                    'class' => 'select22'
+                ]
             ])
             ->add('description', TextareaType::class, [
                 'label' => 'Description de l\'événement',

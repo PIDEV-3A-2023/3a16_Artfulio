@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Evenement;
 use App\Form\EvenementType;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,13 +25,22 @@ class AdminEvenementController extends AbstractController
     }
 */
 
+    /*
+*@KnpPaginator/Pagination/bootstrap_v5_pagination.html.twig
+*/
     #[Route('/aaaa', name: 'adm_evenement_index', methods: ['GET'])]
-    public function index(EntityManagerInterface $entityManager, FlashyNotifier $flashy): Response
+    public function index(EntityManagerInterface $entityManager, PaginatorInterface $paginator, Request $request): Response
     {
-        $flashy->success('Event created!', 'http://your-awesome-link.com');
+
         $evenements = $entityManager
             ->getRepository(Evenement::class)
             ->findAll();
+
+        $evenements = $paginator->paginate(
+            $evenements, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            15 /*limit per page*/
+        );
 
         return $this->render('admin_evenement/index.html.twig', [
             'evenements' => $evenements,
@@ -38,9 +48,8 @@ class AdminEvenementController extends AbstractController
     }
 
     #[Route('/ne', name: 'adm_evenement_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger,  FlashyNotifier $flashy): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
-        $flashy->success('Event created!', 'http://your-awesome-link.com');
         $evenement = new Evenement();
         $form = $this->createForm(EvenementType::class, $evenement);
         $form->handleRequest($request);

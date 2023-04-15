@@ -24,11 +24,9 @@ class CollaborationType extends AbstractType
                 ],
                 'label' => 'type de collaboration :',
                 'required' => true,
-                'placeholder' => '-- Choisissez un type --',
                 'attr' => [
                     'class' => 'selectType'
-                ],
-
+                ]
             ])
             ->add('titre')
             ->add('description')
