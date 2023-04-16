@@ -14,18 +14,37 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\src\Controller\CommentaireController;
 use App\Repository\CommentaireRepository;
-
+use Knp\Component\Pager\PaginatorInterface;
 
 #[Route('/artwork')]
 class ArtworkController extends AbstractController
 {
     #[Route('/', name: 'app_artwork_index', methods: ['GET'])]
-    public function index(ArtworkRepository $artworkRepository,CommentaireRepository $commentaireRepository): Response
+    public function index(Request $request,ArtworkRepository $artworkRepository,CommentaireRepository $commentaireRepository,PaginatorInterface $paginator): Response
     {
+       
+        // Retrieve the entity manager of Doctrine
+        $em = $this->getDoctrine()->getManager();
+        
+        // Get some repository of data, in our case we have an Appointments entity
+        $appointmentsRepository = $em->getRepository(artwork::class);
+                
+        // Find all the data on the Appointments table, filter your query as you need
+        $allAppointmentsQuery = $appointmentsRepository->findall();
+        
+        // Paginate the results of the query
+        $appointments = $paginator->paginate(
+            // Doctrine Query, not results
+            $allAppointmentsQuery,
+            // Define the page parameter
+            $request->query->getInt('page', 1),
+            // Items per page
+            2
+        );
+        
+        // Render the twig view
         return $this->render('artwork/index.html.twig', [
-            'artworks' => $artworkRepository->findAll(),
-                'commentaires' => $commentaireRepository->findAll(),
-           
+            'paginator' => $appointments, 'commentaires' => $commentaireRepository->findAll(),'artworks' => $artworkRepository->findAll(),
         ]);
 
     }
@@ -77,8 +96,31 @@ class ArtworkController extends AbstractController
         return $this->render('artwork/show.html.twig', [
             'artwork' => $artwork,
         ]);
+        
     }
-
+    #[Route('/order',name:"order")]
+    function ordernsc(ArtworkRepository $repo){
+    
+        $student = $repo->orderbyname();
+        return $this->render('artwork/admin.html.twig',['artworks' => $student]);
+    
+    }
+    
+    #[Route('/search',name:"search")]
+    function search(ArtworkRepository $repo,request $request){
+        $email=$request->get("mail");
+        $student=$repo->findByname($email);
+        return $this->render('artwork/admin.html.twig',['artworks' => $student]);
+    }
+    #[Route('/searchartx', name: 'searchartx')]
+    public function searchStudentx(Request $request,NormalizerInterface $Normalizer,StudentRepository $sr)
+    {
+        $repository = $this->getDoctrine()->getRepository(Artwork::class);
+        $requestString=$request->get('searchValue');
+        $students = $sr->findByname($requestString);
+        $jsonContent = $Normalizer->normalize($students, 'json',['groups'=>'artworks']);
+        $retour=json_encode($jsonContent);
+        return new Response($retour);    }
     #[Route('/{id_artwork}/edit', name: 'app_artwork_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Artwork $artwork, ArtworkRepository $artworkRepository): Response
     {
@@ -123,4 +165,5 @@ class ArtworkController extends AbstractController
 
         return $this->redirectToRoute('app_artwork_index', [], Response::HTTP_SEE_OTHER);
     }
+ 
 }
