@@ -14,18 +14,37 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\src\Controller\CommentaireController;
 use App\Repository\CommentaireRepository;
-
+use Knp\Component\Pager\PaginatorInterface;
 
 #[Route('/artwork')]
 class ArtworkController extends AbstractController
 {
     #[Route('/', name: 'app_artwork_index', methods: ['GET'])]
-    public function index(ArtworkRepository $artworkRepository,CommentaireRepository $commentaireRepository): Response
+    public function index(Request $request,ArtworkRepository $artworkRepository,CommentaireRepository $commentaireRepository,PaginatorInterface $paginator): Response
     {
+       
+        // Retrieve the entity manager of Doctrine
+        $em = $this->getDoctrine()->getManager();
+        
+        // Get some repository of data, in our case we have an Appointments entity
+        $appointmentsRepository = $em->getRepository(artwork::class);
+                
+        // Find all the data on the Appointments table, filter your query as you need
+        $allAppointmentsQuery = $appointmentsRepository->findall();
+        
+        // Paginate the results of the query
+        $appointments = $paginator->paginate(
+            // Doctrine Query, not results
+            $allAppointmentsQuery,
+            // Define the page parameter
+            $request->query->getInt('page', 1),
+            // Items per page
+            2
+        );
+        
+        // Render the twig view
         return $this->render('artwork/index.html.twig', [
-            'artworks' => $artworkRepository->findAll(),
-                'commentaires' => $commentaireRepository->findAll(),
-           
+            'paginator' => $appointments, 'commentaires' => $commentaireRepository->findAll(),'artworks' => $artworkRepository->findAll(),
         ]);
 
     }

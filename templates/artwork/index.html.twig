@@ -2,6 +2,7 @@
 {% block title %}Artwork{% endblock %}
 
 {% block body %}
+
 <section data-bs-version="5.1" class="slider2 cid-tue4YqiKkn" id="slider2-4">
     
 
@@ -69,7 +70,7 @@
                 <strong>Images</strong>
             </h3>
             
-    {% for artwork in artworks %}
+    {% for artwork in paginator %}
     
         </div>
         <div class="timelines-container mt-4">
@@ -153,11 +154,20 @@
             
             
             
-            
-            
+           
             
         </div>
     </div>
+    
 </section>
 
+              <div class="container">
+    <div class="row">
+        <div class=" pagination d-flex align-items-center justify-content-center">
+            {{ knp_pagination_render(paginator) }}
+        </div>
+    </div>
+</div>
+        
+      
 {% endblock %}
