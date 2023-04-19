@@ -2,11 +2,10 @@
 
 namespace App\Entity;
 
-use App\Repository\EvenementRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Evenement
@@ -29,8 +28,6 @@ class Evenement
      * @var string|null
      *
      * @ORM\Column(name="titre", type="string", length=255, nullable=true)
-     * @Assert\NotBlank(message ="veuillez renseigner ce champs")
-     * @Assert\Length(min= 4, minMessage= "le nom doit avoir plus de 4 caracteres")
      */
     private $titre;
 
@@ -38,8 +35,6 @@ class Evenement
      * @var string|null
      *
      * @ORM\Column(name="type", type="string", length=100, nullable=true)
-     * @Assert\NotBlank(message ="veuillez renseigner ce champs")
-     * @Assert\Length(min= 4, minMessage= "le nom doit avoir plus de 4 caracteres")
      */
     private $type;
 
@@ -47,24 +42,20 @@ class Evenement
      * @var string|null
      *
      * @ORM\Column(name="description", type="text", length=0, nullable=true)
-     * @Assert\NotBlank(message ="veuillez renseigner ce champs")
      */
     private $description;
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="lieu", type="string", length=255, nullable=true)
-     * @Assert\NotBlank(message ="veuillez renseigner ce champs")
-     * @Assert\Length(min= 4, minMessage= "le nom doit avoir plus de 4 caracteres")
+     * @ORM\Column(name="ville", type="string", length=255, nullable=true)
      */
-    private $lieu;
+    private $ville;
 
     /**
      * @var \DateTime|null
      *
      * @ORM\Column(name="date_debut", type="date", nullable=true)
-     * @Assert\LessThan(propertyPath="dateFin", message="La date de début doit être antérieure à la date de fin")
      */
     private $dateDebut;
 
@@ -72,7 +63,6 @@ class Evenement
      * @var \DateTime|null
      *
      * @ORM\Column(name="date_fin", type="date", nullable=true)
-     * @Assert\NotBlank(message ="veuillez renseigner ce champs")
      */
     private $dateFin;
 
@@ -84,18 +74,48 @@ class Evenement
     private $image;
 
     /**
-     * @var \DateTime|null
+     * @var string|null
      *
-     * @ORM\Column(name="heure_debut", type="time", nullable=true)
+     * @ORM\Column(name="longitude", type="string", length=255, nullable=true)
      */
-    private $heureDebut;
+    private $longitude;
 
     /**
-     * @var \DateTime|null
+     * @var string|null
      *
-     * @ORM\Column(name="heure_fin", type="time", nullable=true)
+     * @ORM\Column(name="latitude", type="string", length=255, nullable=true)
      */
-    private $heureFin;
+    private $latitude;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="adresse", type="string", length=255, nullable=true)
+     */
+    private $adresse;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="User", inversedBy="evenement")
+     * @ORM\JoinTable(name="evenement_participant",
+     *   joinColumns={
+     *     @ORM\JoinColumn(name="evenement_id", referencedColumnName="id")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="participant_id", referencedColumnName="id_user")
+     *   }
+     * )
+     */
+    private $participant = array();
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->participant = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -138,14 +158,14 @@ class Evenement
         return $this;
     }
 
-    public function getLieu(): ?string
+    public function getVille(): ?string
     {
-        return $this->lieu;
+        return $this->ville;
     }
 
-    public function setLieu(?string $lieu): self
+    public function setVille(?string $ville): self
     {
-        $this->lieu = $lieu;
+        $this->ville = $ville;
 
         return $this;
     }
@@ -186,27 +206,64 @@ class Evenement
         return $this;
     }
 
-    public function getHeureDebut(): ?\DateTimeInterface
+    public function getLongitude(): ?string
     {
-        return $this->heureDebut;
+        return $this->longitude;
     }
 
-    public function setHeureDebut(?\DateTimeInterface $heureDebut): self
+    public function setLongitude(?string $longitude): self
     {
-        $this->heureDebut = $heureDebut;
+        $this->longitude = $longitude;
 
         return $this;
     }
 
-    public function getHeureFin(): ?\DateTimeInterface
+    public function getLatitude(): ?string
     {
-        return $this->heureFin;
+        return $this->latitude;
     }
 
-    public function setHeureFin(?\DateTimeInterface $heureFin): self
+    public function setLatitude(?string $latitude): self
     {
-        $this->heureFin = $heureFin;
+        $this->latitude = $latitude;
 
         return $this;
     }
+
+    public function getAdresse(): ?string
+    {
+        return $this->adresse;
+    }
+
+    public function setAdresse(?string $adresse): self
+    {
+        $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getParticipant(): Collection
+    {
+        return $this->participant;
+    }
+
+    public function addParticipant(User $participant): self
+    {
+        if (!$this->participant->contains($participant)) {
+            $this->participant->add($participant);
+        }
+
+        return $this;
+    }
+
+    public function removeParticipant(User $participant): self
+    {
+        $this->participant->removeElement($participant);
+
+        return $this;
+    }
+
 }

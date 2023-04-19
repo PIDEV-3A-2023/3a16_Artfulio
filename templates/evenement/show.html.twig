@@ -3,57 +3,162 @@
 
 {% block title %}Evenement{% endblock %}
 
+{% block css %} 
+ <link rel="stylesheet" href="{{asset("assets/css/show_col_event.css")}}">
+
+{% endblock %}
+
 {% block body %}
     <h1>Evenement</h1>
-    dd(evenement)
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ evenement.id }}</td>
-            </tr>
-            <tr>
-                <th>Titre</th>
-                <td>{{ evenement.titre }}</td>
-            </tr>
-            <tr>
-                <th>Type</th>
-                <td>{{ evenement.type }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ evenement.description }}</td>
-            </tr>
-            <tr>
-                <th>Lieu</th>
-                <td>{{ evenement.lieu }}</td>
-            </tr>
-            <tr>
-                <th>DateDebut</th>
-                <td>{{ evenement.dateDebut ? evenement.dateDebut|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>DateFin</th>
-                <td>{{ evenement.dateFin ? evenement.dateFin|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Image</th>
-                <td>{{ evenement.image }}</td>
-            </tr>
-            <tr>
-                <th>HeureDebut</th>
-                <td>{{ evenement.heureDebut ? evenement.heureDebut|date('H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>HeureFin</th>
-                <td>{{ evenement.heureFin ? evenement.heureFin|date('H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
+ 
 
-    <a href="{{ path('app_evenement_index') }}">back to list</a>
+    
+
+
+    {#*********************************************************************************#}
+
+    <h2>A clean timeline design, with animated links</h2>
+<div class="timeline"> 
+  <div class="timeline__event  animated fadeInUp delay-3s timeline__event--type1">
+    <div class="timeline__event__icon ">
+      <i class="lni-cake"></i>
+
+    </div>
+    <div class="timeline__event__date">
+      Titre
+    </div>
+    <div class="timeline__event__content ">
+      <div class="timeline__event__title">
+        Birthday
+      </div>
+      <div class="timeline__event__description">
+            {{ evenement.titre }}
+      </div>
+    </div>
+  </div>
+  <div class="timeline__event animated fadeInUp delay-2s timeline__event--type2">
+    <div class="timeline__event__icon">
+      <i class="lni-burger"></i>
+
+    </div>
+    <div class="timeline__event__date">
+      Type
+    </div>
+    <div class="timeline__event__content">
+      <div class="timeline__event__title">
+        Type d'evenement
+      </div>
+      <div class="timeline__event__description">
+        {{ evenement.type }}
+      </div>
+    </div>
+  </div>
+  <div class="timeline__event animated fadeInUp delay-1s timeline__event--type3">
+    <div class="timeline__event__icon">
+      <i class="lni-slim"></i>
+
+    </div>
+    <div class="timeline__event__date">
+      Description
+    </div>
+    <div class="timeline__event__content">
+      <div class="timeline__event__title">
+        A propos
+      </div>
+      <div class="timeline__event__description">
+{{ evenement.description }}
+      </div>
+
+    </div>
+  </div>
+  <div class="timeline__event animated fadeInUp timeline__event--type1">
+    <div class="timeline__event__icon">
+      <i class="lni-cake"></i>
+
+    </div>
+    <div class="timeline__event__date">
+      Lieu
+    </div>
+    <div class="timeline__event__content">
+      <div class="timeline__event__title">
+        Localisation de l'evenement
+      </div>
+      <div class="timeline__event__description">
+            {{ evenement.lieu }}      
+            </div>
+    </div>
+  </div>
+    <div class="timeline__event animated fadeInUp delay-2s timeline__event--type2">
+    <div class="timeline__event__icon">
+      <i class="lni-burger"></i>
+
+    </div>
+    <div class="timeline__event__date">
+      Date début
+    </div>
+    <div class="timeline__event__content">
+      <div class="timeline__event__title">
+        ça commence aujourd'hui
+      </div>
+      <div class="timeline__event__description">
+      {# {{ evenement.dateDebut|localizeddate('full', 'none', null, null, 'fr') }} #}
+        {{ evenement.dateDebut ? evenement.dateDebut|date('Y-m-d',null,'fr') : '' }} à {{ evenement.heureDebut ? evenement.heureDebut|date('H:i') : '' }}
+      </div>
+    </div>
+  </div>
+    <div class="timeline__event animated fadeInUp delay-1s timeline__event--type3">
+    <div class="timeline__event__icon">
+      <i class="lni-slim"></i>
+
+    </div>
+    <div class="timeline__event__date">
+      Date de fin
+    </div>
+    <div class="timeline__event__content">
+      <div class="timeline__event__title">
+        ça s'achève le
+      </div>
+      <div class="timeline__event__description">
+            {% set locale = 'fr_FR.utf8' %}
+
+            {{ evenement.dateFin ? evenement.dateFin|date('l j F Y') : '' }} à {{ evenement.heureFin ? evenement.heureFin|date('H:i') : '' }} 
+      </div>
+
+    </div>
+  </div>
+  <div class="timeline__event animated fadeInUp timeline__event--type1">
+    <div class="timeline__event__icon">
+      <i class="lni-cake"></i>
+
+    </div>
+    <div class="timeline__event__date">
+      Lieu
+    </div>
+    <div class="timeline__event__content">
+      <div class="timeline__event__title">
+        Localisation de l'evenement
+      </div>
+      <div class="timeline__event__description">
+                
+            {% set chemin = "uploads/evenement/" %}
+
+            {% set image = chemin ~ evenement.image %}
+
+            {{image}}
+            <img src="{{ asset('image') }}" alt="Mon image">
+
+
+           {#{{ evenement.image }}   #}   
+            </div>
+    </div>
+  </div>
+</div>
+
+ <a href="{{ path('app_evenement_index') }}">back to list</a>
 
     <a href="{{ path('app_evenement_edit', {'id': evenement.id}) }}">edit</a>
 
-    {{ include('evenement/_delete_form.html.twig') }}
+    {{ include('evenement/_delete_form.html.twig') }}       
+
+    {#*********************************************************************************#}
 {% endblock %}

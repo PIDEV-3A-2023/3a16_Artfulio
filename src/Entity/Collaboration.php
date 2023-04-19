@@ -5,8 +5,6 @@ namespace App\Entity;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-use Symfony\Component\Validator\Constraints as Assert;
-
 /**
  * Collaboration
  *
@@ -28,7 +26,6 @@ class Collaboration
      * @var string
      *
      * @ORM\Column(name="type_collaboration", type="string", length=50, nullable=false)
-     * @Assert\NotBlank(message ="veuillez renseigner ce champs")
      */
     private $typeCollaboration;
 
@@ -36,8 +33,6 @@ class Collaboration
      * @var string
      *
      * @ORM\Column(name="titre", type="string", length=50, nullable=false)
-     * @Assert\NotBlank(message ="veuillez renseigner ce champs")
-     * @Assert\Length(min= 4, minMessage= "le nom doit avoir plus de 4 caracteres")
      */
     private $titre;
 
@@ -45,8 +40,6 @@ class Collaboration
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=300, nullable=false)
-     * @Assert\NotBlank(message ="veuillez renseigner ce champs")
-     * @Assert\Length(min= 4, minMessage= "le nom doit avoir plus de 4 caracteres")
      */
     private $description;
 
@@ -54,7 +47,6 @@ class Collaboration
      * @var \DateTime
      *
      * @ORM\Column(name="date_sortie", type="date", nullable=false)
-     * @Assert\NotBlank(message ="veuillez renseigner ce champs")
      */
     private $dateSortie;
 
@@ -167,4 +159,6 @@ class Collaboration
 
         return $this;
     }
+
+
 }

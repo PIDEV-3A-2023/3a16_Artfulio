@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Evenement;
+use PhpParser\Node\Expr\Cast\Double;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -62,12 +63,12 @@ class EvenementType extends AbstractType
                     ])
                 ]
             ])
-            ->add('lieu', null, [
-                'label' => 'Lieu de l\'événement',
+            ->add('ville')
+            ->add('adresse', null, [
+                'label' => "adresse de l'événement ",
                 'attr' => [
                     'class' => 'form-control mb-3',
                     'placeholder' => 'Entrez le lieu de l\'événement',
-                    'id' => 'lieu'
                 ]
             ])
             ->add('dateDebut', null, [
@@ -102,8 +103,8 @@ class EvenementType extends AbstractType
                     ])
                 ],
             ])
-            ->add('heureDebut')
-            ->add('heureFin');
+            ->add('latitude')
+            ->add('longitude');
     }
 
     public function configureOptions(OptionsResolver $resolver): void

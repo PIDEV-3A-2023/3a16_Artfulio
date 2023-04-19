@@ -3,8 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Evenement;
+use App\Entity\User;
 use App\Form\EvenementType;
+use App\Service\UpluoaderService;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,12 +21,18 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 class EvenementController extends AbstractController
 {
     #[Route('/', name: 'app_evenement_index', methods: ['GET'])]
-    public function index(EntityManagerInterface $entityManager /*, FlashyNotifier $flashy */): Response
+    public function index(EntityManagerInterface $entityManager, PaginatorInterface $paginator, Request $request): Response
     {
         //    $flashy->success('Event created!', 'http://your-awesome-link.com');
         $evenements = $entityManager
             ->getRepository(Evenement::class)
             ->findAll();
+
+        $evenements = $paginator->paginate(
+            $evenements, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            12 /*limit per page*/
+        );
 
         return $this->render('evenement/index.html.twig', [
             'evenements' => $evenements
@@ -30,9 +40,9 @@ class EvenementController extends AbstractController
     }
 
     #[Route('/new', name: 'app_evenement_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger,  FlashyNotifier $flashy): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, UpluoaderService $upluoaderService): Response
     {
-        $flashy->success('Event created!', 'http://your-awesome-link.com');
+
         $evenement = new Evenement();
         $form = $this->createForm(EvenementType::class, $evenement);
         $form->handleRequest($request);
@@ -45,24 +55,11 @@ class EvenementController extends AbstractController
             // this condition is needed because the 'brochure' field is not required
             // so the PDF file must be processed only when a file is uploaded
             if ($photo) {
-                $originalFilename = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
-                // this is needed to safely include the file name as part of the URL
-                $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename . '-' . uniqid() . '.' . $photo->guessExtension();
-
-                // Move the file to the directory where brochures are stored
-                try {
-                    $photo->move(
-                        $this->getParameter('evenement_directory'),
-                        $newFilename
-                    );
-                } catch (FileException $e) {
-                    // ... handle exception if something happens during file upload
-                }
+                $directory = $this->getParameter('evenement_directory');
 
                 // updates the 'brochureFilename' property to store the PDF file name
                 // instead of its contents
-                $evenement->setImage($newFilename);
+                $evenement->setImage($upluoaderService->upluadFile($photo, $directory));
             }
             //------------------------------------------------------------------
 
@@ -115,4 +112,64 @@ class EvenementController extends AbstractController
 
         return $this->redirectToRoute('app_evenement_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
+    /*
+    
+    #[Route('/', name: 'app_evenement_recherche', methods: ['GET', 'POST'])]
+    public function recherche(Request $request, ManagerRegistry $em): Response
+    {
+        $form = $this->createFormBuilder()
+            ->add('recherche')
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $recherche = $form->getData()['recherche'];
+
+            $evenements = $this->getDoctrine()->getRepository(Evenement::class)->createQueryBuilder('e')
+                ->where('e.titre LIKE :recherche OR e.description LIKE :recherche')
+                ->setParameter('recherche', '%'.$recherche.'%')
+                ->getQuery()
+                ->getResult();
+
+            return $this->render('evenement/resultats_recherche.html.twig', [
+                'evenements' => $evenements,
+            ]);
+        }
+
+        return $this->render('evenement/index.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }   */
+
+
+    //**************************************************************** */
+
+    /* #[Route('/agenda', name: 'agenda', methods: ['POST'])]
+    public function agenda(Request $request, ManagerRegistry $em): Response
+    {
+        $evenements = $em->getRepository(Evenement::class)->findAll();
+        //   $user = $this->getUser();
+        $user = new User();
+        $user->setIdUser(1);
+
+        if ($request->isMethod('POST')) {
+            $evenementsIds = $request->request->get('evenementss');
+            dd($evenementsIds);
+            foreach ($evenementsIds as $evenementId) {
+                $evenement = $em->getRepository(Evenement::class)->find($evenementId);
+                $user->addEvenement($evenement);
+            }
+            $entityManager = $em->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+        }
+
+        return $this->render('agenda/index.html.twig', [
+            'evenements' => $evenements,
+            'user' => $user,
+        ]);
+    } */
 }

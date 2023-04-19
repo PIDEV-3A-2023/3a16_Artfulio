@@ -2,14 +2,15 @@
 
 namespace App\Controller;
 
-use App\Entity\ArtisteCollaboration;
 use App\Entity\Collaboration;
 use App\Form\CollaborationType;
+use App\Entity\ArtisteCollaboration;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 
@@ -25,11 +26,17 @@ class AdminCollaborationController extends AbstractController
 
     // #[Route('/admin/collaboration', name: 'app_collaboration_index', methods: ['GET'])]
     #[Route('/aa', name: 'adm_collaboration_index', methods: ['GET'])]
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(EntityManagerInterface $entityManager, PaginatorInterface $paginator, Request $request): Response
     {
         $collaborations = $entityManager
             ->getRepository(Collaboration::class)
             ->findAll();
+
+        $collaborations = $paginator->paginate(
+            $collaborations, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            15 /*limit per page*/
+        );
 
         return $this->render('admin_collaboration/index.html.twig', [
             'collaborations' => $collaborations,

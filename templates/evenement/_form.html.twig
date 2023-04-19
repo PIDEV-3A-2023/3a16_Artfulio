@@ -5,18 +5,14 @@
  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
      integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
      crossorigin=""/>
-       
+<link rel="stylesheet" href="{{asset("assets/css/map-event.css")}}">     
 
-        <style>
-                #map{
-                    height: 180px; 
-                }
-        </style>
- {% endblock %}
-
+{% endblock %}
 {% block body %}
 
 <div class="container my-2">
+<input type="text" id="or">
+<input type="text" id="ir">
 
 {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
 
@@ -25,16 +21,25 @@
                         <div >{{ form_row(form.type) }}</div>
                         <div >{{ form_row(form.description) }}</div>
                         
+                {#*******************************************************************#}
+                
+                     {#   <div class="form-group">
+                            {{ form_label(form.lieu) }}
+                            {{ form_widget(form.lieu, {'attr': {'class': 'form-control', 'id': 'address'}}) }}
+                            <div id="address-suggestions"></div>
+                        </div>
+                {#*******************************************************************#}
                         <div id="map"></div>
-                        <div >{{ form_row(form.lieu) }}</div>
-                    </div>
+                        <div >{{ form_row(form.ville , {'id' : 'ville'}) }}</div>
+                        <div >{{ form_row(form.adresse , {'id' : 'adresse'}) }}</div>
+                   
                     <div class="row">
                         <div class="col">{{ form_row(form.dateDebut) }}</div>
-                        <div class="col">{{ form_row(form.heureDebut) }}</div>
+                        <div class="col">{{ form_row(form.dateFin) }}</div>
                     </div>
                     <div class="row">
-                        <div class="col">{{ form_row(form.dateFin) }}</div>
-                        <div class="col">{{ form_row(form.heureFin) }}</div>
+                        <div class="col">{{ form_row(form.latitude , {'id' : 'lat'})  }}</div>
+                        <div class="col">{{ form_row(form.longitude , {'id': 'lon'}) }}</div>
                     </div>
             
     {{ form_widget(form , {'attr': {'novalidate': 'novalidate'}}) }}
@@ -47,42 +52,11 @@
 
 {% block js %}
 
- <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
      integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
      crossorigin=""></script>
 
-<script>
-var carte = L.map('map').setView([48.856614, 2.3522219], 13);
+<script src="{{asset("assets/js/map-event.js")}}"></script> 
 
- // Leaflet ne récupère pas les cartes (tiles) sur un serveur par défaut. Nous devons lui préciser où nous souhaitons les récupérer. Ici, openstreetmap.fr
-                L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    minZoom: 1,
-    maxZoom: 20,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-}).addTo(carte);
-
-
-
-var marker = L.marker([48.856614, 2.3522219], {
-    draggable: true}).addTo(carte);
-
-marker.bindPopup("<b>Evenement!</b>.").openPopup();
-// Ajouter un événement de déplacement au marqueur
-marker.on('moveend', function() {
-    var latLng = marker.getLatLng();
-    $('#lieu').val(latLng.lat + ',' + latLng.lng);
-});
-
-// Ajouter un événement de changement au champ "lieu"
-$('#lieu').on('change', function() {
-    var lieu = $(this).val();
-    var latLng = lieu.split(',');
-    var lat = parseFloat(latLng[0]);
-    var lng = parseFloat(latLng[1]);
-    marker.setLatLng([lat, lng]);
-    map.setView([lat, lng], 13);
-});
-
-</script>
 
 {% endblock %}

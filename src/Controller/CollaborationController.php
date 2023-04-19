@@ -2,24 +2,33 @@
 
 namespace App\Controller;
 
-use App\Entity\ArtisteCollaboration;
 use App\Entity\Collaboration;
 use App\Form\CollaborationType;
+use Symfony\Component\Mime\Email;
+use App\Entity\ArtisteCollaboration;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/collaboration')]
 class CollaborationController extends AbstractController
 {
     #[Route('/', name: 'app_collaboration_index', methods: ['GET'])]
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(EntityManagerInterface $entityManager, PaginatorInterface $paginator, Request $request): Response
     {
         $collaborations = $entityManager
             ->getRepository(Collaboration::class)
             ->findAll();
+
+        $collaborations = $paginator->paginate(
+            $collaborations, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            7 /*limit per page*/
+        );
 
         return $this->render('collaboration/index.html.twig', [
             'collaborations' => $collaborations,
@@ -27,7 +36,7 @@ class CollaborationController extends AbstractController
     }
 
     #[Route('/new', name: 'app_collaboration_new', methods: ['GET', 'POST'])]
-    public function ajouter(Request $request, EntityManagerInterface $entityManager): Response
+    public function ajouter(Request $request, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
     {
         $collaboration = new Collaboration();
         $collaboration->setStatus("en attente");
@@ -40,7 +49,18 @@ class CollaborationController extends AbstractController
         $form->remove('emailUser');
         $form->handleRequest($request);
 
+
+
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $email = (new Email())
+                ->from('georgeGreen@gmail.com')
+                ->to('michelscoot@gmail.com')
+                ->subject('Demande de collaboration!')
+                ->text("Mme Astrid voulez vous collaborer avec moi!");
+
+            $mailer->send($email);
+
             $entityManager->persist($collaboration);
             $entityManager->flush();
 
@@ -51,6 +71,8 @@ class CollaborationController extends AbstractController
             $date = new \DateTime();
             $artCollaborat->setDateEntree($date);
             $entityManager->flush();
+
+
 
             return $this->redirectToRoute('app_collaboration_index', [], Response::HTTP_SEE_OTHER);
         }

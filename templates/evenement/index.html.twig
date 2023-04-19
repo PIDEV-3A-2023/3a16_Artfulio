@@ -11,7 +11,6 @@
     <h1>Evenement nombre {{ evenements|length }}</h1>
 <div class="container">
     <button type="button" class="btn btn-light"><a href="{{ path('app_evenement_new') }}"> Creer evenement </a></button>
-    <a href="{{ path('app_evenement_new') }}"> Creer evenement </a>
             
  <!--   <table class="table">
         <thead>
@@ -136,10 +135,12 @@
                 <div>no records found</div>           
        
 {% endfor %}
+       <div class="d-flex align-items-center justify-content-center">
+            {{ knp_pagination_render(evenements) }}
+        </div>
 </div>
 </div>
     <!-- ########################################################################################### -->
 
 {% endblock %}
-
 

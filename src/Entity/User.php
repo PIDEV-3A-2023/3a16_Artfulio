@@ -2,12 +2,14 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * User
  *
- * @ORM\Table(name="user", indexes={@ORM\Index(name="email_user", columns={"email_user"}), @ORM\Index(name="is_pro", columns={"is_pro"}), @ORM\Index(name="username", columns={"username"}), @ORM\Index(name="role", columns={"type_role"})})
+ * @ORM\Table(name="user", indexes={@ORM\Index(name="username", columns={"username"}), @ORM\Index(name="role", columns={"type_role"}), @ORM\Index(name="email_user", columns={"email_user"}), @ORM\Index(name="is_pro", columns={"is_pro"})})
  * @ORM\Entity
  */
 class User
@@ -76,6 +78,21 @@ class User
      * @ORM\Column(name="img_user", type="string", length=255, nullable=true)
      */
     private $imgUser;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Evenement", mappedBy="participant")
+     */
+    private $evenement = array();
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->evenement = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     public function getIdUser(): ?int
     {
@@ -178,5 +195,31 @@ class User
         return $this;
     }
 
+    /**
+     * @return Collection<int, Evenement>
+     */
+    public function getEvenement(): Collection
+    {
+        return $this->evenement;
+    }
+
+    public function addEvenement(Evenement $evenement): self
+    {
+        if (!$this->evenement->contains($evenement)) {
+            $this->evenement->add($evenement);
+            $evenement->addParticipant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvenement(Evenement $evenement): self
+    {
+        if ($this->evenement->removeElement($evenement)) {
+            $evenement->removeParticipant($this);
+        }
+
+        return $this;
+    }
 
 }
