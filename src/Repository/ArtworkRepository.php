@@ -73,6 +73,29 @@ public function findByname($value): array
            ->getResult()
        ;
    }
+   public function findBytypevideo(): array
+   {
+       return $this->createQueryBuilder('a')
+           ->Where('a.id_type  = 3')
+           ->getQuery()
+           ->getResult()
+       ;
+   }
+   public function findBytypemusic(): array
+   {
+       return $this->createQueryBuilder('a')
+           ->Where('a.id_type  = 4')
+           ->getQuery()
+           ->getResult()
+       ;
+   } public function findBytypeimage(): array
+   {
+       return $this->createQueryBuilder('a')
+           ->Where('a.id_type  = 2')
+           ->getQuery()
+           ->getResult()
+       ;
+   }
    public function orderbyname(){
   
     return $this->createQueryBuilder('a')

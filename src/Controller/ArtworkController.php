@@ -30,7 +30,7 @@ class ArtworkController extends AbstractController
         $appointmentsRepository = $em->getRepository(artwork::class);
                 
         // Find all the data on the Appointments table, filter your query as you need
-        $allAppointmentsQuery = $appointmentsRepository->findall();
+        $allAppointmentsQuery = $appointmentsRepository->findBytypeimage();//findall();
         
         // Paginate the results of the query
         $appointments = $paginator->paginate(
@@ -44,6 +44,64 @@ class ArtworkController extends AbstractController
         
         // Render the twig view
         return $this->render('artwork/index.html.twig', [
+            'paginator' => $appointments, 'commentaires' => $commentaireRepository->findAll(),'artworks' => $artworkRepository->findAll(),
+        ]);
+
+    }
+    #[Route('/music', name: 'app_artwork_music', methods: ['GET'])]
+    public function music(Request $request,ArtworkRepository $artworkRepository,CommentaireRepository $commentaireRepository,PaginatorInterface $paginator): Response
+    {
+       
+        // Retrieve the entity manager of Doctrine
+        $em = $this->getDoctrine()->getManager();
+        
+        // Get some repository of data, in our case we have an Appointments entity
+        $appointmentsRepository = $em->getRepository(artwork::class);
+                
+        // Find all the data on the Appointments table, filter your query as you need
+        $allAppointmentsQuery = $appointmentsRepository->findBytypemusic();
+        
+        // Paginate the results of the query
+        $appointments = $paginator->paginate(
+            // Doctrine Query, not results
+            $allAppointmentsQuery,
+            // Define the page parameter
+            $request->query->getInt('page', 1),
+            // Items per page
+            2
+        );
+        
+        // Render the twig view
+        return $this->render('artwork/indexm.html.twig', [
+            'paginator' => $appointments, 'commentaires' => $commentaireRepository->findAll(),'artworks' => $artworkRepository->findAll(),
+        ]);
+
+    }
+    #[Route('/video', name: 'app_artwork_video', methods: ['GET'])]
+    public function video(Request $request,ArtworkRepository $artworkRepository,CommentaireRepository $commentaireRepository,PaginatorInterface $paginator): Response
+    {
+       
+        // Retrieve the entity manager of Doctrine
+        $em = $this->getDoctrine()->getManager();
+        
+        // Get some repository of data, in our case we have an Appointments entity
+        $appointmentsRepository = $em->getRepository(artwork::class);
+                
+        // Find all the data on the Appointments table, filter your query as you need
+        $allAppointmentsQuery = $appointmentsRepository->findBytypevideo();
+        
+        // Paginate the results of the query
+        $appointments = $paginator->paginate(
+            // Doctrine Query, not results
+            $allAppointmentsQuery,
+            // Define the page parameter
+            $request->query->getInt('page', 1),
+            // Items per page
+            2
+        );
+        
+        // Render the twig view
+        return $this->render('artwork/indexv.html.twig', [
             'paginator' => $appointments, 'commentaires' => $commentaireRepository->findAll(),'artworks' => $artworkRepository->findAll(),
         ]);
 
