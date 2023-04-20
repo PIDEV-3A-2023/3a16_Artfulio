@@ -99,7 +99,7 @@ public function findByname($value): array
    public function orderbyname(){
   
     return $this->createQueryBuilder('a')
-               ->orderBy('a.nom_artwork', 'DESC')
+               ->orderBy('a.nom_artwork', 'asc')
                ->getQuery()
                ->getResult()
            ;

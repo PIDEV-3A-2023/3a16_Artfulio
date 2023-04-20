@@ -170,15 +170,7 @@ class ArtworkController extends AbstractController
         $student=$repo->findByname($email);
         return $this->render('artwork/admin.html.twig',['artworks' => $student]);
     }
-    #[Route('/searchartx', name: 'searchartx')]
-    public function searchStudentx(Request $request,NormalizerInterface $Normalizer,StudentRepository $sr)
-    {
-        $repository = $this->getDoctrine()->getRepository(Artwork::class);
-        $requestString=$request->get('searchValue');
-        $students = $sr->findByname($requestString);
-        $jsonContent = $Normalizer->normalize($students, 'json',['groups'=>'artworks']);
-        $retour=json_encode($jsonContent);
-        return new Response($retour);    }
+    
     #[Route('/{id_artwork}/edit', name: 'app_artwork_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Artwork $artwork, ArtworkRepository $artworkRepository): Response
     {
