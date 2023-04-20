@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * MessengerMessages
  *
- * @ORM\Table(name="messenger_messages", indexes={@ORM\Index(name="IDX_75EA56E016BA31DB", columns={"delivered_at"}), @ORM\Index(name="IDX_75EA56E0FB7336F0", columns={"queue_name"}), @ORM\Index(name="IDX_75EA56E0E3BD61CE", columns={"available_at"})})
+ * @ORM\Table(name="messenger_messages", indexes={@ORM\Index(name="IDX_75EA56E0FB7336F0", columns={"queue_name"}), @ORM\Index(name="IDX_75EA56E0E3BD61CE", columns={"available_at"}), @ORM\Index(name="IDX_75EA56E016BA31DB", columns={"delivered_at"})})
  * @ORM\Entity
  */
 class MessengerMessages

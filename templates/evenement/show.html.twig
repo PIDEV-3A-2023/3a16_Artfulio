@@ -84,7 +84,7 @@
         Localisation de l'evenement
       </div>
       <div class="timeline__event__description">
-            {{ evenement.lieu }}      
+             <a href="{{ path('app_evenement_adresse', {'id': evenement.id}) }}">{{ evenement.adresse }}</a>  
             </div>
     </div>
   </div>
@@ -102,7 +102,7 @@
       </div>
       <div class="timeline__event__description">
       {# {{ evenement.dateDebut|localizeddate('full', 'none', null, null, 'fr') }} #}
-        {{ evenement.dateDebut ? evenement.dateDebut|date('Y-m-d',null,'fr') : '' }} à {{ evenement.heureDebut ? evenement.heureDebut|date('H:i') : '' }}
+        {{ evenement.dateDebut ? evenement.dateDebut|date('Y-m-d',null,'fr') : '' }} à {{ evenement.dateDebut ? evenement.dateDebut|date('H:i') : '' }}
       </div>
     </div>
   </div>
@@ -121,7 +121,7 @@
       <div class="timeline__event__description">
             {% set locale = 'fr_FR.utf8' %}
 
-            {{ evenement.dateFin ? evenement.dateFin|date('l j F Y') : '' }} à {{ evenement.heureFin ? evenement.heureFin|date('H:i') : '' }} 
+            {{ evenement.dateFin ? evenement.dateFin|date('l j F Y') : '' }} à {{ evenement.dateFin ? evenement.dateFin|date('H:i') : '' }} 
       </div>
 
     </div>
@@ -136,7 +136,9 @@
     </div>
     <div class="timeline__event__content">
       <div class="timeline__event__title">
-        Localisation de l'evenement
+        <a href="{{ path('app_evenement_adresse', {'id': evenement.id}) }}">Localisation de l'evenement</a>
+        <a href="{{ path('app_evenement_adresse', {'id': evenement.id}) }}">Localisation de l'evenement</a>
+        <a href="{{ path('app_evenement_adresse', {'id': evenement.id}) }}">Localisation de l'evenement</a>
       </div>
       <div class="timeline__event__description">
                 

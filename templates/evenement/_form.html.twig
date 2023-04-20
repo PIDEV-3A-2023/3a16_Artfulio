@@ -11,8 +11,6 @@
 {% block body %}
 
 <div class="container my-2">
-<input type="text" id="or">
-<input type="text" id="ir">
 
 {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
 
@@ -30,7 +28,6 @@
                         </div>
                 {#*******************************************************************#}
                         <div id="map"></div>
-                        <div >{{ form_row(form.ville , {'id' : 'ville'}) }}</div>
                         <div >{{ form_row(form.adresse , {'id' : 'adresse'}) }}</div>
                    
                     <div class="row">

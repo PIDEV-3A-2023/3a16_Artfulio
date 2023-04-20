@@ -12,8 +12,8 @@ map = L.map('map').setView([36.866537, 10.164723], 13);
     maxZoom: 20
     }).addTo(map)
     map.on("click", mapClickListen)
-//ecoute la saisie au niveau de la ville
-    document.querySelector("#ville").addEventListener("blur",getCity)
+    //ecoute la saisie au niveau de l'adresse'
+    document.querySelector("#adresse").addEventListener("blur",getCity)
 
  }
 
@@ -91,18 +91,5 @@ function getCity(){
     xmlhttp.send();
 }
 
-/*
-var xmlhttp = new XMLHttpRequest();
-xmlhttp.onreadystatechange = function() {
-    // si la requete est terminé et si on a une reponse
-  if (this.readyState == 4 && this.status == 200) {
-    //on recupere la réponse
-    var response = JSON.parse(xmlhttp.response);
-    console.log(response[0].display_name);
-  }
-};
 
-var url = "https://nominatim.openstreetmap.org/search?format=json&q=" + adresse;
-xmlhttp.open("GET", url, true);
-xmlhttp.send(); */
 

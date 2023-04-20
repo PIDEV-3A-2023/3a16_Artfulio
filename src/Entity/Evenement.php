@@ -46,13 +46,6 @@ class Evenement
     private $description;
 
     /**
-     * @var string|null
-     *
-     * @ORM\Column(name="ville", type="string", length=255, nullable=true)
-     */
-    private $ville;
-
-    /**
      * @var \DateTime|null
      *
      * @ORM\Column(name="date_debut", type="date", nullable=true)
@@ -74,16 +67,16 @@ class Evenement
     private $image;
 
     /**
-     * @var string|null
+     * @var float|null
      *
-     * @ORM\Column(name="longitude", type="string", length=255, nullable=true)
+     * @ORM\Column(name="longitude", type="float", precision=10, scale=0, nullable=true)
      */
     private $longitude;
 
     /**
-     * @var string|null
+     * @var float|null
      *
-     * @ORM\Column(name="latitude", type="string", length=255, nullable=true)
+     * @ORM\Column(name="latitude", type="float", precision=10, scale=0, nullable=true)
      */
     private $latitude;
 
@@ -95,26 +88,14 @@ class Evenement
     private $adresse;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="User", inversedBy="evenement")
-     * @ORM\JoinTable(name="evenement_participant",
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="evenement_id", referencedColumnName="id")
-     *   },
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="participant_id", referencedColumnName="id_user")
-     *   }
-     * )
+     * @ORM\OneToMany(targetEntity="App\Entity\EventLike", mappedBy="evenement")
      */
-    private $participant = array();
+    private $likes;
 
-    /**
-     * Constructor
-     */
+
     public function __construct()
     {
-        $this->participant = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->likes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -158,18 +139,6 @@ class Evenement
         return $this;
     }
 
-    public function getVille(): ?string
-    {
-        return $this->ville;
-    }
-
-    public function setVille(?string $ville): self
-    {
-        $this->ville = $ville;
-
-        return $this;
-    }
-
     public function getDateDebut(): ?\DateTimeInterface
     {
         return $this->dateDebut;
@@ -206,24 +175,24 @@ class Evenement
         return $this;
     }
 
-    public function getLongitude(): ?string
+    public function getLongitude(): ?float
     {
         return $this->longitude;
     }
 
-    public function setLongitude(?string $longitude): self
+    public function setLongitude(?float $longitude): self
     {
         $this->longitude = $longitude;
 
         return $this;
     }
 
-    public function getLatitude(): ?string
+    public function getLatitude(): ?float
     {
         return $this->latitude;
     }
 
-    public function setLatitude(?string $latitude): self
+    public function setLatitude(?float $latitude): self
     {
         $this->latitude = $latitude;
 
@@ -241,29 +210,44 @@ class Evenement
 
         return $this;
     }
+    //---------------------------------------------------------------------
 
-    /**
-     * @return Collection<int, User>
-     */
-    public function getParticipant(): Collection
+    public function getLikes(): Collection
     {
-        return $this->participant;
+        return $this->likes;
     }
 
-    public function addParticipant(User $participant): self
+    public function addLike(EventLike $like): self
     {
-        if (!$this->participant->contains($participant)) {
-            $this->participant->add($participant);
+        if (!$this->likes->contains($like)) {
+            $this->likes->add($like);
+            $like->setEvenement($this);
         }
 
         return $this;
     }
 
-    public function removeParticipant(User $participant): self
+    public function removeLike(EventLike $like): self
     {
-        $this->participant->removeElement($participant);
+        if ($this->likes->removeElement($like)) {
+            // set the owning side to null (unless already changed)
+            if ($like->getEvenement() === $this) {
+                $like->setEvenement(null);
+            }
+        }
 
         return $this;
     }
 
+    // je veriie si la liste est déja liké
+
+    public function isLikeByUser(User $user): bool
+    {
+        //je parcour les likes de cette evenement
+        foreach ($this->likes as $like) {
+            // si le user en param a déja liké
+            if ($like->getUser() == $user) return true;
+        }
+        return false;
+    }
 }

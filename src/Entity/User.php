@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * User
  *
- * @ORM\Table(name="user", indexes={@ORM\Index(name="username", columns={"username"}), @ORM\Index(name="role", columns={"type_role"}), @ORM\Index(name="email_user", columns={"email_user"}), @ORM\Index(name="is_pro", columns={"is_pro"})})
+ * @ORM\Table(name="user", indexes={@ORM\Index(name="is_pro", columns={"is_pro"}), @ORM\Index(name="username", columns={"username"}), @ORM\Index(name="role", columns={"type_role"}), @ORM\Index(name="email_user", columns={"email_user"})})
  * @ORM\Entity
  */
 class User
@@ -79,24 +79,21 @@ class User
      */
     private $imgUser;
 
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="Evenement", mappedBy="participant")
-     */
-    private $evenement = array();
 
     /**
-     * Constructor
+     * @ORM\OneToMany(targetEntity="App\Entity\EventLike", mappedBy="user")
      */
-    public function __construct()
-    {
-        $this->evenement = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+    private Collection $likes;
+
 
     public function getIdUser(): ?int
     {
         return $this->idUser;
+    }
+    public function setIdUser($id): self
+    {
+        $this->idUser = $id;
+        return $this;
     }
 
     public function getUsername(): ?string
@@ -195,31 +192,32 @@ class User
         return $this;
     }
 
-    /**
-     * @return Collection<int, Evenement>
-     */
-    public function getEvenement(): Collection
+    //---------------------------------------------------------------------
+
+    public function getLikes(): Collection
     {
-        return $this->evenement;
+        return $this->likes;
     }
 
-    public function addEvenement(Evenement $evenement): self
+    public function addLike(EventLike $like): self
     {
-        if (!$this->evenement->contains($evenement)) {
-            $this->evenement->add($evenement);
-            $evenement->addParticipant($this);
+        if (!$this->likes->contains($like)) {
+            $this->likes->add($like);
+            $like->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeEvenement(Evenement $evenement): self
+    public function removeLike(EventLike $like): self
     {
-        if ($this->evenement->removeElement($evenement)) {
-            $evenement->removeParticipant($this);
+        if ($this->likes->removeElement($like)) {
+            // set the owning side to null (unless already changed)
+            if ($like->getUser() === $this) {
+                $like->setUser(null);
+            }
         }
 
         return $this;
     }
-
 }
