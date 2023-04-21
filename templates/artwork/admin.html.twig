@@ -168,7 +168,10 @@ section{
                 <th>Date</th>
                 <th>Lien</th>
                 <th>Dimension</th>
-                <th>Image</th>
+               
+                {# <th>Artiste</th> #}
+                {# <th>Type</th> #}
+                 <th>Image</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -185,6 +188,8 @@ section{
                     <td>{{ artwork.date ? artwork.date|date('Y-m-d') : '' }}</td>
                     <td>{{ artwork.lienArtwork }}</td>
                     <td>{{ artwork.dimensionArtwork }}</td>
+                   
+                    
                     <td><img style="width:100px;height:100px;" src="{{ asset('uploads/images/' ~ artwork.imgArtwork) }}" /></td>
                     <td>
                         <button type="button" class="btn btn-secondary display-4" data-toggle="modal" data-target="#artworkModal{{ artwork.idartwork }}">Show</button>
@@ -195,17 +200,20 @@ section{
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="artworkModalLabel">{{ artwork.nomArtwork }}</h5>
+                                <h5 class="modal-title" id="artworkModalLabel"><strong>Nom: </strong>{{ artwork.nomArtwork }}</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div class="modal-body">
-                                <p>desc:{{ artwork.descriptionArtwork }}</p>
-                                <p>Prix: {{ artwork.prixArtwork }}</p>
-                                <p>Date: {{ artwork.date ? artwork.date|date('Y-m-d') : '' }}</p>
-                                <p>Lien: {{ artwork.lienArtwork }}</p>
-                                <p>Dimension: {{ artwork.dimensionArtwork }}</p>
+                            <div style ="text-align: left;"class="modal-body">
+                                <p><strong>desc:</strong>{{ artwork.descriptionArtwork }}</p>
+                                <p><strong>Prix:</strong> {{ artwork.prixArtwork }}</p>
+                                <p><strong>Date: </strong>{{ artwork.date ? artwork.date|date('Y-m-d') : '' }}</p>
+                                <p><strong>Lien:</strong> {{ artwork.lienArtwork }}</p>
+                                <p><strong>Dimension: </strong>{{ artwork.dimensionArtwork }}</p>
+                                <p><strong>Artiste:</strong> {{ artwork.IdArtist.username}}</p>
+                                <p><strong>Type:</strong> {{ artwork.IdType.TypeSousCat }}</p>
+                                 
                                 <img style="width:100%;height:auto;" src="{{ asset('uploads/images/' ~ artwork.imgArtwork) }}" />
                             </div>
                         </div>
