@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Evenement;
 use App\Entity\EventLike;
+use App\Entity\ParticipEvent;
 use App\Entity\User;
 use App\Form\EvenementType;
 use App\Repository\EventLikeRepository;
+use App\Repository\ParticipEventRepository;
 use App\Service\UpluoaderService;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -19,6 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 #[Route('/evenement')]
 class EvenementController extends AbstractController
@@ -39,7 +42,7 @@ class EvenementController extends AbstractController
 
         $user = $entityManager          // pour les test de connexion mais a éffacer
             ->getRepository(User::class)
-            ->find(2);
+            ->find(42);
 
         return $this->render('evenement/index.html.twig', [
             'evenements' => $evenements,
@@ -130,13 +133,16 @@ class EvenementController extends AbstractController
     }
 
     #[Route('/{id}/like', name: 'app_evenement_like')]
-    public function like(Evenement $evenement, ManagerRegistry $manager, EventLikeRepository $likeRrepo): Response
+    public function like(Evenement $evenement, ManagerRegistry $manager): Response
     {
         //$user = $this->getUser();   a décomenter fonction symfony qui permet de recupérer le user connecté
         $em = $manager->getManager();    //a effacer plus tard
         $repoEvent = $manager->getRepository(User::class);  //a effacer plus tard
-        $user = $repoEvent->find(2);                    //a effacer plus tard
+        $user = $repoEvent->find(42);                    //a effacer plus tard
 
+        //********************************************************************************* */
+
+        $likeRrepo = $manager->getRepository(EventLike::class);
         //1er cas le user n'est pas connecté
         if (!$user) {
             return $this->json([
@@ -178,65 +184,73 @@ class EvenementController extends AbstractController
             )
         ], 200);
     }
+
+
+    #[Route('/{id}/participe', name: 'app_evenement_participe')]
+    public function participer(Evenement $evenement, ManagerRegistry $manager): Response
+    {
+        //$user = $this->getUser();   a décomenter fonction symfony qui permet de recupérer le user connecté
+        $em = $manager->getManager();    //a effacer plus tard
+        $partRrepo = $manager->getRepository(User::class);  //a effacer plus tard
+        $user = $partRrepo->find(42);                    //a effacer plus tard
+
+        $partRrepo = $manager->getRepository(ParticipEvent::class);
+
+        //1er cas le user n'est pas connecté
+        if (!$user) {
+            return $this->json([
+                'code' => 403,
+                'message' => "non autorise"
+            ], 403);
+        }
+        //2e cas/ user connecté, on test si il a déja aimé lévenement
+        // (ici il a déja mis un like)
+        if ($evenement->isParticipeByUser($user)) {
+            //on recherche le participant en fonction de l'evenement et du user
+            $part = $partRrepo->findOneBy(
+                [
+                    'evenement' => $evenement,
+                    'user' => $user
+                ]
+            );
+            $em->remove($part); //efface le like
+            $em->flush();
+
+            //on retourne le js avec un code,un message et le nbre de partcipant de levenement
+            return $this->json([
+                'code' => 200,
+                'message' => "participant enleve",
+                'participes' => $partRrepo->count(['evenement' => $evenement]) //on recupere le nbre de partcipent de cette evenement
+            ], 200);
+        }
+        //3e cas connecté et na pas encore mis de like
+        //on créer un nouveu like et on laffecte a levenement et au user
+        $participe = new ParticipEvent();
+        $participe->setEvenement($evenement)
+            ->setUser($user);
+        $em->persist($participe);
+        $em->flush();
+
+        return $this->json([
+            'code' => 200,
+            'message' => "sa marche bien",
+            'participes' => $partRrepo->count(['evenement' => $evenement])
+        ], 200);
+    }
+
+    #[Route('/{id?10}/ajax', name: 'ajax_recup_event')]
+    public function ajaxRecupEvent(ManagerRegistry $manager, Request $request, Evenement $evenement = null)
+    {
+
+        $data = [
+            'id' => $evenement->getId(),
+            'type' => $evenement->getType(),
+            'description' => $evenement->getDescription(),
+            'latitude' => $evenement->getLatitude(),
+            'longitude' => $evenement->getLongitude(),
+            'adresse' => $evenement->getAdresse()
+        ];
+
+        return new JsonResponse($data);
+    }
 }
-
-
-    /*
-    
-    #[Route('/', name: 'app_evenement_recherche', methods: ['GET', 'POST'])]
-    public function recherche(Request $request, ManagerRegistry $em): Response
-    {
-        $form = $this->createFormBuilder()
-            ->add('recherche')
-            ->getForm();
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $recherche = $form->getData()['recherche'];
-
-            $evenements = $this->getDoctrine()->getRepository(Evenement::class)->createQueryBuilder('e')
-                ->where('e.titre LIKE :recherche OR e.description LIKE :recherche')
-                ->setParameter('recherche', '%'.$recherche.'%')
-                ->getQuery()
-                ->getResult();
-
-            return $this->render('evenement/resultats_recherche.html.twig', [
-                'evenements' => $evenements,
-            ]);
-        }
-
-        return $this->render('evenement/index.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    }   */
-
-
-    //**************************************************************** */
-
-    /* #[Route('/agenda', name: 'agenda', methods: ['POST'])]
-    public function agenda(Request $request, ManagerRegistry $em): Response
-    {
-        $evenements = $em->getRepository(Evenement::class)->findAll();
-        //   $user = $this->getUser();
-        $user = new User();
-        $user->setIdUser(1);
-
-        if ($request->isMethod('POST')) {
-            $evenementsIds = $request->request->get('evenementss');
-            dd($evenementsIds);
-            foreach ($evenementsIds as $evenementId) {
-                $evenement = $em->getRepository(Evenement::class)->find($evenementId);
-                $user->addEvenement($evenement);
-            }
-            $entityManager = $em->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
-        }
-
-        return $this->render('agenda/index.html.twig', [
-            'evenements' => $evenements,
-            'user' => $user,
-        ]);
-    } 
-}*/

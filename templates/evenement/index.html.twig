@@ -78,15 +78,37 @@
 
                   {% if evenement.isLikeByUser(user) %}
                   <!-- on change la couleur du bouton -->
-                  <i class="fa-solid fa-thumbs-up"></i>
+                  <i class="fa-solid fa-thumbs-up fa-xl"></i>
                     {% else %}
-                        <i class="fa-regular fa-thumbs-down"></i>
+                        <i class="fa-regular fa-thumbs-up fa-xl"></i>
                     {% endif %}
                         <span class="js-likes">{{ evenement.likes | length }}</span>
                         <span class="js-label">j'aime</span>
+                    </a></div>
+    <!-- ########################################################################################### -->
+                   
+                    <div>
+                        <a href="{{ path('app_evenement_participe', {'id': evenement.id}) }}" class="btn btn-link js-participe">
+                            <!-- verifie si un user est connecté et passe ce user en parametre
+                                    pour verifier si il a deja liké -->
+                        {#  {% if app.user and evenement.isLikeByUser(app.user) %    #}
+
+
+                        {% if evenement.isParticipeByUser(user) %}
+                        <!-- on change la couleur du bouton -->
+                      <i class="fa-solid fa-people-pulling fa-2xl"></i>
+                          {#    <i class="fa-sharp fa-solid fa-calendar-circle-plus"></i> #}
+                        {% else %}
+                          {#  <i class="fa-light fa-calendar-circle-plus"></i> #}
+                             <i class="fa-solid fa-person fa-2xl"></i>
+                        {% endif %}
+                                <span class="js-participes">{{ evenement.participes | length }}</span>
+                                <span class="js-label">participer</span>
+                        </a>
+                    </div>
     <!-- ########################################################################################### -->
 
-                    </a></div>
+                    
                         <div class="hover_color_bubble"></div>
                         <div class="so_top_icon">
                         <svg id="Layer_1" enable-background="new 0 0 512 512" height="50" viewBox="0 0 512 512" width="40" xmlns="http://www.w3.org/2000/svg">
@@ -171,4 +193,5 @@
 {% block javascript %}
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="{{asset("assets/js/like_event.js")}}"></script> 
+    <script src="{{asset("assets/js/participe_event.js")}}"></script> 
 {% endblock %}

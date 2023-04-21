@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Evenement;
 use App\Entity\EventLike;
+use App\Entity\ParticipEvent;
 use Faker\Factory;
 use App\Entity\User;
 use Doctrine\Persistence\ObjectManager;
@@ -55,6 +56,7 @@ class AppFixtures extends Fixture
 
             $manager->persist($evenement);
 
+            //affectation alleatoire des likes aux user pour chaque évenements
             for ($j = 1; $j < mt_rand(0, 10); $j++) {
                 $like = new EventLike();
                 $like->setEvenement($evenement)
@@ -63,8 +65,22 @@ class AppFixtures extends Fixture
                 $manager->persist($like);
             }
 
+            //affectation alleatoire des participants aux évenements
+            for ($k = 1; $k < mt_rand(0, 10); $k++) {
+                $participe = new ParticipEvent();
+                $participe->setEvenement($evenement)
+                    ->setUser($faker->randomElement($users));
+
+                $manager->persist($participe);
+            }
+
             //symfony console doctrine:fixtures:load --no-interaction
         }
+
+
+        //symfony console doctrine:fixtures:load --no-interaction
+
+
 
         $manager->flush();
     }

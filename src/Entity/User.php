@@ -85,6 +85,19 @@ class User
      */
     private Collection $likes;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ParticipEvent", mappedBy="user")
+     */
+
+    private Collection $participes;
+
+
+    public function __construct()
+    {
+        $this->likes = new ArrayCollection();
+        $this->participes = new ArrayCollection();
+    }
+
 
     public function getIdUser(): ?int
     {
@@ -215,6 +228,35 @@ class User
             // set the owning side to null (unless already changed)
             if ($like->getUser() === $this) {
                 $like->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    //---------------------------------------------------------------------
+
+    public function getParticipes(): Collection
+    {
+        return $this->participes;
+    }
+
+    public function addParticipe(ParticipEvent $participe): self
+    {
+        if (!$this->participes->contains($participe)) {
+            $this->participes->add($participe);
+            $participe->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParticipe(ParticipEvent $participe): self
+    {
+        if ($this->participes->removeElement($participe)) {
+            // set the owning side to null (unless already changed)
+            if ($participe->getUser() === $this) {
+                $participe->setUser(null);
             }
         }
 
