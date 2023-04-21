@@ -188,8 +188,7 @@ section{
                     <td><img style="width:100px;height:100px;" src="{{ asset('uploads/images/' ~ artwork.imgArtwork) }}" /></td>
                     <td>
                         <button type="button" class="btn btn-secondary display-4" data-toggle="modal" data-target="#artworkModal{{ artwork.idartwork }}">Show</button>
-                    <button type="button" class="btn btn-secondary display-4" data-toggle="modal" data-target="#editModal{{ artwork.idartwork }}">Edit</button>
-                    </td>
+<a class="btn btn-secondary display-4" href="{{ path('app_artwork_edit', {'id_artwork': artwork.idartwork}) }}">edit</a>                    </td>
                 </tr>
                 <!-- Modal -->
                 <div class="modal fade" id="artworkModal{{ artwork.idartwork }}" tabindex="-1" role="dialog" aria-labelledby="artworkModalLabel" aria-hidden="true">
