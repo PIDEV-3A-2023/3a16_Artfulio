@@ -143,9 +143,21 @@ section{
   <h1>Artwork</h1>
 
 <form method="post" action="{{path('order')}}">
-<label>order 
+<label>order by name
 
-<input type="submit" value="order"></input>
+<input type="submit" value="order by name"></input>
+
+</form>
+<form method="post" action="{{path('orderprice')}}">
+<label>order by price
+
+<input type="submit" value="order by price"></input>
+
+</form>
+<form method="post" action="{{path('orderdate')}}">
+<label>order by date
+
+<input type="submit" value="order by date"></input>
 
 </form>
 <form method="post" action="{{path('search')}}">

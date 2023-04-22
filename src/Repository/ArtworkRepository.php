@@ -104,5 +104,21 @@ public function findByname($value): array
                ->getResult()
            ;
    }
+   public function orderbyprice(){
+  
+    return $this->createQueryBuilder('a')
+               ->orderBy('a.prix_artwork', 'asc')
+               ->getQuery()
+               ->getResult()
+           ;
+   }
+   public function orderbydate(){
+  
+    return $this->createQueryBuilder('a')
+               ->orderBy('a.date', 'asc')
+               ->getQuery()
+               ->getResult()
+           ;
+   }
    
 }

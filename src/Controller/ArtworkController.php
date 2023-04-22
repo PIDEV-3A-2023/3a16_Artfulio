@@ -8,6 +8,8 @@ use App\Entity\Commentaire;
 use App\Form\ArtworkType;
 
 use App\Repository\ArtworkRepository;
+use App\Repository\UserRepository;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,7 +22,7 @@ use Knp\Component\Pager\PaginatorInterface;
 class ArtworkController extends AbstractController
 {
     #[Route('/', name: 'app_artwork_index', methods: ['GET'])]
-    public function index(Request $request,ArtworkRepository $artworkRepository,CommentaireRepository $commentaireRepository,PaginatorInterface $paginator): Response
+    public function index(Request $request,ArtworkRepository $artworkRepository,UserRepository $userRepository,CommentaireRepository $commentaireRepository,PaginatorInterface $paginator): Response
     {
        
         // Retrieve the entity manager of Doctrine
@@ -41,10 +43,14 @@ class ArtworkController extends AbstractController
             // Items per page
             2
         );
-        
+        $users = array();
+        foreach ($appointments as $appointment) {
+            $user = $userRepository->findOneBy(array('id' => $appointment->getIdArtist()));
+            array_push($users, $user);
+        }
         // Render the twig view
         return $this->render('artwork/index.html.twig', [
-            'paginator' => $appointments, 'commentaires' => $commentaireRepository->findAll(),'artworks' => $artworkRepository->findAll(),
+            'paginator' => $appointments, 'commentaires' => $commentaireRepository->findAll(),'artworks' => $artworkRepository->findAll(),'users' => $users,
         ]);
 
     }
@@ -163,6 +169,20 @@ class ArtworkController extends AbstractController
         return $this->render('artwork/admin.html.twig',['artworks' => $student]);
     
     }
+    #[Route('/orderprice',name:"orderprice")]
+    function orderprice(ArtworkRepository $repo){
+    
+        $student = $repo->orderbyprice();
+        return $this->render('artwork/admin.html.twig',['artworks' => $student]);
+    
+    }
+    #[Route('/orderdate',name:"orderdate")]
+    function orderdate(ArtworkRepository $repo){
+    
+        $student = $repo->orderbydate();
+        return $this->render('artwork/admin.html.twig',['artworks' => $student]);
+    
+    }
     
     #[Route('/search',name:"search")]
     function search(ArtworkRepository $repo,request $request){
@@ -215,5 +235,6 @@ class ArtworkController extends AbstractController
 
         return $this->redirectToRoute('app_artwork_index', [], Response::HTTP_SEE_OTHER);
     }
+  
  
 }

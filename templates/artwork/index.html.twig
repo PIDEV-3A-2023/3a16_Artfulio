@@ -103,16 +103,16 @@
               {% for commentaire in commentaires %}
             {% if commentaire.getIdArtwork().getIdArtwork() == artwork.getIdArtwork() %}
                 <hr>
- <div class="info">
-
+<div style="width : 250px" class="info">
                     <div class="emoji_img comment_warpper">
-                        <img src="image/profile.png"> 
-                       
-                            <p>{{ commentaire.idutil.username }} : {{ commentaire.texte }}</p>
+                        <img style="width : 50px;border-radius: 50%;"src="{{asset('uploads/images/userpdp/' ~  commentaire.idutil.ImgUser) }}"/>  
+                        
+                       {# <span>{{asset('uploads/images/userpdp' ~  users[0].getImgUser()) }}</span> #}
+                            <div >{{ commentaire.idutil.username }} : {{ commentaire.texte }}</div>
                     </div>
 
                     <div class="comment">
-                            <p>{{ commentaire.DatePost ? commentaire.DatePost|date('Y-m-d H:i:s') : '' }}</p>
+                            <p style="">{{ commentaire.DatePost ? commentaire.DatePost|date('Y-m-d H:i:s') : '' }}</p>
                     </div>
 
                 </div>

@@ -73,4 +73,13 @@ public function finduser($value): ?User
                ->getOneOrNullResult()
            ;
    }
+   public function findOneByUsername($value): ?User
+      {
+          return $this->createQueryBuilder('u')
+              ->andWhere('u.username = :val')
+              ->setParameter('val', $value)
+              ->getQuery()
+              ->getOneOrNullResult()
+          ;
+      }
 }
