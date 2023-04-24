@@ -329,6 +329,7 @@ https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas/ */
                                         <strong>{{ artwork.nomArtwork }}</strong>
                                     </h5>
                                     <p class="mbr-section-text mbr-fonts-style display-7">
+                                    
                                        By {{ artwork.IdArtist.username }}</p>
                                 </div>
                             </div>
@@ -364,8 +365,10 @@ https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas/ */
     {% for artwork in paginator %}
     
 	<article class="post">
-		<img class="post__avatar" src="{{asset('uploads/images/userpdp/' ~  artwork.IdArtist.ImgUser) }}" alt="" />
+                                         <a href="{{ path('app_profile_index', {'id': artwork.IdArtist.id}) }}">
 
+		<img class="post__avatar" src="{{asset('uploads/images/userpdp/' ~  artwork.IdArtist.ImgUser) }}" alt="" />
+</a>
 		<div class="post__content">
 			<header class="post__header">
 				<p style="text-transform: capitalize;" class="post__user">{{ artwork.IdArtist.username }}</p>

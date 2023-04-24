@@ -16,12 +16,12 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/profile')]
 class ProfileController extends AbstractController
 {
-    #[Route('/', name: 'app_profile_index', methods: ['GET'])]
-    public function index(ArtworkRepository $ar,ProfileRepository $profileRepository,UserRepository $us): Response
+    #[Route('/{id}', name: 'app_profile_index', methods: ['GET'])]
+    public function index(ArtworkRepository $ar,ProfileRepository $profileRepository,UserRepository $us,$id): Response
     {
         return $this->render('profile/index.html.twig', [
             'profiles' => $profileRepository->findAll(),
-            'users' => $us->finduser(9),
+            'users' => $us->finduser($id),
             'images' => $ar->findBytypeimage(),
             'videos' => $ar->findBytypevideo(),
             'music' => $ar->findBytypemusic(),

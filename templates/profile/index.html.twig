@@ -182,6 +182,7 @@
             <div class="embla__viewport container-fluid">
                 <div class="embla__container">
                     {% for image in images %}
+                    {% if image.IdArtist.id == users.id %}
                     <div class="embla__slide slider-image item" style="margin-left: 1rem; margin-right: 1rem;">
                         <div class="slide-content">
                             <div class="item-wrapper">
@@ -198,6 +199,7 @@
                             <div class="mbr-section-btn item-footer mt-2"><a href="" class="btn item-btn btn-primary-outline display-7" target="_blank">Read More &gt;</a></div>
                         </div>
                     </div>
+                    {% endif %}
                     {% endfor %}
                     {# <div class="embla__slide slider-image item" style="margin-left: 1rem; margin-right: 1rem;">
                         <div class="slide-content">
@@ -273,11 +275,14 @@
                 <strong>Video</strong></h4>
             
         </div>
-        <div class="row mt-4">
+        <div class="row mt-4"> 
             <div class="col-12 col-md-6 video-block">
-                <div class="video-wrapper"><iframe class="mbr-embedded-video" src="https://www.youtube.com/embed/HujDEPAWboE?rel=0&amp;amp;&amp;showinfo=0&amp;autoplay=0&amp;loop=0" width="1280" height="720" frameborder="0" allowfullscreen></iframe></div>
+           {% for image in videos %}
+                    {% if image.IdArtist.id == users.id %}
+                <div class="video-wrapper"><iframe class="mbr-embedded-video" src="{{image.lienartwork}}" width="1280" height="720" frameborder="0" allowfullscreen></iframe></div>
                 <p class="mbr-text pt-2 mbr-fonts-style display-4">
-                    Video Description</p>
+                    Video Description</p>{% endif %}
+                    {% endfor %}
             </div>
             <div class="col-12 col-md-6 video-block">
                 <div class="video-wrapper"><iframe class="mbr-embedded-video" src="https://www.youtube.com/embed/VA8PzkQa8d8?rel=0&amp;amp;&amp;showinfo=0&amp;autoplay=0&amp;loop=0" width="1280" height="720" frameborder="0" allowfullscreen></iframe></div>
@@ -285,7 +290,7 @@
                     Video Description</p>
             </div>
         </div>
-    </div>
+    </div> 
 </section>
 
 {# <section data-bs-version="5.1" class="gallery5 mbr-gallery cid-tueEjo9S84" id="gallery5-p">
