@@ -2,61 +2,425 @@
 {% block title %}Artwork{% endblock %}
 
 {% block body %}
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap");
 
+:root {
+	--primary-font: "Roboto", sans-serif;
+	--secondary-font: "Montserrat", sans-serif;
+}
 
-<section class="gallery2 cid-tueENDWKwP" >
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: var(--primary-font);
+	font-size: 100%;
+}
+
+img {
+	vertical-align: top;
+}
+
+/* Create post */
+.create-post {
+	width: 95%;
+	max-width: 660px;
+	margin: 50px auto;
+	display: flex;
+	gap: 20px;
+}
+
+.create-post__avatar {
+	width: 65px;
+	height: 65px;
+	border-radius: 5px;
+}
+
+.create-post__form {
+	background-color: #fff;
+	padding: 20px;
+	width: 100%;
+	position: relative;
+	border-radius: 5px;
+}
+
+.create-post__form::after {
+	content: " ";
+	position: absolute;
+	width: 0;
+	height: 0;
+	left: -19px;
+	right: auto;
+	top: 20px;
+	bottom: auto;
+	border: 10px solid;
+	border-color: transparent;
+	border-right-color: #fff;
+}
+
+/* Dynamic height for text-area:
+https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas/ */
+.create-post__text-wrap {
+	display: grid;
+	margin-bottom: 20px;
+}
+
+.create-post__text-wrap::after {
+	content: attr(data-replicated-value) " ";
+	white-space: pre-wrap;
+	visibility: hidden;
+}
+
+.create-post__text-wrap > textarea {
+	min-height: 70px;
+	font-size: 16px;
+	color: #757a91;
+	resize: none;
+	overflow: hidden;
+}
+
+.create-post__text-wrap > textarea::placeholder {
+	color: #999999;
+}
+
+.create-post__text-wrap > textarea,
+.create-post__text-wrap::after {
+	border: none;
+	font: inherit;
+	grid-area: 1 / 1 / 2 / 2;
+	line-height: 1.5;
+	word-break: break-all;
+}
+
+.create-post__media-wrap {
+	margin-bottom: 20px;
+}
+
+.create-post__media-item {
+	width: 100%;
+	max-width: 140px;
+	position: relative;
+}
+
+.create-post__media-item button {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	background-color: #fff;
+	border: none;
+	padding: 5px;
+	border-radius: 50%;
+}
+
+.create-post__media-item img {
+	width: 100%;
+}
+
+.create-post__buttons {
+	display: flex;
+	gap: 40px;
+	justify-content: space-between;
+}
+
+.create-post__assets-buttons {
+	width: 100%;
+	display: grid;
+	grid-template-columns: repeat(6, 1fr);
+}
+
+#create-post-media {
+	display: none;
+}
+
+/* Post */
+.post {
+	width: 95%;
+	max-width: 660px;
+	margin: 0 auto 40px;
+	display: flex;
+	gap: 20px;
+}
+
+.post__avatar {
+	width: 65px;
+	height: 65px;
+	border-radius: 5px;
+}
+
+.post__content {
+	border-radius: 5px;
+	width: 100%;
+	padding: 20px;
+	position: relative;
+}
+
+.post__content::after {
+	content: " ";
+	position: absolute;
+	width: 0;
+	height: 0;
+	left: -19px;
+	right: auto;
+	top: 20px;
+	bottom: auto;
+	border: 10px solid;
+	border-color: transparent;
+	border-right-color: #fff;
+}
+
+.post__header {
+	display: flex;
+	gap: 15px;
+	margin-bottom: 15px;
+	align-items: center;
+	font-family: var(--secondary-font);
+	justify-content: space-between;
+}
+
+.post__user {
+	font-weight: 600;
+	font-size: 14px;
+	color: #aeaeae;
+}
+
+.post__meta {
+	display: flex;
+	align-items: center;
+	gap: 15px;
+}
+
+.post__reblogs {
+	color: #fff;
+	font-size: 12px;
+	font-weight: bold;
+	display: inline-block;
+	padding: 3px 5px;
+	background-color: #aeaeae;
+	border-radius: 5px;
+}
+
+.post__header-btn {
+	border: none;
+	background-color: transparent;
+	width: 20px;
+}
+
+.post__content {
+	background-color: #fff;
+}
+
+.post__body {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 20px;
+	margin-bottom: 15px;
+}
+
+.post__text {
+	font-size: 16px;
+	color: #000;
+	line-height: 1.5;
+}
+
+.post__img {
+	width: 100%;
+}
+
+.post__footer {
+	color: #aeaeae;
+	font-size: 14px;
+}
+
+/* Buttons */
+.create-post__submit {
+	background: none;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.create-post__asset-btn {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 5px 15px;
+	color: #51595e;
+	font-size: 16px;
+	gap: 10px;
+	background: none;
+	border: none;
+}
+
+.create-post__asset-btn:not(:last-child) {
+	border-right: 1px solid rgba(100, 117, 137, 0.2);
+}
+
+.create-post__asset-btn:disabled {
+	opacity: 0.3;
+}
+
+.create-post__asset-btn .icon {
+	transition: all 0.3s ease;
+	width: 40px;
+	height: 35px;
+}
+
+.create-post__asset-btn:not(:disabled):hover .icon,
+.create-post__asset-btn:not(:disabled):focus .icon {
+	transform: translateY(-3px);
+}
+
+.create-post__submit {
+	background-color: #5596e6;
+	border: 1px solid transparent;
+	border: none;
+	color: #fff;
+	font-family: inherit;
+	font-size: 16px;
+	padding: 5px 15px;
+	border-radius: 5px;
+	transition: background-color 0.3s ease;
+}
+
+.create-post__submit:disabled {
+	background-color: rgb(186, 235, 255);
+}
+
+</style>
+
+{# <section class="gallery2 cid-tueENDWKwP" > #}
 <div class="container">
        
 <div class="row mt-4">
-    <table class="show" >
-        <h1>Artwork</h1>
-        <tbody>
+     
+	<article class="post">
+		<img class="post__avatar" src="{{asset('uploads/images/userpdp/' ~  artwork.IdArtist.ImgUser) }}" alt="" />
+
+		<div class="post__content">
+			<header class="post__header">
+				<p class="post__user">{{ artwork.IdArtist.username }}</p>
+
+				<div class="post__meta">
+					<p class="post__reblogs">3,908</p>
+
+					<button class="post__header-btn">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ app.request.schemeAndHttpHost }}{{ path('app_artwork_show', {'id_artwork': artwork.getIdArtwork()}) }}"
+       target="_blank" rel="noopener noreferrer" >						<img src="https://raw.githubusercontent.com/Javieer57/create-post-component/43c8008a45b699957d2070cc23362f1953c65d78/icons/reblog-tumblr.svg" alt="" />
+</a>
+
+					</button>
+					<button class="post__header-btn">
+						<img src="https://raw.githubusercontent.com/Javieer57/create-post-component/43c8008a45b699957d2070cc23362f1953c65d78/icons/heart-tumblr.svg" alt="" />
+					</button>
+				</div>
+			</header>
+
+			<div class="post__body">
+				<img class="post__img" src="{{ asset('uploads/images/' ~ artwork.imgArtwork) }}" alt="" />
+				<a href="{{ artwork.lienArtwork }}" class="post__text">{{ artwork.nomArtwork }}</a>
+			</div>
+
+			<div class="post__footer">
+				<span>#{{ artwork.idtype.typesouscat }}</span>
+				{# <span>#{{ artwork.idtype.NomSousCat}}</span> #}
+			
+			</div>
+		</div>
+	</article>
+
+</section>
+<form method="post" action="{{path('commentnow',{'id_artwork': artwork.idartwork})}}">
+<div class="container">
+    <form>
+      <div class="form-group">
+      {# <input type="text" name="txtcom"></input> #}
+        <textarea name="txtcom" class="form-control status-box" rows="3" placeholder="Enter your comment here..."></textarea>
+      </div>
+    </form>
+    <div class="button-group pull-right">
+      {# <p class="counter">250</p> #}
+      <input class="btn btn-secondary display-4" type="submit" value="comment"></input>
+      {# <a href="#" >Post</a> #}
+    </div>
+    <ul class="posts">
+    </ul>
+  </div>
+{# <label>name: #}
+
+
+{# <input type="submit" value="comment"></input> #}
+
+</form>
+ {# <a href="{{ path('app_commentaire_new',{'id_artwork': artwork.idartwork}) }}">Write a comment</a> #}
+</div> 
+               
+
+{% for commentaire in commentaires %}
+            {% if commentaire.getIdArtwork().getIdArtwork() == artwork.getIdArtwork() %}
+                <hr>
+<div style="width : 250px" class="info">
+                    <div class="emoji_img comment_warpper">
+                        <img style="width : 50px;border-radius: 50%;"src="{{asset('uploads/images/userpdp/' ~  commentaire.idutil.ImgUser) }}"/>  
+                        
+                       {# <span>{{asset('uploads/images/userpdp' ~  users[0].getImgUser()) }}</span> #}
+                            <div >{{ commentaire.idutil.username }} : {{ commentaire.texte }}</div>
+                    </div>
+
+                    <div class="comment">
+                            <p style="">{{ commentaire.DatePost ? commentaire.DatePost|date('Y-m-d H:i:s') : '' }}</p>
+                    </div>
+<form method="post" action="{{ path('app_commentaire_delete', {'Id_com': commentaire.Idcom, 'id_artwork': artwork.getIdArtwork()}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+  <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ commentaire.Idcom) }}">
+    <button type="submit" class="btn btn-secondary display-4">Delete</button>
+</form>
+                </div>
+                 {# {% else %}
             <tr>
-                <th>Id_artwork</th>
-                <td>{{ artwork.idArtwork }}</td>
-            </tr>
-            <tr>
-                <th>Nom_artwork</th>
-                <td>{{ artwork.nomArtwork }}</td>
-            </tr>
-            <tr>
-                <th>Description_artwork</th>
-                <td>{{ artwork.descriptionArtwork }}</td>
-            </tr>
-            <tr>
-                <th>Prix_artwork</th>
-                <td>{{ artwork.prixArtwork }}</td>
-            </tr>
-            <tr>
-                <th>Date</th>
-                <td>{{ artwork.date ? artwork.date|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Lien_artwork</th>
-                <td>{{ artwork.lienArtwork }}</td>
-            </tr>
-            <tr>
-                <th>Dimension_artwork</th>
-                <td>{{ artwork.dimensionArtwork }}</td>
-            </tr>
-            <tr class ="show">
-                <th>Img_artwork</th>
-<img style="width : auto;height:auto;" src="{{ asset('uploads/images/' ~ artwork.imgArtwork) }}"  />                
-                {# {{ artwork.imgArtwork }} #}
-                </td>
-                
-            </tr>
-        </tbody>
-        
-    </table>
-    
-</div>
+                <td colspan="4"></td>
+            </tr> #}
+            {% endif %}
+
+        {% endfor %}
+
 <a href="{{ path('app_artwork_index') }}">back to list</a>
 
     <a href="{{ path('app_artwork_edit', {'id_artwork': artwork.idartwork}) }}">edit</a>
 
-    {{ include('artwork/_delete_form.html.twig') }}
+    {# {{ include('artwork/_delete_form.html.twig') }} #}
 </div>
     
     </section>
+{% endblock %}
+    {% block javascripts %}
+<script>
+var main = function() {
+  $('.btn').click(function() {
+    var post = $('.status-box').val();
+    $('<li>').text(post).prependTo('.posts');
+    $('.status-box').val('');
+    $('.counter').text('250');
+    $('.btn').addClass('disabled');
+  });
+  $('.status-box').keyup(function() {
+    var postLength = $(this).val().length;
+    var charactersLeft = 250 - postLength;
+    $('.counter').text(charactersLeft);
+    if (charactersLeft < 0) {
+      $('.btn').addClass('disabled');
+    } else if (charactersLeft === 250) {
+      $('.btn').addClass('disabled');
+    } else {
+      $('.btn').removeClass('disabled');
+    }
+  });
+}
+$('.btn').addClass('disabled');
+$(document).ready(main)
+</script>
+
 {% endblock %}

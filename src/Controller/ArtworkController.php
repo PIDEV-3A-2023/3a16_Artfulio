@@ -157,13 +157,14 @@ class ArtworkController extends AbstractController
     }
 
     #[Route('/{id_artwork}', name: 'app_artwork_show', methods: ['GET'])]
-    public function show(Artwork $artwork): Response
+    public function show(CommentaireRepository $commentaireRepository,Artwork $artwork): Response
     {
         return $this->render('artwork/show.html.twig', [
-            'artwork' => $artwork,
+            'commentaires' => $commentaireRepository->findAll(), 'artwork' => $artwork,
         ]);
         
     }
+    
     #[Route('/pdf',name:"pdf")]
     public function pdf(ArtworkRepository $artworkRepository)
     {
@@ -234,6 +235,20 @@ class ArtworkController extends AbstractController
         return $this->render('artwork/admin.html.twig',['artworks' => $student]);
     }
     
+    #[Route('/commentnow/{id_artwork}',name:"commentnow")]
+    function comment(ArtworkRepository $artworkRepository, CommentaireRepository $repo,request $request,$id_artwork,UserRepository $userRepository){
+        $text =$request->get("txtcom");
+        $commentaire = new Commentaire();
+        $commentaire->setIdArtwork($artworkRepository->find($id_artwork));
+        $commentaire->setTexte($text);
+        $commentaire->setIdUtil($userRepository->find(9));
+        $commentaire->setDatePost(new \DateTime('now'));
+        $repo->save($commentaire, true);
+        return $this->redirectToRoute('app_artwork_show', ['id_artwork' => $id_artwork], Response::HTTP_SEE_OTHER);
+
+        
+    }
+
     #[Route('/{id_artwork}/edit', name: 'app_artwork_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Artwork $artwork, ArtworkRepository $artworkRepository): Response
     {
