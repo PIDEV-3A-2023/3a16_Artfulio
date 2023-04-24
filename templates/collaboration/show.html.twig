@@ -1,25 +1,31 @@
 {% extends 'base.html.twig' %}
 
 {% block css %}
-<link rel="stylesheet" href="{{asset("assets/css/detail.css")}}">
+
+<link rel="stylesheet" href="{{asset("assets/css/show_collNyanga.css")}}">
    {% endblock %}
 
 
 {% block title %}Collaboration{% endblock %}
 
 {% block body %}
-<div class="container">
-    <h1>Collaboration</h1>
- <div class="row">
-    <div class="col text-center">
-    <table class="table">
-        <tbody>
+<div class"container">
+    {# ################################################################################################## #}
+   
+    {# ################################################################################################## #}
+</div>
+  <div class="container">
+            <h1>Collaboration</h1>
+    <div class="row">
+      <div class="col-8 text-center">
+        <table class="table">
+          <tbody>
             <tr>
                 <th>IdCollaboration</th>
                 <td>{{ collaboration.idCollaboration }}</td>
             </tr>
             <tr>
-                <th>TypeCollaboration</th>
+                 <th>TypeCollaboration</th>
                 <td>{{ collaboration.typeCollaboration }}</td>
             </tr>
             <tr>
@@ -35,70 +41,71 @@
                 <td>{{ collaboration.dateSortie ? collaboration.dateSortie|date('Y-m-d') : '' }}</td>
             </tr>
             <tr>
-                <th>Status</th>
-                <td>{{ collaboration.status }}</td>
-            </tr>
-            <tr>
-                <th>NomUser</th>
-                <td>{{ collaboration.nomUser }}</td>
-            </tr>
-            <tr>
-                <th>EmailUser</th>
-                <td>{{ collaboration.emailUser }}</td>
-            </tr>
-        </tbody>
-    </table>
+                    <th>Status</th>
+                    <td>{{ collaboration.status }}</td>
+                </tr>
+                <tr>
+                    <th>NomUser</th>
+                    <td>{{ collaboration.nomUser }}</td>
+                </tr>
+                <tr>
+                    <th>EmailUser</th>
+                    <td>{{ collaboration.emailUser }}</td>
+                </tr>
+          </tbody>
+        </table>
 
+            
+      </div>
+          <div class="col-4">
+                <h2> classement par type </h2>
+                {# {{ dump() }} #}
+            <div>
+              <canvas id="myChart"></canvas>
+          </div>
+      </div>
+    </div>
     <a href="{{ path('app_collaboration_index') }}">back to list</a>
 
-    <a href="{{ path('app_collaboration_edit', {'idCollaboration': collaboration.idCollaboration}) }}">edit</a>
 
-    {{ include('collaboration/_delete_form.html.twig') }}
-    </div>
-    </div>
-    </div>
+            <a href="{{ path('app_collaboration_edit', {'idCollaboration': collaboration.idCollaboration}) }}">edit</a>
 
-    {# ################################################################################################## #}
-<h2>Frequently Asked Questions</h2>
+            {{ include('collaboration/_delete_form.html.twig') }}
+  </div>
 
-<div style="visibility: hidden; position: absolute; width: 0px; height: 0px;">
-  <svg xmlns="http://www.w3.org/2000/svg">
-    <symbol viewBox="0 0 24 24" id="expand-more">
-      <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/><path d="M0 0h24v24H0z" fill="none"/>
-    </symbol>
-    <symbol viewBox="0 0 24 24" id="close">
-      <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/>
-    </symbol>
-  </svg>
-</div>
 
-<details open>
-  <summary>
-    Does this product have what I need?
-    <svg class="control-icon control-icon-expand" width="24" height="24" role="presentation"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#expand-more" /></svg>
-    <svg class="control-icon control-icon-close" width="24" height="24" role="presentation"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close" /></svg>
-  </summary>
-  <p>Totally. Totally does.</p>
-</details>
+{% endblock %}
 
-<details>
 
-  <summary>
-    Can I use it all the time?
-    <svg class="control-icon control-icon-expand" width="24" height="24" role="presentation"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#expand-more" /></svg>
-    <svg class="control-icon control-icon-close" width="24" height="24" role="presentation"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close" /></svg>
-  </summary>
-  <p>Of course you can, we won't stop you.</p>
-</details>
 
-<details>
-  <summary>
-    Are there any restrictions?    
-    <svg class="control-icon control-icon-expand" width="24" height="24" role="presentation"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#expand-more" /></svg>
-    <svg class="control-icon control-icon-close" width="24" height="24" role="presentation"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close" /></svg>
-  </summary>
-  <p>Only your imagination my friend. Go forth!</p>
-</details>
 
-    {# ################################################################################################## #}
+
+
+
+
+{% block javascript %}
+
+
+  <script src="{{asset("assets/js/show_collab.js")}}"></script> 
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+  const ctx = document.getElementById('myChart');
+
+  new Chart(ctx, {
+    
+    type: 'pie',
+    data: {
+      labels: {{ type | raw }},
+      datasets: [{
+        label: '# of Votes',
+        data: {{ nombre | raw }},
+        backgroundColor: ['red','yello','purple','green','orange','pink'],
+        borderWidth: 1
+      }]
+    },
+  });
+  </script> 
+
+
 {% endblock %}

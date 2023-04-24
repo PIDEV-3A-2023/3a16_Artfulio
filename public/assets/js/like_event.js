@@ -1,8 +1,8 @@
 
 //on cree une fonction pour gérer le click sur nos lien
-function onClickBtnLike(event){
+function onClickBtnLike(evenement){
     //on annule le caractere par défaut qui est d'aller sur une autre page
-    event.preventDefault();
+    evenement.preventDefault();
 
     //on recupere le lien ou on a cliqué
     const url = this.href;
@@ -37,7 +37,7 @@ function onClickBtnLike(event){
 
 
 //on selectionne tout les a.js-like de la page
-document.querySelectorAll('a.js-participe').forEach(function(link){
+document.querySelectorAll('a.js-like').forEach(function(link){
     //on parcour tout ce de type link
     link.addEventListener('click', onClickBtnLike)
 })

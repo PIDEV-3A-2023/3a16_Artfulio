@@ -7,12 +7,14 @@ use App\Form\CollaborationType;
 use Symfony\Component\Mime\Email;
 use App\Entity\ArtisteCollaboration;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Service\FonctionsUtils;
 
 #[Route('/collaboration')]
 class CollaborationController extends AbstractController
@@ -84,10 +86,26 @@ class CollaborationController extends AbstractController
     }
 
     #[Route('/{idCollaboration}', name: 'app_collaboration_show', methods: ['GET'])]
-    public function detail(Collaboration $collaboration): Response
+    public function detail(Collaboration $collaboration, ManagerRegistry $manager): Response
     {
+
+        $repo = $manager->getRepository(Collaboration::class);
+        $collaborations = $repo->findAll();
+
+        //****************** recup d'info pour le chart ******************************************* */
+        $dataTypeColChart = FonctionsUtils::comptageColParType($collaborations);
+
+        $typeCol = [];
+        $nbreCollab = [];
+        foreach ($dataTypeColChart as $cle => $valeur) {
+            $typeCol[] = $cle;
+            $nbreCollab[] = $valeur;
+        }
+        //****************** ************************* ******************************************* */
         return $this->render('collaboration/show.html.twig', [
             'collaboration' => $collaboration,
+            "type" => json_encode($typeCol),
+            'nombre' => json_encode($nbreCollab)
         ]);
     }
 

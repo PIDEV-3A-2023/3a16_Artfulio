@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Evenement
@@ -28,6 +29,8 @@ class Evenement
      * @var string|null
      *
      * @ORM\Column(name="titre", type="string", length=255, nullable=true)
+     * @Assert\NotBlank(message= "veuillez renseigner ce champs")
+     * @Assert\Length(min= 3, minMessage= "le titre doit avoir plus de 3 caracteres")
      */
     private $titre;
 
@@ -35,6 +38,7 @@ class Evenement
      * @var string|null
      *
      * @ORM\Column(name="type", type="string", length=100, nullable=true)
+     * @Assert\NotBlank(message= "veuillez renseigner ce champs")
      */
     private $type;
 
@@ -42,6 +46,8 @@ class Evenement
      * @var string|null
      *
      * @ORM\Column(name="description", type="text", length=0, nullable=true)
+     * @Assert\NotBlank(message= "veuillez renseigner ce champs")
+     * @Assert\Length(min= 7, minMessage= "la description doit avoir plus de 7 caracteres")
      */
     private $description;
 
@@ -49,6 +55,8 @@ class Evenement
      * @var \DateTime|null
      *
      * @ORM\Column(name="date_debut", type="date", nullable=true)
+     * @Assert\NotBlank(message= "veuillez renseigner ce champs")
+     * @Assert\LessThan(propertyPath="dateFin", message="La date de début doit être inférieure à la date de fin.")
      */
     private $dateDebut;
 
@@ -56,6 +64,8 @@ class Evenement
      * @var \DateTime|null
      *
      * @ORM\Column(name="date_fin", type="date", nullable=true)
+     * @Assert\NotBlank(message= "veuillez renseigner ce champs")
+     * @Assert\GreaterThan(propertyPath="dateDebut", message="La date de fin doit être supérieure à la date de début.")
      */
     private $dateFin;
 
@@ -89,6 +99,8 @@ class Evenement
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\EventLike", mappedBy="evenement")
+     * @Assert\NotBlank(message= "veuillez renseigner ce champs")
+     * @Assert\Length(min= 2, minMessage= "l'adresse' avoir plus de 2 caracteres")
      */
     private $likes;
 

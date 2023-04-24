@@ -78,7 +78,7 @@ function getCity(){
                 let pos = [lat, lon]
                 addMarker(pos)
 
-                map.setView(pos, 15)
+                map.setView(pos, 13)
 
             }
         }

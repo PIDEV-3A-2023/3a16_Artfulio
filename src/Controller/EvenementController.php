@@ -98,8 +98,12 @@ class EvenementController extends AbstractController
     #[Route('/adresse/{id}', name: 'app_evenement_adresse', methods: ['GET', 'POST'])]
     public function adresse(Evenement $evenement = null): Response
     {
+        echo $evenement->getLongitude();
         return $this->render('evenement/mapAdresse.html.twig', [
             'evenement' => $evenement,
+            'lon' => json_encode($evenement->getLongitude()),
+            'lat' => json_encode($evenement->getLatitude()),
+
         ]);
     }
 
