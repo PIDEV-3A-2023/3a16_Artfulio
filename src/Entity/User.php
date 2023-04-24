@@ -15,7 +15,7 @@ class User
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id= null;
+    private ?int $id_user= null;
 
 
 
@@ -99,7 +99,7 @@ class User
 
     public function getId(): ?int
     {
-        return $this->id;
+        return $this->id_user;
     }
 
     public function getUsername(): ?string

@@ -20,6 +20,15 @@ class UserController extends AbstractController
             'users' => $userRepository->findAll(),
         ]);
     }
+//admin vue//
+#[Route('/admin', name: 'app_admin')]
+public function admin(UserRepository $userRepository): Response
+{
+  
+    return $this->render('user/admin.html.twig', [
+        'users' => $userRepository->findAll(),  ]);
+}
+
 
     #[Route('/new', name: 'app_user_new', methods: ['GET', 'POST'])]
     public function new(Request $request, UserRepository $userRepository): Response

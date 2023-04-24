@@ -9,6 +9,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Validator\Constraints\File;
+use Doctrine\ORM\EntityRepository;
+
 
 
 
@@ -30,7 +33,17 @@ class UserType extends AbstractType
                     ]
             ])
             ->add('img_user', FileType::class, [
-                'required' => true,
+                'data_class' => null,
+                'constraints' => [
+                    new File([
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                            'image/gif',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid image file (JPEG, PNG, GIF).',
+                        ])
+                ]
             ])
         ;
     }
