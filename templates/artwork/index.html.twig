@@ -431,12 +431,19 @@ input[type=radio]:checked {
   <input type="radio" name="slider" id="s3">
   <input type="radio" name="slider" id="s4">
   <input type="radio" name="slider" id="s5">
+{% for artwork in artworks %}
+  <label for="s{{ loop.index }}" id="slide{{ loop.index }}">
+    <div >
+      <img src="{{ asset('uploads/images/' ~ artwork.imgArtwork) }}" alt="">
+      <div style="position: absolute; bottom: 0; left: 0; width: 100%; background-image: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0)); padding: 10px; color: white; text-transform: capitalize; font-weight: bold;">{{ artwork.nomArtwork }} By :{{ artwork.IdArtist.username }}</div>
+    </div>
+  </label>
+{% endfor %}
 
-  <label for="s1" id="slide1"><img src="https://i.pinimg.com/originals/2b/de/de/2bdede0647e3cdf75b44ea33723201d9.jpg" alt=""></label>
-  <label for="s2" id="slide2"><img src="https://images6.alphacoders.com/462/thumb-1920-462371.jpg" alt=""></label>
+  {# <label for="s2" id="slide2"><img src="https://images6.alphacoders.com/462/thumb-1920-462371.jpg" alt=""></label>
   <label for="s3" id="slide3"><img src="https://wallpaperaccess.com/full/1154341.jpg" alt=""></label>
   <label for="s4" id="slide4"><img src="https://wallpapercave.com/wp/wp2634222.jpg" alt=""></label>
-  <label for="s5" id="slide5"><img src="https://images5.alphacoders.com/343/thumb-1920-343645.jpg" alt=""></label>
+  <label for="s5" id="slide5"><img src="https://images5.alphacoders.com/343/thumb-1920-343645.jpg" alt=""></label> #}
 </section>
 
 <section data-bs-version="5.1" class="slider2 cid-tue4YqiKkn" id="slider2-4">
