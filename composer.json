@@ -14,7 +14,9 @@
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.14",
         "dompdf/dompdf": "^2.0",
+        
         "endroid/qr-code-bundle": "^4.3",
+        "endroid/qrcode": "^4.8",
         "knplabs/knp-paginator-bundle": "^5.9",
         "knplabs/knp-snappy-bundle": "^1.9",
         "phpdocumentor/reflection-docblock": "^5.3",
@@ -68,6 +70,7 @@
             "App\\": "src/"
         }
     },
+    
     "autoload-dev": {
         "psr-4": {
             "App\\Tests\\": "tests/"
@@ -107,6 +110,9 @@
         "symfony/maker-bundle": "^1.0",
         "symfony/phpunit-bridge": "^6.2",
         "symfony/stopwatch": "5.4.*",
-        "symfony/web-profiler-bundle": "5.4.*"
+        "symfony/web-profiler-bundle": "5.4.*",
+        "endroid/qrcode": "^3.0",
+    "khanamiryan/qrcode-detector-decoder": "^1.0.6",
+    "php-qr-code/php-qr-code": "^2.2 || ^2.6"
     }
 }

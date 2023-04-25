@@ -62,7 +62,28 @@
                 </div>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav nav-dropdown" data-app-modern-menu="true"><li class="nav-item"><a class="nav-link link text-black display-4" href="{{ path('app_artwork_new') }}"><span class="mbri-image-slider mbr-iconfont mbr-iconfont-btn"></span>Post</a></li><li class="nav-item"><a class="nav-link link text-black display-4" href="{{ path('app_artwork_index') }}"><span class="mbri-image-slider mbr-iconfont mbr-iconfont-btn"></span>Image</a></li>
+                <ul class="navbar-nav nav-dropdown" data-app-modern-menu="true">
+                <li class="nav-item"><form class="nav-link  display-4"method="post" action="{{path('commentnow',{'id_artwork': artwork.idartwork})}}">
+<div class="container">
+    <form>
+      <div class="form-group">
+        <textarea style=" display: block;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border: none;
+  resize: none;
+  outline: none;
+  background-color: transparent;"name="txtcom"  placeholder="Search..."></textarea>
+  
+      </div>
+    </form></li>
+                <li class="nav-item"><a class="nav-link link text-black display-4" href="{{ path('app_artwork_new') }}"><span class="mbri-image-slider mbr-iconfont mbr-iconfont-btn"></span>Post</a></li><li class="nav-item"><a class="nav-link link text-black display-4" href="{{ path('app_artwork_index') }}"><span class="mbri-image-slider mbr-iconfont mbr-iconfont-btn"></span>Image</a></li>
+                                    
+                                    
+
                     <li class="nav-item"><a class="nav-link link text-black display-4" href="{{ path('app_artwork_video') }}"><span class="mbri-video-play mbr-iconfont mbr-iconfont-btn"></span>Video</a></li><li class="nav-item"><a class="nav-link link text-black display-4" href="{{ path('app_artwork_music') }}"><span class="mbri-music mbr-iconfont mbr-iconfont-btn"></span>Musique</a></li>
                     <li class="nav-item"><a class="nav-link link text-black display-4" href="page4.html"><span class="mbri-shopping-cart mbr-iconfont mbr-iconfont-btn"></span>Shop</a>
                     </li></ul>

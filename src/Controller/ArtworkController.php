@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Artwork;
 use App\Entity\Commentaire;
+use Endroid\QrCode\Factory\QrCodeFactory;
 
 use App\Form\ArtworkType;
 use Dompdf\Dompdf;
@@ -164,6 +165,33 @@ class ArtworkController extends AbstractController
         ]);
         
     }
+
+//     #[Route('/generateqrcode/{id_artwork}', name: 'app_artwork_generate_qr_code', methods: ['GET'])]
+// public function generateQrCode(Request $request,$id_artwork): Response
+// {
+//     // Retrieve the entity manager of Doctrine
+//     $em = $this->getDoctrine()->getManager();
+
+//     // Get the artwork entity based on the ID passed in the request
+//     $artwork = $em->getRepository(Artwork::class)->find($id_artwork);
+
+//     // If no artwork found, return a 404 response
+//     if (!$artwork) {
+//         throw $this->createNotFoundException('Artwork not found');
+//     }
+
+//     // Create a QR code from the artwork lienartwork field
+//     $qrCodeFactory = new QrCodeFactory();
+//     $qrCode = $qrCodeFactory->create($artwork->getLienartwork());
+
+//     // Generate the QR code image and save it in the public/qr directory
+//     $qrCodeGenerator = $this->get('endroid.qrcode.generator');
+//     $qrCodeGenerator->generate($qrCode, ['extension' => 'png', 'size' => 300], 'public/qr/'.$artwork->getIdartwork().'.png');
+
+//     // Redirect back to the artwork details page
+//     return $this->redirectToRoute('app_artwork_show', ['id' => $artwork->getId()]);
+// }
+
     
     #[Route('/pdf',name:"pdf")]
     public function pdf(ArtworkRepository $artworkRepository)
@@ -244,7 +272,7 @@ class ArtworkController extends AbstractController
         $commentaire->setIdUtil($userRepository->find(9));
         $commentaire->setDatePost(new \DateTime('now'));
         $repo->save($commentaire, true);
-        return $this->redirectToRoute('app_artwork_show', ['id_artwork' => $id_artwork], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_artwork_show', ['id' => $id_artwork], Response::HTTP_SEE_OTHER);
 
         
     }

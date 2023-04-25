@@ -81,6 +81,6 @@ class CommentaireController extends AbstractController
             $commentaireRepository->remove($commentaire, true);
         }
 
-        return $this->redirectToRoute('app_artwork_show', ['id_artwork' => $id_artwork], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_artwork_show', ['id' => $id_artwork], Response::HTTP_SEE_OTHER);
     }
 }

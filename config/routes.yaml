@@ -1,3 +1,12 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+app_artwork_show:
+    path: /artworks/{id}
+    controller: App\Controller\ArtworkController::show
+    requirements:
+        id: '\d+'
+
+generate_qr_code:
+    path: /generate-qr-code
+    controller: App\Controller\ArtworkController::generateQrCode
