@@ -284,7 +284,15 @@ class ArtworkController extends AbstractController
         return $this->render('artwork/admin.html.twig',['artworks' => $student]);
     
     }
-    
+    #[Route('/searchf',name:"searchf")]
+    function searchf(ArtworkRepository $repo,request $request){
+        $email=$request->get("txtcom");
+        $student=$repo->findByname($email);
+        if (count($student) === 0) {
+            return $this->render('artwork/not_found.html.twig');
+        }
+        return $this->render('artwork/search.html.twig',['artworks' => $student]);
+    }
     #[Route('/search',name:"search")]
     function search(ArtworkRepository $repo,request $request){
         $email=$request->get("mail");
