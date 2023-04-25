@@ -10,3 +10,8 @@ app_artwork_show:
 generate_qr_code:
     path: /generate-qr-code
     controller: App\Controller\ArtworkController::generateQrCode
+  
+artwork_like:
+  path: '/artworks/{id}/like'
+  controller: 'App\Controller\ArtworkController::like'
+  methods: ['POST']

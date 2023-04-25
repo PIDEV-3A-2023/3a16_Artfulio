@@ -374,17 +374,19 @@ https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas/ */
 				<p style="text-transform: capitalize;" class="post__user">{{ artwork.IdArtist.username }}</p>
 
 				<div class="post__meta">
-					<p class="post__reblogs">3,908</p>
+					<p class="post__reblogs">{{artwork.likesCount}}</p>
 
 					<button class="post__header-btn">
                     <a href="https://www.facebook.com/sharer/sharer.php?u={{ app.request.schemeAndHttpHost }}{{ path('app_artwork_show', {'id': artwork.getIdArtwork()}) }}"
        target="_blank" rel="noopener noreferrer" >						<img src="https://raw.githubusercontent.com/Javieer57/create-post-component/43c8008a45b699957d2070cc23362f1953c65d78/icons/reblog-tumblr.svg" alt="" />
 </a>
-
-					</button>
+<form method="post" action="{{path('like',{'id_artwork': artwork.idartwork})}}">
 					<button class="post__header-btn">
+
 						<img src="https://raw.githubusercontent.com/Javieer57/create-post-component/43c8008a45b699957d2070cc23362f1953c65d78/icons/heart-tumblr.svg" alt="" />
+					</form>
 					</button>
+					
 				</div>
 			</header>
 

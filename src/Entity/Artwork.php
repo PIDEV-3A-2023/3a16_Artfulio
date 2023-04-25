@@ -38,6 +38,11 @@ class Artwork
     #[ORM\Column]
     #[Assert\NotBlank(message:"dimension peut pas etre vide")]
     private ?int $dimension_artwork = null;
+    #[ORM\Column]
+    private ?int  $likesCount = 0;
+
+    
+
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message:"image peut pas etre vide")]
     private ?string $img_artwork = null;
@@ -64,7 +69,19 @@ class Artwork
     // private ?SousCat $id_type  = null;
     
 
+    
 
+    public function getLikesCount(): int
+    {
+        return $this->likesCount;
+    }
+
+    public function setLikesCount(int $likesCount): self
+    {
+        $this->likesCount = $likesCount;
+
+        return $this;
+    }
 
 
     public function getIdArtwork(): ?int

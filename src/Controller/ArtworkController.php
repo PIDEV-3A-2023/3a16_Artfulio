@@ -56,6 +56,35 @@ class ArtworkController extends AbstractController
         ]);
 
     }
+    #[Route('/like/{id_artwork}', name: 'like', methods: ['POST'])]
+
+    public function likes(Request $request, Artwork $artwork)
+    {
+        $likesCount = $artwork->getLikesCount();
+        $likesCount++;
+        $artwork->setLikesCount($likesCount);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($artwork);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_artwork_show', ['id' => $artwork->getidartwork()], Response::HTTP_SEE_OTHER);
+    }
+    #[Route('/artworks/{id}/like', name: 'artwork_like', methods: ['POST'])]
+
+    public function like(Request $request, Artwork $artwork): JsonResponse
+    {
+        $likesCount = $artwork->getLikesCount();
+        $likesCount++;
+        $artwork->setLikesCount($likesCount);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($artwork);
+        $entityManager->flush();
+
+        return new JsonResponse(['likesCount' => $likesCount]);
+    }
+
     
     #[Route('/music', name: 'app_artwork_music', methods: ['GET'])]
     public function music(Request $request,ArtworkRepository $artworkRepository,CommentaireRepository $commentaireRepository,PaginatorInterface $paginator): Response
