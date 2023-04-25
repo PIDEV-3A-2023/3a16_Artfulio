@@ -290,6 +290,31 @@ https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas/ */
 .create-post__submit:disabled {
 	background-color: rgb(186, 235, 255);
 }
+.img {
+  --g: 2px;     /* the gap */
+  --b: 4px;    /* border thickness*/
+  --c: #669706; /* the color */
+  
+  
+  padding: calc(var(--g) + var(--b));
+  --_c: #0000 0 25%, var(--c) 0 50%;
+  --_g1: repeating-linear-gradient(90deg ,var(--_c)) repeat-x;
+  --_g2: repeating-linear-gradient(180deg,var(--_c)) repeat-y;
+  background:
+    var(--_g1) var(--_p, 25%) 0   ,var(--_g2) 0    var(--_p,125%),
+    var(--_g1) var(--_p,125%) 100%,var(--_g2) 100% var(--_p, 25%);
+  background-size: 200% var(--b),var(--b) 200%;
+  cursor: pointer;
+  filter: grayscale(50%);
+  transition: .3s;
+}
+.img:hover {
+  --_p: 75%;
+  filter: grayscale(0%);
+  
+}
+
+
 
 </style>
 <section data-bs-version="5.1" class="slider2 cid-tue4YqiKkn" id="slider2-4">
@@ -364,10 +389,10 @@ https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas/ */
             <br><br>
     {% for artwork in paginator %}
     
-	<article class="post">
+	<article class="img  post">
                                          <a href="{{ path('app_profile_index', {'id': artwork.IdArtist.id}) }}">
 
-		<img class="post__avatar" src="{{asset('uploads/images/userpdp/' ~  artwork.IdArtist.ImgUser) }}" alt="" />
+		<img style="--c: #b8236e ;"class=" img post__avatar" src="{{asset('uploads/images/userpdp/' ~  artwork.IdArtist.ImgUser) }}" alt="" />
 </a>
 		<div class="post__content">
 			<header class="post__header">
@@ -392,7 +417,7 @@ https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas/ */
 
 			<div class="post__body">
             <a href="{{ path('app_artwork_show', {'id': artwork.getIdArtwork()}) }}">
-				<img class="post__img" src="{{ asset('uploads/images/' ~ artwork.imgArtwork) }}" alt="" /></a>
+				<img style="--c: #b8236e ;"class=" img post__img" src="{{ asset('uploads/images/' ~ artwork.imgArtwork) }}" alt="" /></a>
 				<a href="{{ artwork.lienArtwork }}" style="font-size:40px;text-transform: capitalize;" class="post__text"><strong>{{ artwork.nomArtwork }}</strong></a>
                 
 			</div>

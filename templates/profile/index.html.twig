@@ -23,6 +23,29 @@
        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
  #}
 <style>
+.img {
+  --b: 5px;  /* the border thickness */
+  --d: 20px; /* the distance from the edge */
+  --o: 15px; /* the offset on hover */
+  --s: 1;    /* the direction of the hover effect (+1 or -1)*/
+  
+  --_d: calc(var(--d) + var(--s)*1em);
+  --_g: calc(100% - 2*(var(--_d) + var(--b)));
+  --_m:
+    conic-gradient(from 90deg at var(--_d) var(--_d),#0000 25%,#000 0)
+     0 0/calc(100% - var(--_d)) calc(100% - var(--_d)),
+    linear-gradient(#000 0 0) 50%/var(--_g) var(--_g) no-repeat;
+  -webkit-mask: var(--_m);
+          mask: var(--_m);
+  font-size: 0;
+  cursor: pointer;
+  transition: .35s;
+}
+.img:hover {
+  font-size: var(--o);
+}
+
+
 </style>
   
  
@@ -39,7 +62,7 @@
             <div class="card-wrapper">
                 <div class="row align-items-center">
                     <div class="col-12 col-md-3">
-                        <div class="image-wrapper">
+                        <div class="img image-wrapper">
                             <img src="{{asset('uploads/images/userpdp/' ~  users.ImgUser) }}" alt="Mobirise Website Builder">
                         </div>
                     </div>
