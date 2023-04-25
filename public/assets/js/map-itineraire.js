@@ -2,7 +2,7 @@ var map ;
 
  // On charge les "tuiles"
  window.onload = () =>{
-    map = L.map('map').setView([51.505, -0.09], 13);
+    map = L.map('map').setView([36.866537, 10.164723], 13);
     L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
     // Il est toujours bien de laisser le lien vers la source des données
     attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',
@@ -12,7 +12,6 @@ var map ;
     //activation de l'itineraire
     L.Routing.control({
         geocoder: L.Control.Geocoder.nominatim()
-
     }).addTo(map)
 
  }

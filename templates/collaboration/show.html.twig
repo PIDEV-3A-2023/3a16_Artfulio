@@ -2,7 +2,8 @@
 
 {% block css %}
 
-<link rel="stylesheet" href="{{asset("assets/css/show_collNyanga.css")}}">
+ <link rel="stylesheet" href="{{asset("assets/css/show_col_event.css")}}">
+ <link rel="stylesheet" href="{{asset("assets/css/button_anime.css")}}">
    {% endblock %}
 
 
@@ -11,67 +12,204 @@
 {% block body %}
 <div class"container">
     {# ################################################################################################## #}
-   
-    {# ################################################################################################## #}
-</div>
-  <div class="container">
-            <h1>Collaboration</h1>
-    <div class="row">
-      <div class="col-8 text-center">
-        <table class="table">
-          <tbody>
-            <tr>
-                <th>IdCollaboration</th>
-                <td>{{ collaboration.idCollaboration }}</td>
-            </tr>
-            <tr>
-                 <th>TypeCollaboration</th>
-                <td>{{ collaboration.typeCollaboration }}</td>
-            </tr>
-            <tr>
-                <th>Titre</th>
-                <td>{{ collaboration.titre }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ collaboration.description }}</td>
-            </tr>
-            <tr>
-                <th>DateSortie</th>
-                <td>{{ collaboration.dateSortie ? collaboration.dateSortie|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                    <th>Status</th>
-                    <td>{{ collaboration.status }}</td>
-                </tr>
-                <tr>
-                    <th>NomUser</th>
-                    <td>{{ collaboration.nomUser }}</td>
-                </tr>
-                <tr>
-                    <th>EmailUser</th>
-                    <td>{{ collaboration.emailUser }}</td>
-                </tr>
-          </tbody>
-        </table>
-
             
-      </div>
-          <div class="col-4">
-                <h2> classement par type </h2>
-                {# {{ dump() }} #}
-            <div>
-              <canvas id="myChart"></canvas>
-          </div>
-      </div>
+           
+        
+    {# ################################################################################################## #}
     </div>
-    <a href="{{ path('app_collaboration_index') }}">back to list</a>
+      <div class="container">
+                <h1></h1>
+        <div class="row">
+          <div class="col-8 text-center">
+    
+
+              {######################################################################################}  
+                <h2>collaboration</h2>
+                <div class="timeline"> 
+                  <div class="timeline__event  animated fadeInUp delay-3s timeline__event--type1">
+                    <div class="timeline__event__icon ">
+                      <i class="lni-cake"></i>
+
+                    </div>
+                    <div class="timeline__event__date">
+                      Titre
+                    </div>
+                    <div class="timeline__event__content ">
+                      <div class="timeline__event__title">
+                        Titre
+                      </div>
+                      <div class="timeline__event__description">
+                            {{ collaboration.titre }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="timeline__event animated fadeInUp delay-2s timeline__event--type2">
+                    <div class="timeline__event__icon">
+                      <i class="lni-burger"></i>
+
+                    </div>
+                    <div class="timeline__event__date">
+                      Type
+                    </div>
+                    <div class="timeline__event__content">
+                      <div class="timeline__event__title">
+                        Type de collaboration
+                      </div>
+                      <div class="timeline__event__description">
+                        {{ collaboration.typeCollaboration }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="timeline__event animated fadeInUp delay-1s timeline__event--type3">
+                    <div class="timeline__event__icon">
+                      <i class="lni-slim"></i>
+
+                    </div>
+                    <div class="timeline__event__date">
+                      Description
+                    </div>
+                    <div class="timeline__event__content">
+                      <div class="timeline__event__title">
+                        A propos
+                      </div>
+                      <div class="timeline__event__description">
+                {{ collaboration.description }}
+                      </div>
+
+                    </div>
+                  </div>
+                  <div class="timeline__event animated fadeInUp timeline__event--type1">
+                    <div class="timeline__event__icon">
+                      <i class="lni-cake"></i>
+
+                    </div>
+                    <div class="timeline__event__date">
+                      status
+                    </div>
+                    <div class="timeline__event__content">
+                      <div class="timeline__event__title">
+                        status
+                      </div>
+                      <div class="timeline__event__description">
+                      
+                              {{ collaboration.status }}
+                            </div>
+                    </div>
+                  </div>
+                    <div class="timeline__event animated fadeInUp delay-2s timeline__event--type2">
+                    <div class="timeline__event__icon">
+                      <i class="lni-burger"></i>
+
+                    </div>
+                    <div class="timeline__event__date">
+                      Date de fin
+                    </div>
+                    <div class="timeline__event__content">
+                      <div class="timeline__event__title">
+                        ça s'achève le
+                      </div>
+                      <div class="timeline__event__description">
+                      {# {{ evenement.dateDebut|localizeddate('full', 'none', null, null, 'fr') }} #}
+                            {{ collaboration.dateSortie ? collaboration.dateSortie|date('l j F Y') : '' }} à {{ collaboration.dateSortie ? collaboration.dateSortie|date('H:i') : '' }} 
+                      </div>
+                    </div>
+                  </div>
+                    <div class="timeline__event animated fadeInUp delay-1s timeline__event--type3">
+                    <div class="timeline__event__icon">
+                      <i class="lni-slim"></i>
+
+                    </div>
+                    <div class="timeline__event__date">
+                      Nom
+                    </div>
+                    <div class="timeline__event__content">
+                      <div class="timeline__event__title">
+                        nom collaborateur
+                      </div>
+                      <div class="timeline__event__description">
+
+                          {{ collaboration.nomUser }}
+                            
+                      </div>
+
+                    </div>
+                  </div>
+                  <div class="timeline__event animated fadeInUp timeline__event--type1">
+                    <div class="timeline__event__icon">
+                      <i class="lni-cake"></i>
+
+                    </div>
+                    <div class="timeline__event__date">
+                      email
+                    </div>
+                    <div class="timeline__event__content">
+                      <div class="timeline__event__title">
+                        email
+                      </div>
+                      <div class="timeline__event__description">
+                                
+                          {{ collaboration.emailUser }} 
 
 
-            <a href="{{ path('app_collaboration_edit', {'idCollaboration': collaboration.idCollaboration}) }}">edit</a>
+                          {#{{ evenement.image }}   #}   
+                            </div>
+                    </div>
+                  </div>
+                </div>
 
-            {{ include('collaboration/_delete_form.html.twig') }}
-  </div>
+
+              {######################################################################################}  
+          </div>
+              <div class="col-4">
+                    <h2> classement par type </h2>
+                    {# {{ dump() }} #}
+                <div>
+                  <canvas id="myChart"></canvas>
+              </div>
+               <p>
+              .            . </p>
+             <div class="rounded" style="background-image: url('{{ asset('uploads/collaboration/back-show.jpg') }}'); background-repeat: no-repeat; background-size: cover;">
+             <p>
+              .            . </p>
+             <p>
+              .            . </p>
+             <p>
+              .            . </p>
+             <p>
+              .            . </p>
+             <p>
+              .            . </p>
+             <p>
+              .            . </p>
+             <p>
+              .            . </p>
+             <p>
+              .            . </p>
+             <p>
+              .            . </p>
+             <p>
+              .            . </p>
+             <p>
+              .            . </p>
+             <p>
+              .            . </p>
+             <p>
+              .            . </p>
+             <p>
+              .            . </p>
+             
+             </div>
+              
+          </div>
+        </div>
+ 
+
+    <button class="custom-btn btn-7"><a href="{{ path('app_collaboration_index') }}"><span class="sp"> retour </span> </a></button> 
+    <button class="custom-btn btn-7"><a href="{{ path('app_collaboration_edit', {'idCollaboration': collaboration.idCollaboration}) }}"><span class="sp"> editer </span> </a></button> 
+
+
+                {{ include('collaboration/_delete_form.html.twig') }}
+      </div>
 
 
 {% endblock %}
@@ -100,7 +238,7 @@
       datasets: [{
         label: '# of Votes',
         data: {{ nombre | raw }},
-        backgroundColor: ['red','yello','purple','green','orange','pink'],
+        backgroundColor: ["#90EE90","#FFD700","#BA55D3","#41D1CC","#FF7F50","#DB7093"],
         borderWidth: 1
       }]
     },

@@ -6,159 +6,209 @@
 {% block css %} 
  <link rel="stylesheet" href="{{asset("assets/css/show_col_event.css")}}">
 
+   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+     integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+     crossorigin=""/>
+   <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+   <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+
+<link rel="stylesheet" href="{{asset("assets/css/map-event.css")}}">
+<link rel="stylesheet" href="{{asset("assets/css/button_anime.css")}}">
+
 {% endblock %}
 
 {% block body %}
-    <h1>Evenement</h1>
+<div class="container">
+                <h1>Evenement</h1>
+            
+  <div class="row">
+    <div class="col-8">
+                
+
+
+                {#*********************************************************************************#}
+
+                <h2>A clean timeline design, with animated links</h2>
+            <div class="timeline"> 
+              <div class="timeline__event  animated fadeInUp delay-3s timeline__event--type1">
+                <div class="timeline__event__icon ">
+                  <i class="lni-cake"></i>
+
+                </div>
+                <div class="timeline__event__date">
+                  Titre
+                </div>
+                <div class="timeline__event__content ">
+                  <div class="timeline__event__title">
+                    Birthday
+                  </div>
+                  <div class="timeline__event__description">
+                        {{ evenement.titre }}
+                  </div>
+                </div>
+              </div>
+              <div class="timeline__event animated fadeInUp delay-2s timeline__event--type2">
+                <div class="timeline__event__icon">
+                  <i class="lni-burger"></i>
+
+                </div>
+                <div class="timeline__event__date">
+                  Type
+                </div>
+                <div class="timeline__event__content">
+                  <div class="timeline__event__title">
+                    Type d'evenement
+                  </div>
+                  <div class="timeline__event__description">
+                    {{ evenement.type }}
+                  </div>
+                </div>
+              </div>
+              <div class="timeline__event animated fadeInUp delay-1s timeline__event--type3">
+                <div class="timeline__event__icon">
+                  <i class="lni-slim"></i>
+
+                </div>
+                <div class="timeline__event__date">
+                  Description
+                </div>
+                <div class="timeline__event__content">
+                  <div class="timeline__event__title">
+                    A propos
+                  </div>
+                  <div class="timeline__event__description">
+            {{ evenement.description }}
+                  </div>
+
+                </div>
+              </div>
+              <div class="timeline__event animated fadeInUp timeline__event--type1">
+                <div class="timeline__event__icon">
+                  <i class="lni-cake"></i>
+
+                </div>
+                <div class="timeline__event__date">
+                  Date début
+                </div>
+                <div class="timeline__event__content">
+                  <div class="timeline__event__title">
+                    ça commence aujourd'hui
+                  </div>
+                  <div class="timeline__event__description">
+                          {{ evenement.dateDebut ? evenement.dateFin|date('l j F Y') : '' }} à {{ evenement.dateDebut ? evenement.dateDebut|date('H:i') : '' }}
+                        </div>
+                </div>
+              </div>
+                <div class="timeline__event animated fadeInUp delay-2s timeline__event--type2">
+                <div class="timeline__event__icon">
+                  <i class="lni-burger"></i>
+
+                </div>
+                <div class="timeline__event__date">
+                  Date de fin
+                </div>
+                <div class="timeline__event__content">
+                  <div class="timeline__event__title">
+                    ça s'achève le
+                  </div>
+                  <div class="timeline__event__description">
+                  {# {{ evenement.dateDebut|localizeddate('full', 'none', null, null, 'fr') }} #}
+                        {{ evenement.dateFin ? evenement.dateFin|date('l j F Y') : '' }} à {{ evenement.dateFin ? evenement.dateFin|date('H:i') : '' }} 
+                  </div>
+                </div>
+              </div>
+                <div class="timeline__event animated fadeInUp delay-1s timeline__event--type3">
+                <div class="timeline__event__icon">
+                  <i class="lni-slim"></i>
+
+                </div>
+                <div class="timeline__event__date">
+                  image
+                </div>
+                <div class="timeline__event__content">
+                  <div class="timeline__event__title">
+                    image
+                  </div>
+                  <div class="timeline__event__description">
+                      {# {% set locale = 'fr_FR.utf8' %} #}
+                      {% set chemin = 'uploads/evenement/' %}
+
+                       {#  {% set image = chemin ~ evenement.image %} #}
+                        {% set image = chemin ~ 'black.jpg' %}
+
+                        <img src="{{ asset(image) }}" alt="Mon image">
+                        
+                        
+                  </div>
+
+                </div>
+              </div>
+              <div class="timeline__event animated fadeInUp timeline__event--type1">
+                <div class="timeline__event__icon">
+                  <i class="lni-cake"></i>
+
+                </div>
+                <div class="timeline__event__date">
+                  Lieu
+                </div>
+                <div class="timeline__event__content">
+                  <div class="timeline__event__title">
+                    adresse de levenement
+                  </div>
+                  <div class="timeline__event__description">
+                            
+                      <a href="{{ path('app_evenement_adresse', {'id': evenement.id}) }}">{{ evenement.adresse }}</a>  
+
+
+                      {#{{ evenement.image }}   #}   
+                        </div>
+                </div>
+              </div>
+            </div>
+
+    </div>
+    <div class="col-4 ma-div rounded" style="background-image: url('{{ asset('uploads/evenement/backg-event.jpg') }}'); background-repeat: no-repeat; background-size: cover;"></div>
+
+  </div>
+  
+    <div class="row rounded border">
+      <div id="map"></div>
+    </div>
+
+    <div>
+
+    </div>
+    <p> .
+    </p>
+    </div>
+
+    <button class="custom-btn btn-11"><a href="{{ path('app_evenement_index') }}"><span class="sp"> retour </span> </a></button> 
+    <button class="custom-btn btn-11"><a href="{{ path('app_evenement_edit', {'id': evenement.id}) }}"><span class="sp"> edit</span> </a></button>
+    <div>
+</div>
  
 
-    
+ <button class="custom-btn btn-2"><a href="{{ path('app_evenement_index') }}"><span class="sp">   {{ include('evenement/_delete_form.html.twig') }}    </span> </a></button>    
+
+
 
 
     {#*********************************************************************************#}
-
-    <h2>A clean timeline design, with animated links</h2>
-<div class="timeline"> 
-  <div class="timeline__event  animated fadeInUp delay-3s timeline__event--type1">
-    <div class="timeline__event__icon ">
-      <i class="lni-cake"></i>
-
-    </div>
-    <div class="timeline__event__date">
-      Titre
-    </div>
-    <div class="timeline__event__content ">
-      <div class="timeline__event__title">
-        Birthday
-      </div>
-      <div class="timeline__event__description">
-            {{ evenement.titre }}
-      </div>
-    </div>
-  </div>
-  <div class="timeline__event animated fadeInUp delay-2s timeline__event--type2">
-    <div class="timeline__event__icon">
-      <i class="lni-burger"></i>
-
-    </div>
-    <div class="timeline__event__date">
-      Type
-    </div>
-    <div class="timeline__event__content">
-      <div class="timeline__event__title">
-        Type d'evenement
-      </div>
-      <div class="timeline__event__description">
-        {{ evenement.type }}
-      </div>
-    </div>
-  </div>
-  <div class="timeline__event animated fadeInUp delay-1s timeline__event--type3">
-    <div class="timeline__event__icon">
-      <i class="lni-slim"></i>
-
-    </div>
-    <div class="timeline__event__date">
-      Description
-    </div>
-    <div class="timeline__event__content">
-      <div class="timeline__event__title">
-        A propos
-      </div>
-      <div class="timeline__event__description">
-{{ evenement.description }}
-      </div>
-
-    </div>
-  </div>
-  <div class="timeline__event animated fadeInUp timeline__event--type1">
-    <div class="timeline__event__icon">
-      <i class="lni-cake"></i>
-
-    </div>
-    <div class="timeline__event__date">
-      Lieu
-    </div>
-    <div class="timeline__event__content">
-      <div class="timeline__event__title">
-        Localisation de l'evenement
-      </div>
-      <div class="timeline__event__description">
-             <a href="{{ path('app_evenement_adresse', {'id': evenement.id}) }}">{{ evenement.adresse }}</a>  
-            </div>
-    </div>
-  </div>
-    <div class="timeline__event animated fadeInUp delay-2s timeline__event--type2">
-    <div class="timeline__event__icon">
-      <i class="lni-burger"></i>
-
-    </div>
-    <div class="timeline__event__date">
-      Date début
-    </div>
-    <div class="timeline__event__content">
-      <div class="timeline__event__title">
-        ça commence aujourd'hui
-      </div>
-      <div class="timeline__event__description">
-      {# {{ evenement.dateDebut|localizeddate('full', 'none', null, null, 'fr') }} #}
-        {{ evenement.dateDebut ? evenement.dateDebut|date('Y-m-d',null,'fr') : '' }} à {{ evenement.dateDebut ? evenement.dateDebut|date('H:i') : '' }}
-      </div>
-    </div>
-  </div>
-    <div class="timeline__event animated fadeInUp delay-1s timeline__event--type3">
-    <div class="timeline__event__icon">
-      <i class="lni-slim"></i>
-
-    </div>
-    <div class="timeline__event__date">
-      Date de fin
-    </div>
-    <div class="timeline__event__content">
-      <div class="timeline__event__title">
-        ça s'achève le
-      </div>
-      <div class="timeline__event__description">
-            {% set locale = 'fr_FR.utf8' %}
-
-            {{ evenement.dateFin ? evenement.dateFin|date('l j F Y') : '' }} à {{ evenement.dateFin ? evenement.dateFin|date('H:i') : '' }} 
-      </div>
-
-    </div>
-  </div>
-  <div class="timeline__event animated fadeInUp timeline__event--type1">
-    <div class="timeline__event__icon">
-      <i class="lni-cake"></i>
-
-    </div>
-    <div class="timeline__event__date">
-      Lieu
-    </div>
-    <div class="timeline__event__content">
-      <div class="timeline__event__title">
-        <a href="{{ path('app_evenement_adresse', {'id': evenement.id}) }}">Localisation de l'evenement</a>
-      </div>
-      <div class="timeline__event__description">
-                
-            {% set chemin = "uploads/evenement/" %}
-
-            {% set image = chemin ~ evenement.image %}
-
-            {{image}}
-            <img src="{{ asset('image') }}" alt="Mon image">
+{% endblock %}
 
 
-           {#{{ evenement.image }}   #}   
-            </div>
-    </div>
-  </div>
-</div>
+{% block javascript %}
 
- <a href="{{ path('app_evenement_index') }}">back to list</a>
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+     integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+     crossorigin=""></script>
 
-    <a href="{{ path('app_evenement_edit', {'id': evenement.id}) }}">edit</a>
+ <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>    
+ <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+<script src="{{asset("assets/js/map-itineraire.js")}}"></script> 
 
-    {{ include('evenement/_delete_form.html.twig') }}       
 
-    {#*********************************************************************************#}
+
+
+
 {% endblock %}

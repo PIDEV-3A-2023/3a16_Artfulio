@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use SendGrid;
+use SendGrid\Mail\Mail;
 use App\Entity\Collaboration;
 use App\Form\CollaborationType;
+use App\Service\FonctionsUtils;
 use Symfony\Component\Mime\Email;
 use App\Entity\ArtisteCollaboration;
 use Doctrine\ORM\EntityManagerInterface;
@@ -14,7 +17,6 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Service\FonctionsUtils;
 
 #[Route('/collaboration')]
 class CollaborationController extends AbstractController
@@ -53,16 +55,26 @@ class CollaborationController extends AbstractController
 
 
 
+        // Send email to the user
+        $email = new Mail();
+        $email->setFrom("michelscoot@gmail.com", "Artfulio Bot");
+        $email->setSubject("");
+        $email->addTo("michelscoot@gmail.com", "userName");
+        $email->addContent("text/plain", "la vie");
+        $sendgrid = new \SendGrid('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');
+        $sendgrid->send($email);
+
+
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $email = (new Email())
+            /*     $email = (new Email())
                 ->from('georgeGreen@gmail.com')
                 ->to('michelscoot@gmail.com')
                 ->subject('Demande de collaboration!')
                 ->text("Mme Astrid voulez vous collaborer avec moi!");
 
             $mailer->send($email);
-
+ */
             $entityManager->persist($collaboration);
             $entityManager->flush();
 
