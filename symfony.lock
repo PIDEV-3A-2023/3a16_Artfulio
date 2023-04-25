@@ -41,6 +41,9 @@
     "endroid/qr-code-bundle": {
         "version": "4.3.1"
     },
+    "endroid/qrcode-bundle": {
+        "version": "4.3.1"
+    },
     "knplabs/knp-paginator-bundle": {
         "version": "v5.9.0"
     },

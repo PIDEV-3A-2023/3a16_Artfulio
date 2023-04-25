@@ -4,8 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Artwork;
 use App\Entity\Commentaire;
-use Endroid\QrCode\Factory\QrCodeFactory;
-
 use App\Form\ArtworkType;
 use Dompdf\Dompdf;
 use Dompdf\Options;
