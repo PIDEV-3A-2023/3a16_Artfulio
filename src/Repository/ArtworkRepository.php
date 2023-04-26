@@ -77,6 +77,7 @@ public function findByname($value): array
    {
        return $this->createQueryBuilder('a')
            ->Where('a.id_type  = 3')
+           ->orderBy('a.date', 'asc')
            ->getQuery()
            ->getResult()
        ;
@@ -84,7 +85,9 @@ public function findByname($value): array
    public function findBytypemusic(): array
    {
        return $this->createQueryBuilder('a')
+       
            ->Where('a.id_type  = 4')
+           ->orderBy('a.date', 'asc')
            ->getQuery()
            ->getResult()
        ;
@@ -92,6 +95,7 @@ public function findByname($value): array
    {
        return $this->createQueryBuilder('a')
            ->Where('a.id_type  = 2')
+           ->orderBy('a.date', 'asc')
            ->getQuery()
            ->getResult()
        ;
