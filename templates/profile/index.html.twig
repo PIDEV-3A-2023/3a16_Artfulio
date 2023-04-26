@@ -54,8 +54,47 @@
 
 <section data-bs-version="5.1" class="team2 cid-tuevvsjMie" xmlns="http://www.w3.org/1999/html" id="team2-j">
     
+ <canvas id="chart"></canvas>
+    {% block javascripts %}
+    {{ encore_entry_script_tags('chart') }}
 
-    
+    <script>
+        var ctx = document.getElementById('chart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Images', 'Videos', 'Music'],
+                datasets: [{
+                    label: '# of Posts',
+                    data: [{{ imageCount }}, {{ videoCount }}, {{ musicCount }}],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Number of Posts by Type'
+                    }
+                }
+            }
+        });
+    </script>
+{% endblock %}
     
     <div class="container">
         <div class="card">

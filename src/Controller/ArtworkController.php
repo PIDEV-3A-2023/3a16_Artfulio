@@ -220,47 +220,24 @@ class ArtworkController extends AbstractController
 // }
 
     
-    #[Route('/pdf',name:"pdf")]
-    public function pdf(ArtworkRepository $artworkRepository)
-    {
-        // // Configure Dompdf according to your needs
-        // $pdfOptions = new Options();
-        // $pdfOptions->set('defaultFont', 'Roboto');
-        
-        // // Instantiate Dompdf with our options
-        // $dompdf = new Dompdf($pdfOptions);
-        // // Retrieve the HTML generated in our twig file
-        // $html = $this->renderView('artwork/pdf.html.twig', ['artworks' => $artworkRepository->findAll(),]);
-        
-        // // Load HTML to Dompdf
-        // $dompdf->loadHtml($html);
-        
-        // // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
-        // $dompdf->setPaper('A4', 'portrait');
-
-        // // Render the HTML as PDF
-        // $dompdf->render();
-
-        // // Output the generated PDF to Browser (inline view)
-        // $dompdf->stream("mypdf.pdf", [
-        //     "Attachment" => false
-        // ]);
-
-
-        $dompdf = new Dompdf();
-        $html = $this->renderView('artwork/pdf.html.twig', ['artworks' => $artworkRepository->findAll(),]);
-        
-        $dompdf->loadHtml($html);
-        $dompdf->render();
-        $pdf = $dompdf->output();
-    
-        $response = new Response();
-        $response->setContent($pdf);
-        $response->headers->set('Content-Type', 'application/pdf');
-    return $response;
-
-
-    }
+#[Route('/pdf',name:"pdf")]
+public function pdf(ArtworkRepository $artworkRepository)
+{
+    $pdfOptions = new Options();
+    $pdfOptions->set('defaultFont', 'Arial');
+    $dompdf = new Dompdf($pdfOptions);
+    $html = $this->renderView('artwork/pdf.html.twig', [
+        'artworks' =>$artworkRepository->findAll(),
+    ]);
+    $dompdf->loadHtml($html);
+    $dompdf->setPaper('B5', 'portrait');
+    $dompdf->render();
+    $pdfOutput = $dompdf->output();
+    return new Response($pdfOutput, 200, [
+        'Content-Type' => 'application/pdf',
+        'Content-Disposition' => 'attachment; filename="Artworks.pdf"'
+    ]);
+}
     #[Route('/order',name:"order")]
     function ordernsc(ArtworkRepository $repo){
     

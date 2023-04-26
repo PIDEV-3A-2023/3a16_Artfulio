@@ -421,6 +421,7 @@ input[type=radio]:checked {
   transform: translate3d(-20%, 0, -100px);
 }
 
+            <link rel="stylesheet" href="{{ asset('bundles/uxchartjs/css/chartjs.min.css') }}">
 
 </style>
 
@@ -434,8 +435,11 @@ input[type=radio]:checked {
 {% for artwork in artworks %}
   <label for="s{{ loop.index }}" id="slide{{ loop.index }}">
     <div >
+     
       <img src="{{ asset('uploads/images/' ~ artwork.imgArtwork) }}" alt="">
-      <div style="position: absolute; bottom: 0; left: 0; width: 100%; background-image: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0)); padding: 10px; color: white; text-transform: capitalize; font-weight: bold;">{{ artwork.nomArtwork }} By :{{ artwork.IdArtist.username }}</div>
+    
+	  <div style="position: absolute; bottom: 0; left: 0; width: 100%; background-image: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0)); padding: 10px; color: white; text-transform: capitalize; font-weight: bold;">{{ artwork.nomArtwork }} By :{{ artwork.IdArtist.username }}        <a href="{{ path('app_artwork_show', {'id': artwork.getIdArtwork()}) }}">details
+</a></div>
     </div>
   </label>
 {% endfor %}
@@ -449,7 +453,7 @@ input[type=radio]:checked {
 <section data-bs-version="5.1" class="slider2 cid-tue4YqiKkn" id="slider2-4">
     
 
-    
+{#     
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-12 col-md-10">
@@ -472,8 +476,8 @@ input[type=radio]:checked {
                                         Popular artowrks</p>
                                 </div>
                             </div>
-                        </div>
-                            {% for artwork in artworks %}
+                        </div> #}
+                            {# {% for artwork in artworks %}
 
                         <div class="carousel-item slider-image item">
                             <div class="item-wrapper">
@@ -501,7 +505,7 @@ input[type=radio]:checked {
                     </a>
                 </div>
             </div>
-        </div>
+        </div> #}
     </div>
 </section>
 <section data-bs-version="5.1" class="timeline3 cid-tue5rhUPY8" id="timeline3-6">
@@ -585,3 +589,6 @@ input[type=radio]:checked {
         
       
 {% endblock %}
+  {% block javascripts %}
+            <script src="{{ asset('bundles/uxchartjs/js/chartjs.min.js') }}"></script>
+        {% endblock %}
