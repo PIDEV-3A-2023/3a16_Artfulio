@@ -282,7 +282,7 @@ public function pdf(ArtworkRepository $artworkRepository)
         if (count($student) === 0) {
             return $this->render('artwork/not_found.html.twig');
         }
-        return $this->render('artwork/search.html.twig',['artworks' => $student]);
+        return $this->render('artwork/search.html.twig',['msg'=>$email,'artworks' => $student]);
     }
     #[Route('/search',name:"search")]
     function search(ArtworkRepository $repo,request $request){
