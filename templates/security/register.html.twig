@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Inscription</h1>
+
+    
+{{ form_start(form,{'attr': {'novalidate': 'novalidate'}}) }}
+    {# {{ form_widget(form) }} #}
+   
+    {{ form_row(form.username, {
+    label: 'Nom de l\'utilisateur',
+    attr: {
+        placeholder: 'username'
+    },
+    row_attr: {
+        class: 'form-floating'
+    }
+}) }}
+{{ form_row(form.cin_user, {
+    label: 'cin',
+    attr: {
+        placeholder: 'cin'
+    },
+    row_attr: {
+        class: 'form-floating'
+    }
+}) }}
+
+{{ form_row(form.adresse_user, {
+    label: 'adresse',
+    attr: {
+        placeholder: 'adresse'
+    },
+    row_attr: {
+        class: 'form-floating'
+    }
+}) }}
+{{ form_row(form.password_user, {
+    label: 'password',
+    attr: {
+        placeholder: 'password'
+    },
+    row_attr: {
+        class: 'form-floating'
+    }
+}) }}
+{{ form_row(form.email_user, {
+    label: 'Email',
+    attr: {
+        placeholder: 'email'
+    },
+    row_attr: {
+        class: 'form-floating'
+    }
+}) }}
+{{ form_row(form.is_pro, {
+    label: 'pro',
+    attr: {
+        placeholder: 'pro'
+    },
+    row_attr: {
+        class: 'form-floating'
+    }
+}) }}
+{{ form_row(form.img_user, {
+    label: 'Image',
+    attr: {
+        placeholder: 'Image'
+    },
+    row_attr: {
+        class: 'form-floating'
+    }
+}) }}
+
+<div>
+
+   <a class ="btn btn-secondary display-4" href="{{ path('app_admin') }}">S'inscrire</a>
+</div>
+{{ form_end(form) }}
+    
+{% endblock %}

@@ -84,4 +84,6 @@ public function admin(UserRepository $userRepository): Response
 
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    
 }
