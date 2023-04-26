@@ -420,6 +420,52 @@ input[type=radio]:checked {
   box-shadow: 0 6px 10px rgba(0,0,0, 0.3), 0 2px 2px rgba(0,0,0, 0.2);
   transform: translate3d(-20%, 0, -100px);
 }
+.neonText {
+  color: #fff;
+  text-shadow:
+    0 0 4px #ca1b73,
+    0 0 11px #ce4088,
+    0 0 19px #ce4088,
+    0 0 40px #ca1b73,
+    0 0 80px #ce4088,
+    0 0 90px #ce4088,
+    0 0 100px #ca1b73,
+    0 0 150px #ca1b73;
+}
+
+h1 {
+  font-size: 4.2rem;
+  animation: flicker 1.5s infinite alternate;     
+}
+
+/* Flickering animation */
+@keyframes flicker {
+  0%, 18%, 22%, 25%, 53%, 57%, 100% {
+    text-shadow:
+      0 0 4px #ca1b73,
+      0 0 11px #ce4088,
+      0 0 19px #ce4088,
+      0 0 40px #ca1b73,
+      0 0 80px #ce4088,
+      0 0 90px #ce4088,
+      0 0 100px #ca1b73,
+      0 0 150px #ca1b73;
+  }
+  10%, 20%, 30%, 40%, 50%, 60%, 70%, 80%, 90% {
+    text-shadow:
+      0 0 2px #ca1b73,
+      0 0 5px #ce4088,
+      0 0 9px #ce4088,
+      0 0 20px #ca1b73,
+      0 0 40px #ce4088,
+      0 0 45px #ce4088,
+      0 0 50px #ca1b73,
+      0 0 75px #ca1b73;
+  }
+  23%, 54% {
+    text-shadow: none;
+  }
+}
 
             <link rel="stylesheet" href="{{ asset('bundles/uxchartjs/css/chartjs.min.css') }}">
 
@@ -438,7 +484,7 @@ input[type=radio]:checked {
      
       <img src="{{ asset('uploads/images/' ~ artwork.imgArtwork) }}" alt="">
     
-	  <div style="position: absolute; bottom: 0; left: 0; width: 100%; background-image: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0)); padding: 10px; color: white; text-transform: capitalize; font-weight: bold;">{{ artwork.nomArtwork }} By :{{ artwork.IdArtist.username }}        <a href="{{ path('app_artwork_show', {'id': artwork.getIdArtwork()}) }}">details
+	  <div style="position: absolute; bottom: 0; left: 0; width: 100%; background-image: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0)); padding: 10px; color: white; text-transform: capitalize; font-weight: bold;">{{ artwork.nomArtwork }} By :{{ artwork.IdArtist.username }}        <a class="neonText"href="{{ path('app_artwork_show', {'id': artwork.getIdArtwork()}) }}">details
 </a></div>
     </div>
   </label>
@@ -516,10 +562,19 @@ input[type=radio]:checked {
         <div class="mbr-section-head">
             <h3 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2">
            
-                <strong>Images</strong>
+                           <div class="container">
+    
+    <h2 ><h1 style ="font-weight: bold;
+
+  font-size: 100px;" class="neonText">
+        Images
+    </h1></h2> 
+
+ </div>
                  
             </h3>
             <br><br>
+			
     {% for artwork in paginator %}
     
 	<article class="  post">

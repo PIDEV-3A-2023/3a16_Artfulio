@@ -426,6 +426,12 @@ button {
 		border-color: #969696;
 	}
 }
+.error-message {
+    background-color: red;
+    color: white;
+    padding: 5px;
+    margin-top: 10px;
+}
 </style>
 
 {# <section class="gallery2 cid-tueENDWKwP" > #}
@@ -479,8 +485,44 @@ button {
     <form>
       <div class="form-group">
       {# <input type="text" name="txtcom"></input> #}
-        <textarea required name="txtcom" class="form-control status-box" rows="3" placeholder="Enter your comment here..."></textarea>
-      </div>
+<textarea required="" name="txtcom" class="form-control status-box" rows="3" placeholder="Enter your comment here..." oninput="checkBadWords(this)"></textarea>
+    {# <div class="error-message">
+    Your comment contains a forbidden word.
+</div> #}
+	 <script>
+	function checkBadWords(textarea) {
+    const badWords = ['zab','3asba','ass', 'hell', 'shit','fuck'];
+    const text = textarea.value.trim();
+    if (text.length === 0) {
+        // Textarea is empty, clear any existing error message
+        const errorElement = textarea.nextElementSibling;
+        if (errorElement && errorElement.classList.contains('error-message')) {
+            errorElement.remove();
+        }
+        return;
+    }
+    for (const badWord of badWords) {
+        if (text.includes(badWord)) {
+            // Text contains a bad word, show error message and remove bad word
+            const errorElement = document.createElement('div');
+            errorElement.className = 'error-message';
+            errorElement.innerHTML = 'Your comment contains a forbidden word.';
+            textarea.parentNode.insertBefore(errorElement, textarea.nextSibling);
+            textarea.value = text.replace(badWord, '');
+            return;
+        }
+    }
+    // Text is clean, clear any existing error message
+    const errorElement = textarea.nextElementSibling;
+    if (errorElement && errorElement.classList.contains('error-message')) {
+        errorElement.remove();
+    }
+}
+
+
+	 </script>
+	 
+	  </div>
     </form>
     <div class="button-group pull-right">
       {# <p class="counter">250</p> #}

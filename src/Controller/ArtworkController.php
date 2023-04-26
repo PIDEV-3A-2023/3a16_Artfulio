@@ -158,6 +158,22 @@ class ArtworkController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
            
+            $text = $form['texte']->getData();
+        
+            // check if the text contains any bad word
+            $badWords = ['bad', 'word', 'list'];
+            foreach ($badWords as $badWord) {
+                if (stripos($text, $badWord) !== false) {
+                    // if a bad word is found, add an error to the form
+                    $form->addError(new FormError('Your text contains a forbidden word.'));
+                    // render the form with the error message
+                    return $this->renderForm('artwork/new.html.twig', [
+                        'artwork' => $artwork,
+                        'form' => $form,
+                    ]);
+                }
+            }
+
             $file = $form['img_artwork']->getData();
             $imageFile = $form->get('img_artwork')->getData();
             
