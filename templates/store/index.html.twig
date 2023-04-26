@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Store{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+ .card img{
+    width:auto;
+    height:auto;
+ }
+
+</style>
+
+<section data-bs-version="5.1" class="features10 cid-tueWtkHEaE" id="features11-11">
+    <a href="{{ path('cart_index') }}"><button class="monpanier button-1">mon panier</button></a>
+    
+
+    
+    
+    <div class="container">
+        <div class="title">
+            <h3 class="mbr-section-title mbr-fonts-style mb-4 display-2">
+                <strong>Liste des produits</strong></h3>
+            
+        </div>
+        {% for storeItem in storeItems %}
+        <div class="card">
+            <div class="card-wrapper">
+                <div class="row align-items-center">
+                    <div class="col-12 col-md-3">
+                        <div class="image-wrapper">
+                            <img src="{{ asset(storeItem.getImgArtwork()) }}" alt="Artwork Image">
+                        </div>
+                    </div>
+                    <div class="col-12 col-md">
+                        <div class="card-box">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="top-line">
+                                        <h4 class="card-title mbr-fonts-style display-5"><strong>{{ storeItem.getNomArtwork() }}</strong></h4>
+                                        <p class="cost mbr-fonts-style display-5">
+                                            ${{ storeItem.getPrixArtwork() }}</p>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="bottom-line">
+                                        <p class="mbr-text mbr-fonts-style m-0 display-7">
+                                            Themes in the Mobirise website builder offer multiple blocks: intros,
+                                            sliders, galleries, forms, articles, and so on. Start a project and click on
+                                            the red plus buttons to see the blocks available for your theme.
+                                        </p>
+                                    </div>
+                                    <form method="post" action="{{ path('cart_add', {'id': storeItem.getIdProduit()}) }}">
+                                        <button class="button-1" type="submit" formaction="{{ path('cart_add', {'id': storeItem.getIdProduit()}) }}">Ajouter au panier</button>
+                                    </form>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+         {% endfor %}
+        
+    </div>
+</section>
+
+<section data-bs-version="5.1" class="content16 cid-tueWBeISKu" id="content16-13">
+
+
+ 
+
+{% endblock %}

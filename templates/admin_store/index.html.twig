@@ -1,0 +1,41 @@
+{% extends 'admin/index.html.twig' %}
+
+{% block title %}Store index{% endblock %}
+
+{% block body %}
+    <h1>Store index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id_produit</th>
+                <th>Id_piece_art</th>
+                <th>Nom_artwork</th>
+                <th>Prix_artwork</th>
+                <th>Img_artwork</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for store in stores %}
+            <tr>
+                <td>{{ store.idProduit }}</td>
+                <td>{{ store.idPieceArt }}</td>
+                <td>{{ store.nomArtwork }}</td>
+                <td>{{ store.prixArtwork }}</td>
+                <td>{{ store.imgArtwork }}</td>
+                <td>
+                  <a href="{{ path('app_admin_store_show', {'id_produit': store.idProduit}) }}">show</a>
+                    <a href="{{ path('app_admin_store_edit', {'id_produit': store.idProduit}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_store_new') }}">Create new</a>
+{% endblock %}

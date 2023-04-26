@@ -10,6 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: ArtworkRepository::class)]
 class Artwork
 {
+    
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -167,5 +168,8 @@ class Artwork
         return $this;
     }
 
-
+    public function __toString(): string
+    {
+        return $this->nom_artwork ?? '';
+    }
 }
