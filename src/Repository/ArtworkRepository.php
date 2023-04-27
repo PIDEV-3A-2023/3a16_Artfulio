@@ -64,6 +64,16 @@ class ArtworkRepository extends ServiceEntityRepository
 //        ;
 //    }
 
+public function findonly5(): array
+   {
+       return $this->createQueryBuilder('a')
+          
+           ->orderBy('a.likes_count', 'Desc')
+           ->setMaxResults(5)
+           ->getQuery()
+           ->getResult()
+       ;
+   }
 public function findByname($value): array
    {
        return $this->createQueryBuilder('a')

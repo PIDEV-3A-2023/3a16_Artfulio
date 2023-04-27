@@ -34,6 +34,7 @@ class CommentaireController extends AbstractController
         $commentaire = new Commentaire();
         $commentaire->setIdArtwork($artworkRepository->find($id_artwork));
         $form = $this->createForm(CommentaireType::class, $commentaire);
+        
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

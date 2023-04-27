@@ -440,8 +440,10 @@ button {
 <div class="row mt-4">
      
 	<article class="post">
-		<img class="post__avatar" src="{{asset('uploads/images/userpdp/' ~  artwork.IdArtist.ImgUser) }}" alt="" />
+    <a href="{{ path('app_profile_index', {'id': artwork.IdArtist.id}) }}">
 
+		<img style="--c: #b8236e ;"class=" img post__avatar" src="{{asset('uploads/images/userpdp/' ~  artwork.IdArtist.ImgUser) }}" alt="" />
+</a>
 		<div class="post__content">
 			<header class="post__header">
 				<p style="text-transform: capitalize;" class="post__user">{{ artwork.IdArtist.username }}</p>
