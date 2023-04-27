@@ -54,6 +54,7 @@ class User implements UserInterface
     #[ORM\OneToMany(mappedBy: 'id_util', targetEntity: Commentaire::class)]
     private Collection $commentaires;
 
+    
     public function __construct()
     {
         $this->artworks = new ArrayCollection();
@@ -105,7 +106,18 @@ class User implements UserInterface
     {
         return $this->password_user;
     }
-
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+    public function eraseCredentials(): void
+    {
+        // do nothing
+    }
+    public function getSalt()
+    {
+        return base64_encode(random_bytes(10));
+    }
     public function setPasswordUser(string $passwordUser): self
     {
         $this->password_user = $passwordUser;
@@ -154,6 +166,10 @@ class User implements UserInterface
         return $this->type_role ;
     }
 
+    public function getRoles(): ?string
+    {
+        return $this->type_role ;
+    }
     public function setTypeRole(?Role $typeRole): self
     {
         $this->type_role  = $typeRole;

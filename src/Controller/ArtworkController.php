@@ -50,7 +50,7 @@ class ArtworkController extends AbstractController
         }
         // Render the twig view
         return $this->render('artwork/index.html.twig', [
-            'paginator' => $appointments, 'commentaires' => $commentaireRepository->findAll(),'artworks' => $artworkRepository->findAll(),'users' => $users,
+            'paginator' => $appointments, 'commentaires' => $commentaireRepository->findAll(),'artworksloop' => $artworkRepository->findAll(),'artworks' => $artworkRepository->findAll(),'users' => $users,
         ]);
 
     }
