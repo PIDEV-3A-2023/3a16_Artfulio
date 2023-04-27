@@ -2,245 +2,119 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
-use Repository;
 use App\Repository\UserRepository;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User implements UserInterface
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id= null;
-    #[ORM\Column(length: 255)]
-    private ?string $username = null;
- 
-    #[ORM\Column(length: 255)]
-    private ?string $cin_user = null;
- 
+    private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $adresse_user = null;
- 
-  
-    #[ORM\Column(length: 255)]
-    private ?string $password_user = null;
- 
-  
-    #[ORM\Column(length: 255)]
-    private ?string $email_user  = null;
- 
-  
+    #[ORM\Column(length: 180, unique: true)]
+    private ?string $email = null;
+
     #[ORM\Column]
-    private ?bool $is_pro  = false;
+    private array $roles = [];
 
-    
-
-    #[ORM\Column(length: 255)]
-    private ?string $img_user	 = null;
-
-    // #[ORM\ManyToOne(targetEntity: Role::class, inversedBy: 'User')]
-    // #[ORM\JoinColumn(name: 'type_role', referencedColumnName: 'type_role')]
-    
-    private ?string $type_role  = null;
-
-    #[ORM\OneToMany(mappedBy: 'id_artist', targetEntity: Artwork::class)]
-    private Collection $artworks;
-
-    #[ORM\OneToMany(mappedBy: 'id_util', targetEntity: Commentaire::class)]
-    private Collection $commentaires;
-
-    
-    public function __construct()
-    {
-        $this->artworks = new ArrayCollection();
-        $this->commentaires = new ArrayCollection();
-    }
+    /**
+     * @var string The hashed password
+     */
+    #[ORM\Column]
+    private ?string $password = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getUsername(): ?string
+    public function getEmail(): ?string
     {
-        return $this->username;
+        return $this->email;
     }
 
-    public function setUsername(string $username): self
+    public function setEmail(string $email): self
     {
-        $this->username = $username;
+        $this->email = $email;
 
         return $this;
     }
 
-    public function getCinUser(): ?string
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
     {
-        return $this->cin_user	;
+        return (string) $this->email;
     }
 
-    public function setCinUser(string $cinUser): self
+    /**
+     * @deprecated since Symfony 5.3, use getUserIdentifier instead
+     */
+    public function getUsername(): string
     {
-        $this->cin_user	 = $cinUser;
+        return (string) $this->email;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
 
         return $this;
     }
 
-    public function getAdresseUser(): ?string
-    {
-        return $this->adresse_user;
-    }
-
-    public function setAdresseUser(string $adresseUser): self
-    {
-        $this->adresse_user = $adresseUser;
-
-        return $this;
-    }
-
-    public function getPasswordUser(): ?string
-    {
-        return $this->password_user;
-    }
-    public function getPassword(): ?string
+    /**
+     * @see PasswordAuthenticatedUserInterface
+     */
+    public function getPassword(): string
     {
         return $this->password;
     }
-    public function eraseCredentials(): void
+
+    public function setPassword(string $password): self
     {
-        // do nothing
-    }
-    public function getSalt()
-    {
-        return base64_encode(random_bytes(10));
-    }
-    public function setPasswordUser(string $passwordUser): self
-    {
-        $this->password_user = $passwordUser;
-
-        return $this;
-    }
-
-    public function getEmailUser(): ?string
-    {
-        return $this->email_user ;
-    }
-
-    public function setEmailUser(string $emailUser): self
-    {
-        $this->email_user  = $emailUser;
-
-        return $this;
-    }
-
-    public function isIsPro(): ?bool
-    {
-        return $this->is_pro ;
-    }
-
-    public function setIsPro(bool $isPro): self
-    {
-        $this->is_pro  = $isPro;
-
-        return $this;
-    }
-
-    public function getImgUser(): ?string
-    {
-        return $this->img_user;
-    }
-
-    public function setImgUser(?string $imgUser): self
-    {
-        $this->img_user = $imgUser;
-
-        return $this;
-    }
-
-    public function getTypeRole(): ?Role
-    {
-        return $this->type_role ;
-    }
-
-    public function getRoles(): ?string
-    {
-        return $this->type_role ;
-    }
-    public function setTypeRole(?Role $typeRole): self
-    {
-        $this->type_role  = $typeRole;
-
-        return $this;
-    }
-
-    public function getIsPro(): ?string
-    {
-        return $this->is_pro ;
-    }
-
-    /**
-     * @return Collection<int, Artwork>
-     */
-    public function getArtworks(): Collection
-    {
-        return $this->artworks;
-    }
-
-    public function addArtwork(Artwork $artwork): self
-    {
-        if (!$this->artworks->contains($artwork)) {
-            $this->artworks->add($artwork);
-            $artwork->setIdArtist($this);
-        }
-
-        return $this;
-    }
-
-    public function removeArtwork(Artwork $artwork): self
-    {
-        if ($this->artworks->removeElement($artwork)) {
-            // set the owning side to null (unless already changed)
-            if ($artwork->getIdArtist() === $this) {
-                $artwork->setIdArtist(null);
-            }
-        }
+        $this->password = $password;
 
         return $this;
     }
 
     /**
-     * @return Collection<int, Commentaire>
+     * Returning a salt is only needed, if you are not using a modern
+     * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
+     *
+     * @see UserInterface
      */
-    public function getCommentaires(): Collection
+    public function getSalt(): ?string
     {
-        return $this->commentaires;
+        return null;
     }
 
-    public function addCommentaire(Commentaire $commentaire): self
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
     {
-        if (!$this->commentaires->contains($commentaire)) {
-            $this->commentaires->add($commentaire);
-            $commentaire->setIdUtil($this);
-        }
-
-        return $this;
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
-
-    public function removeCommentaire(Commentaire $commentaire): self
-    {
-        if ($this->commentaires->removeElement($commentaire)) {
-            // set the owning side to null (unless already changed)
-            if ($commentaire->getIdUtil() === $this) {
-                $commentaire->setIdUtil(null);
-            }
-        }
-
-        return $this;
-    }
-
-
 }
