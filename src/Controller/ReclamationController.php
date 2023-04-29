@@ -147,7 +147,7 @@ public function new(Request $request, EntityManagerInterface $entityManager): Re
         $managerEmailMessage->addContent("text/plain", "Une réclamation a été créée par ".$userEmail);
         $managerEmailMessage->addAttachment($attachment);
 
-        $sendgrid = new \SendGrid('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');
+        $sendgrid = new \SendGrid('');
 
         try {
             $response = $sendgrid->send($userEmailMessage);
@@ -230,7 +230,7 @@ private function generatePdf(Reclamation $reclamation): string
          $email->setSubject($reclamation->getTitre());
          $email->addTo($reclamation->getEmail(), "");
          $email->addContent("text/plain", "Updated reclamation: " . $reclamation->getReclamationSec());
-         $sendgrid = new \SendGrid('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');
+         $sendgrid = new \SendGrid('');
          $reclamation-> setTitre($abc);
          $reclamation-> setReclamationSec($bcd);
          $sendgrid->send($email);

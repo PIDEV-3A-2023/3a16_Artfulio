@@ -98,7 +98,7 @@ class ParrainageController extends AbstractController
         $email->setSubject($subject);
         $email->addTo($userEmail, $userName);
         $email->addContent("text/plain", $message);
-        $sendgrid = new \SendGrid('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');
+        $sendgrid = new \SendGrid('');
         $sendgrid->send($email);
             
         
@@ -113,7 +113,7 @@ class ParrainageController extends AbstractController
         $adminEmail->setSubject($adminSubject);
         $adminEmail->addTo("daadsoufi01@gmail.com", "Admin");
         $adminEmail->addContent("text/plain", $adminMessage);
-        $sendgrid = new \SendGrid('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');
+        $sendgrid = new \SendGrid('');
         $sendgrid->send($email);
         
         return $this->redirectToRoute('app_Parrainage_admin', [], Response::HTTP_SEE_OTHER);
