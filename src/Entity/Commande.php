@@ -2,66 +2,128 @@
 
 namespace App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-use Repository;
-use App\Repository\CommandeRepository;
-
-#[ORM\Entity(repositoryClass: CommandeRepository::class)]
+/**
+ * Commande
+ *
+ * @ORM\Table(name="commande", indexes={@ORM\Index(name="fk_id_livraison", columns={"fk_id_livraison"}), @ORM\Index(name="fk_id_pointderelais", columns={"fk_id_pointderelais"})})
+ * @ORM\Entity
+ */
 class Commande
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $Id_Vente    = null;
-   
-    #[ORM\Column]
-    private ?float $prixArtwork = null;
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id_commande", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idCommande;
 
-    #[ORM\Column(length: 255)]
-    private ?string $paiement = null;
-    #[ORM\ManyToOne(targetEntity: Artwork::class, inversedBy: 'Commande')]
-    #[ORM\JoinColumn(name: 'id_produit', referencedColumnName: 'id_artwork')]
-  
-    private  ?int $id_produit    = null;
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="nbr_produit", type="integer", nullable=false)
+     */
+    private $nbrProduit;
 
-    public function getIdVente(): ?int
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_commande", type="date", nullable=false)
+     */
+    private $dateCommande;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="total", type="float", precision=10, scale=0, nullable=false)
+     */
+    private $total;
+
+    /**
+     * @var \Pointderelais
+     *
+     * @ORM\ManyToOne(targetEntity="Pointderelais")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="fk_id_pointderelais", referencedColumnName="id_pointderelais")
+     * })
+     */
+    private $fkIdPointderelais;
+
+    /**
+     * @var \Livraison
+     *
+     * @ORM\ManyToOne(targetEntity="Livraison")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="fk_id_livraison", referencedColumnName="id_livraison")
+     * })
+     */
+    private $fkIdLivraison;
+
+    public function getIdCommande(): ?int
     {
-        return $this->Id_Vente;
+        return $this->idCommande;
     }
 
-    public function getPrixArtwork(): ?float
+    public function getNbrProduit(): ?int
     {
-        return $this->prix_artwork;
+        return $this->nbrProduit;
     }
 
-    public function setPrixArtwork(float $prixArtwork): self
+    public function setNbrProduit(int $nbrProduit): self
     {
-        $this->prix_artwork = $prixArtwork;
+        $this->nbrProduit = $nbrProduit;
 
         return $this;
     }
 
-    public function getPaiement(): ?string
+    public function getDateCommande(): ?\DateTimeInterface
     {
-        return $this->paiement;
+        return $this->dateCommande;
     }
 
-    public function setPaiement(string $paiement): self
+    public function setDateCommande(\DateTimeInterface $dateCommande): self
     {
-        $this->paiement = $paiement;
+        $this->dateCommande = $dateCommande;
 
         return $this;
     }
 
-    public function getIdProduit(): ?Artwork
+    public function getTotal(): ?float
     {
-        return $this->id_produit;
+        return $this->total;
     }
 
-    public function setIdProduit(?Artwork $idProduit): self
+    public function setTotal(float $total): self
     {
-        $this->id_produit = $idProduit;
+        $this->total = $total;
+
+        return $this;
+    }
+
+    public function getFkIdPointderelais(): ?Pointderelais
+    {
+        return $this->fkIdPointderelais;
+    }
+
+    public function setFkIdPointderelais(?Pointderelais $fkIdPointderelais): self
+    {
+        $this->fkIdPointderelais = $fkIdPointderelais;
+
+        return $this;
+    }
+
+    public function getFkIdLivraison(): ?Livraison
+    {
+        return $this->fkIdLivraison;
+    }
+
+    public function setFkIdLivraison(?Livraison $fkIdLivraison): self
+    {
+        $this->fkIdLivraison = $fkIdLivraison;
 
         return $this;
     }

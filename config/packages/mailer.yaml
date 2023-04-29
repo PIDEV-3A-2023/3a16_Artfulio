@@ -1,3 +1,5 @@
 framework:
     mailer:
-        dsn: '%env(MAILER_DSN)%'
+       transport: 'sendgrid://default'
+        # For more configuration options, refer to the Symfony documentation:
+        # https://symfony.com/doc/current/mailer.html#transport-configuration

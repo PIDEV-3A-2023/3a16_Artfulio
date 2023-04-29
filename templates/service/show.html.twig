@@ -1,0 +1,40 @@
+
+{% extends 'baseBack.html.twig' %}
+{% block title %}Service{% endblock %}
+
+{% block body %}
+    <h1>Service</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>IdService</th>
+                <td>{{ service.idService }}</td>
+            </tr>
+            <tr>
+                <th>DescriptionService</th>
+                <td>{{ service.descriptionService }}</td>
+            </tr>
+            <tr>
+                <th>DateService</th>
+                <td>{{ service.dateService }}</td>
+            </tr>
+            <tr>
+                <th>PrixService</th>
+                <td>{{ service.prixService }}</td>
+            </tr>
+            <tr>
+                <th>TypePaiementService</th>
+                <td>{{ service.typePaiementService }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br>
+         <form action="{{ path('app_service_edit', {'idService': service.idService}) }}" method="get" style="display: inline;">
+           <button type="submit" class="btn btn-link" style="padding: 0;"><i class="bi bi-pencil-square"></i></button>
+         </form>
+
+    {{ include('service/_delete_form.html.twig') }}
+    <a href="{{ path('app_service_index') }}">back to list</a>
+{% endblock %}

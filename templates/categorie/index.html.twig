@@ -1,0 +1,37 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block body %}
+    <h1>Categories:</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Type</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for categorie in categories %}
+            <tr>
+                <td>{{ categorie.idCategorie }}</td>
+                <td>{{ categorie.typeCategorie }}</td>
+                <td>
+                   <form action="{{ path('app_categorie_show', {'idCategorie': categorie.idCategorie}) }}" method="get" style="display: inline;">
+                     <button type="submit" class="btn btn-link" style="padding: 0;"><i class="bi bi-eye"></i></button>
+                   </form>
+                    <form action="{{ path('app_categorie_edit', {'idCategorie': categorie.idCategorie}) }}" method="get" style="display: inline;">
+                     <button type="submit" class="btn btn-link" style="padding: 0;"><i class="bi bi-pencil-square"></i></button>
+                   </form>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_categorie_new') }}"><class="btn btn-link"><i class="bi bi-plus-square"></i></a>
+{% endblock %}
