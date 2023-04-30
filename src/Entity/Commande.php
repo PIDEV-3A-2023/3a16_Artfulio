@@ -2,128 +2,66 @@
 
 namespace App\Entity;
 
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * Commande
- *
- * @ORM\Table(name="commande", indexes={@ORM\Index(name="fk_id_livraison", columns={"fk_id_livraison"}), @ORM\Index(name="fk_id_pointderelais", columns={"fk_id_pointderelais"})})
- * @ORM\Entity
- */
+use Repository;
+use App\Repository\CommandeRepository;
+
+#[ORM\Entity(repositoryClass: CommandeRepository::class)]
 class Commande
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id_commande", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $idCommande;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $Id_Vente    = null;
+   
+    #[ORM\Column]
+    private ?float $prixArtwork = null;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="nbr_produit", type="integer", nullable=false)
-     */
-    private $nbrProduit;
+    #[ORM\Column(length: 255)]
+    private ?string $paiement = null;
+    #[ORM\ManyToOne(targetEntity: Artwork::class, inversedBy: 'Commande')]
+    #[ORM\JoinColumn(name: 'id_produit', referencedColumnName: 'id_artwork')]
+  
+    private  ?int $id_produit    = null;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="date_commande", type="date", nullable=false)
-     */
-    private $dateCommande;
-
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="total", type="float", precision=10, scale=0, nullable=false)
-     */
-    private $total;
-
-    /**
-     * @var \Pointderelais
-     *
-     * @ORM\ManyToOne(targetEntity="Pointderelais")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="fk_id_pointderelais", referencedColumnName="id_pointderelais")
-     * })
-     */
-    private $fkIdPointderelais;
-
-    /**
-     * @var \Livraison
-     *
-     * @ORM\ManyToOne(targetEntity="Livraison")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="fk_id_livraison", referencedColumnName="id_livraison")
-     * })
-     */
-    private $fkIdLivraison;
-
-    public function getIdCommande(): ?int
+    public function getIdVente(): ?int
     {
-        return $this->idCommande;
+        return $this->Id_Vente;
     }
 
-    public function getNbrProduit(): ?int
+    public function getPrixArtwork(): ?float
     {
-        return $this->nbrProduit;
+        return $this->prix_artwork;
     }
 
-    public function setNbrProduit(int $nbrProduit): self
+    public function setPrixArtwork(float $prixArtwork): self
     {
-        $this->nbrProduit = $nbrProduit;
+        $this->prix_artwork = $prixArtwork;
 
         return $this;
     }
 
-    public function getDateCommande(): ?\DateTimeInterface
+    public function getPaiement(): ?string
     {
-        return $this->dateCommande;
+        return $this->paiement;
     }
 
-    public function setDateCommande(\DateTimeInterface $dateCommande): self
+    public function setPaiement(string $paiement): self
     {
-        $this->dateCommande = $dateCommande;
+        $this->paiement = $paiement;
 
         return $this;
     }
 
-    public function getTotal(): ?float
+    public function getIdProduit(): ?Artwork
     {
-        return $this->total;
+        return $this->id_produit;
     }
 
-    public function setTotal(float $total): self
+    public function setIdProduit(?Artwork $idProduit): self
     {
-        $this->total = $total;
-
-        return $this;
-    }
-
-    public function getFkIdPointderelais(): ?Pointderelais
-    {
-        return $this->fkIdPointderelais;
-    }
-
-    public function setFkIdPointderelais(?Pointderelais $fkIdPointderelais): self
-    {
-        $this->fkIdPointderelais = $fkIdPointderelais;
-
-        return $this;
-    }
-
-    public function getFkIdLivraison(): ?Livraison
-    {
-        return $this->fkIdLivraison;
-    }
-
-    public function setFkIdLivraison(?Livraison $fkIdLivraison): self
-    {
-        $this->fkIdLivraison = $fkIdLivraison;
+        $this->id_produit = $idProduit;
 
         return $this;
     }

@@ -7,6 +7,8 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
+ * @extends ServiceEntityRepository<Reclamation>
+ *
  * @method Reclamation|null find($id, $lockMode = null, $lockVersion = null)
  * @method Reclamation|null findOneBy(array $criteria, array $orderBy = null)
  * @method Reclamation[]    findAll()
@@ -19,33 +21,46 @@ class ReclamationRepository extends ServiceEntityRepository
         parent::__construct($registry, Reclamation::class);
     }
 
-    /**
-     * Returns an array of the top $limit most frequently used words in the titles of all Reclamation objects.
-     *
-     * @param int $limit The number of words to return
-     * @return array The top $limit most frequently used words in the titles of all Reclamation objects
-     */
-    public function findTopWordsInTitles(int $limit = 5): array
+    public function save(Reclamation $entity, bool $flush = false): void
     {
-        $em = $this->getEntityManager();
+        $this->getEntityManager()->persist($entity);
 
-        $query = $em->createQuery('SELECT r.titre FROM App\Entity\Reclamation r');
-        $titles = $query->getResult();
-
-        $words = [];
-        foreach ($titles as $title) {
-            $titleWords = explode(' ', $title['titre']);
-            foreach ($titleWords as $word) {
-                if (array_key_exists($word, $words)) {
-                    $words[$word]++;
-                } else {
-                    $words[$word] = 1;
-                }
-            }
+        if ($flush) {
+            $this->getEntityManager()->flush();
         }
-
-        arsort($words);
-
-        return array_slice($words, 0, $limit, true);
     }
+
+    public function remove(Reclamation $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->remove($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
+//    /**
+//     * @return Reclamation[] Returns an array of Reclamation objects
+//     */
+//    public function findByExampleField($value): array
+//    {
+//        return $this->createQueryBuilder('r')
+//            ->andWhere('r.exampleField = :val')
+//            ->setParameter('val', $value)
+//            ->orderBy('r.id', 'ASC')
+//            ->setMaxResults(10)
+//            ->getQuery()
+//            ->getResult()
+//        ;
+//    }
+
+//    public function findOneBySomeField($value): ?Reclamation
+//    {
+//        return $this->createQueryBuilder('r')
+//            ->andWhere('r.exampleField = :val')
+//            ->setParameter('val', $value)
+//            ->getQuery()
+//            ->getOneOrNullResult()
+//        ;
+//    }
 }
