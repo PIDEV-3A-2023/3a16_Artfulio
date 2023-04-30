@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+    <h1>Edit Parrainage</h1>
+
+    {{ include('parrainage/_form.html.twig', {'button_label': 'Update'}) }}
+
+        <a class="btn btn-secondary display-4" href="{{ path('app_parrainage_index') }}"style="display: block; margin: 0 auto; text-align: center;">back to list</a>
+
+
+    {{ include('parrainage/_delete_form.html.twig') }}
+{% endblock %}

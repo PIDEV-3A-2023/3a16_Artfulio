@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ArtistRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -29,6 +31,14 @@ class Artist implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255)]
     private ?string $email = null;
+
+    #[ORM\OneToMany(mappedBy: 'idUser', targetEntity: Parrainage::class)]
+    private Collection $parrainages;
+
+    public function __construct()
+    {
+        $this->parrainages = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -122,6 +132,36 @@ class Artist implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Parrainage>
+     */
+    public function getParrainages(): Collection
+    {
+        return $this->parrainages;
+    }
+
+    public function addParrainage(Parrainage $parrainage): self
+    {
+        if (!$this->parrainages->contains($parrainage)) {
+            $this->parrainages->add($parrainage);
+            $parrainage->setIdUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParrainage(Parrainage $parrainage): self
+    {
+        if ($this->parrainages->removeElement($parrainage)) {
+            // set the owning side to null (unless already changed)
+            if ($parrainage->getIdUser() === $this) {
+                $parrainage->setIdUser(null);
+            }
+        }
 
         return $this;
     }

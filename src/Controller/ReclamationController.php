@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Reclamation;
 use App\Form\ReclamationType;
+
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -86,7 +87,7 @@ public function edit(Request $request, Reclamation $reclamation, EntityManagerIn
      
 }
 
-    #[Route('/admin', name: 'app_admin')]
+    #[Route('/admin', name: 'app_Reclamation_admin')]
     public function admin(Request $request, PaginatorInterface $paginator): Response
     {
         $queryBuilder = $this->getDoctrine()->getRepository(Reclamation::class)->createQueryBuilder('r');
@@ -124,7 +125,7 @@ public function edit(Request $request, Reclamation $reclamation, EntityManagerIn
                 $queryBuilder->orderBy('r.email', 'DESC');
                 break;
             default:
-                $queryBuilder->orderBy('r.idRec', 'ASC');
+                $queryBuilder->orderBy('r.id_rec', 'ASC');
                 break;
 
         }
@@ -261,7 +262,7 @@ private function generatePdf(Reclamation $reclamation): string
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_admin', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_Reclamation_admin', [], Response::HTTP_SEE_OTHER);
     }
     
     
