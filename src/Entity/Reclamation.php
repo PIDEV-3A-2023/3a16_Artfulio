@@ -3,52 +3,76 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Repository;
-use App\Repository\ReclamationRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: ReclamationRepository::class)]
+
+/**
+ * Reclamation
+ *
+ * @ORM\Table(name="reclamation", indexes={@ORM\Index(name="id_user", columns={"id_user"})})
+ * @ORM\Entity
+ */
 class Reclamation
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id_rec   = null;
-   
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id_rec", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idRec;
 
-   
-    #[ORM\Column]
-    private ?int $id_user  = null;
-   
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Titre", type="string", length=50, nullable=false)
+     * * @Assert\NotBlank(message="Titre doit être non vide")
+     * * @Assert\Length(
+     *      min = 10,
+     *      max = 50,
+     *      minMessage = "doit etre >=10 ",
+     *      maxMessage = "doit etre <=50" )
+     */
+    private $titre;
 
-    #[ORM\Column(length: 255)]
-    private ?string $titre = null;
-  
-    #[ORM\Column(length: 255)]
-    private ?string $Reclamation_sec = null;
-  
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Reclamation_sec", type="string", length=2000, nullable=false)
+     * @Assert\NotBlank(message="Section doit être non vide")
+     * * @Assert\Length(
+     *      min = 100,
+     *      max = 1000,
+     *      minMessage = "doit etre >=100 ",
+     *      maxMessage = "doit etre <=1000" )
+     */
+    private $reclamationSec;
 
-  
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=30, nullable=false)
+     * @Assert\NotBlank(message="Email doit être non vide")
+     * * @Assert\Email(
+     *     message = "Email non valide.",
+     * )
+     */
+    private $email;
 
-    #[ORM\Column(length: 255)]
-    private ?string $email = null;
-  
-  
+    /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_user", referencedColumnName="id_user")
+     * })
+     */
+    private $idUser;
 
     public function getIdRec(): ?int
     {
-        return $this->id_rec ;
-    }
-
-    public function getIdUser(): ?int
-    {
-        return $this->id_user ;
-    }
-
-    public function setIdUser(int $idUser): self
-    {
-        $this->id_user  = $idUser;
-
-        return $this;
+        return $this->idRec;
     }
 
     public function getTitre(): ?string
@@ -65,12 +89,12 @@ class Reclamation
 
     public function getReclamationSec(): ?string
     {
-        return $this->Reclamation_sec;
+        return $this->reclamationSec;
     }
 
     public function setReclamationSec(string $reclamationSec): self
     {
-        $this->Reclamation_sec = $reclamationSec;
+        $this->reclamationSec = $reclamationSec;
 
         return $this;
     }
@@ -86,6 +110,20 @@ class Reclamation
 
         return $this;
     }
+
+    public function getIdUser(): ?User
+    {
+        return $this->idUser;
+    }
+
+    public function setIdUser(?User $idUser): self
+    {
+        $this->idUser = $idUser;
+
+        return $this;
+    }
+
+    
 
 
 }

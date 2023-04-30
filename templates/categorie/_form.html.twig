@@ -1,0 +1,8 @@
+{{ form_start(form,{
+    'attr': {
+        'novalidate': 'novalidate'}, 
+        'style': 'width: 300px;',} ) 
+ }}
+    {{ form_widget(form) }}
+    <button class="btn btn-link"><i class="bi bi-check2-square"></i>{{ button_label|default('') }}</button>
+{{ form_end(form) }}

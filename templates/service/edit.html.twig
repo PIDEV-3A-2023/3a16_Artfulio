@@ -1,0 +1,12 @@
+{% extends 'baseBack.html.twig' %}
+{% block title %}Service edit{% endblock %}
+
+{% block body %}
+    <h1>Edit Service</h1>
+
+    {{ include('service/_form.html.twig', {'button_label': ''}) }}
+
+
+    {{ include('service/_delete_form.html.twig') }}
+    <a href="{{ path('app_service_index') }}">back to list</a>
+{% endblock %}

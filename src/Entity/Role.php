@@ -3,35 +3,51 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Repository;
-use App\Repository\RoleRepository;
 
-#[ORM\Entity(repositoryClass: RoleRepository::class)]
+/**
+ * Role
+ *
+ * @ORM\Table(name="role", uniqueConstraints={@ORM\UniqueConstraint(name="type_role", columns={"type_role"})})
+ * @ORM\Entity
+ */
 class Role
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id_role   = null;
-    #[ORM\Column(length: 255)]
-    private ?string $type_role  = null;
-   
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id_role", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idRole;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type_role", type="string", length=20, nullable=false)
+     */
+    private $typeRole;
 
     public function getIdRole(): ?int
     {
-        return $this->id_role ;
+        return $this->idRole;
     }
 
     public function getTypeRole(): ?string
     {
-        return $this->type_role ;
+        return $this->typeRole;
     }
 
     public function setTypeRole(string $typeRole): self
     {
-        $this->type_role  = $typeRole;
+        $this->typeRole = $typeRole;
 
         return $this;
+    }
+    public function __toString()
+    {
+        return(string) $this->getIdRole();
+
     }
 
 

@@ -1,0 +1,12 @@
+{% extends 'baseBack.html.twig' %}
+{% block title %}Categorie edit{% endblock %}
+
+{% block body %}
+    <h1>Edit Categorie</h1>
+
+    {{ include('categorie/_form.html.twig', {'button_label': ''}) }}
+
+    {{ include('categorie/_delete_form.html.twig') }}
+
+    <a href="{{ path('app_categorie_index') }}" style="display: block; margin: 0 auto; text-align: center;">back to list</a>
+{% endblock %}

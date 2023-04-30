@@ -1,0 +1,58 @@
+
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}Service index{% endblock %}
+
+
+{% block body %}
+    <h1>Services:</h1>
+
+<form>
+    <label for="categorie">Category:</label>
+    <select id="categorie" name="categorie">
+        <option value="">All</option>
+        {% for categorie in categories %}
+            <option value="{{ categorie.idCategorie }}">{{ categorie.typeCategorie }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">Filter</button>
+</form>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Description</th>
+                <th>Date</th>
+                <th>Prix</th>
+                <th>TypePaiement</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for service in services %}
+            <tr>
+                <td>{{ service.idService }}</td>
+                <td>{{ service.descriptionService }}</td>
+                <td>{{ service.dateService }}</td>
+                <td>{{ service.prixService }}</td>
+                <td>{{ service.typePaiementService }}</td>
+                <td>
+                   <form action="{{ path('app_service_show', {'idService': service.idService}) }}" method="get" style="display: inline;">
+                     <button type="submit" class="btn btn-link" style="padding: 0;"><i class="bi bi-eye"></i></button>
+                   </form>
+                    <form action="{{ path('app_service_edit', {'idService': service.idService}) }}" method="get" style="display: inline;">
+                     <button type="submit" class="btn btn-link" style="padding: 0;"><i class="bi bi-pencil-square"></i></button>
+                   </form>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_service_new') }}" class="btn btn-link"><i class="bi bi-plus-square"></i></a>
+{% endblock %}
