@@ -18,7 +18,7 @@ public function checkout(CartService $cartService): Response
 {
     Stripe::setApiKey('sk_test_51N0vhkJIrpXd4xn9nXX9LmMfY370R5PGGuMwTQj9V5mrN11bYgxdh9PufPpUOPwNkBJCQorCiA8oD0oNYV0ImiXA00kIxfSfBa');
 
-    // Retrieve the cart items and format them for Stripe
+    
     $lineItems = [];
     foreach ($cartService->getCart() as $item) {
         $lineItems[] = [

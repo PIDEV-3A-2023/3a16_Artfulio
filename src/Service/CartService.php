@@ -35,6 +35,7 @@ Class CartService {
                 'quantity'=> $quantity
             ];
         }
+        
         return $cartData;
         }
     public function removeCartAll(){

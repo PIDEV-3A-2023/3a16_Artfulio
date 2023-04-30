@@ -3,7 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use App\Entity\Artwork;
+use Symfony\Component\OptionsResolver\Exception\InvalidArgumentException;
 use Repository;
 use App\Repository\CommandeRepository;
 
@@ -23,7 +24,7 @@ class Commande
     #[ORM\ManyToOne(targetEntity: Artwork::class, inversedBy: 'Commande')]
     #[ORM\JoinColumn(name: 'id_produit', referencedColumnName: 'id_artwork')]
   
-    private  ?int $id_produit    = null;
+    private ?object $id_produit = null;
 
     public function getIdVente(): ?int
     {
@@ -59,12 +60,17 @@ class Commande
         return $this->id_produit;
     }
 
-    public function setIdProduit(?Artwork $idProduit): self
-    {
+    
+    public function setIdProduit($idProduit): self
+{
+    if ($idProduit instanceof Artwork || $idProduit instanceof Store) {
         $this->id_produit = $idProduit;
-
-        return $this;
+    } else {
+        throw new \InvalidArgumentException('Argument must be an instance of Artwork or Store');
     }
 
+    return $this;
+}
 
+    
 }
