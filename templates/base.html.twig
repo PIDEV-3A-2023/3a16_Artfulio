@@ -108,10 +108,10 @@
                     </li></ul>
                         {% if app.user %}
                                         <div class="navbar-buttons mbr-section-btn"><a class="btn btn-secondary display-4" href="{{ path('app_logout') }}">{{ app.user.username }}</a></div>
-
-      
-    {% endif %}
+{% else %}
                                             <div class="navbar-buttons mbr-section-btn"><a class="btn btn-secondary display-4" href="{{ path('app_login') }}">Log In</a></div>
+
+    {% endif %}
 
             </div>
         </div>
