@@ -473,6 +473,9 @@ button {
 			</div>
 
 			<div class="post__footer">
+			{# {% if app.user %} #}
+    
+{# {% endif %} #}
 				<span>#{{ artwork.idtype.typesouscat }}</span>
                 <p style="color:black;">{{ artwork.descriptionArtwork  }}</p>
 				{# <span>#{{ artwork.idtype.NomSousCat}}</span> #}
@@ -482,7 +485,8 @@ button {
 	</article>
 
 </section>
-<form method="post" action="{{path('commentnow',{'id_artwork': artwork.idartwork})}}">
+
+<form method="post" action="{{path('commentnow',{'id_util': app.user.username ,'id_artwork': artwork.idartwork})}}">
 <div class="container">
     <form>
       <div class="form-group">

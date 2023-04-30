@@ -107,10 +107,12 @@
                     <li class="nav-item"><a class="nav-link link text-black display-4" href="page4.html"><span class="mbri-shopping-cart mbr-iconfont mbr-iconfont-btn"></span>Shop</a>
                     </li></ul>
                         {% if app.user %}
-                                        <div class="navbar-buttons mbr-section-btn"><a class="btn btn-secondary display-4" href="{{ path('app_logout') }}">logged in as {{ app.user.userIdentifier }}</a></div>
+                                        <div class="navbar-buttons mbr-section-btn"><a class="btn btn-secondary display-4" href="{{ path('app_logout') }}">{{ app.user.username }}</a></div>
 
       
     {% endif %}
+                                            <div class="navbar-buttons mbr-section-btn"><a class="btn btn-secondary display-4" href="{{ path('app_login') }}">Log In</a></div>
+
             </div>
         </div>
     </nav>

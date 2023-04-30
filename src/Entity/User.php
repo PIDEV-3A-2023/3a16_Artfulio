@@ -7,7 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -29,6 +30,53 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $cin_user = null;
+    #[ORM\Column(length: 255)]
+    private ?string $adresse_user = null;
+    #[ORM\Column(length: 255)]
+    private ?string $username = null;
+    #[ORM\Column(length: 255)]
+    private ?string $img_user	 = null;
+    #[ORM\OneToMany(mappedBy: 'id_artist', targetEntity: Artwork::class)]
+    private Collection $artworks;
+
+    #[ORM\OneToMany(mappedBy: 'id_util', targetEntity: Commentaire::class)]
+    private Collection $commentaires;
+
+    public function __construct()
+    {
+        $this->artworks = new ArrayCollection();
+        $this->commentaires = new ArrayCollection();
+    } public function getCinUser(): ?string
+    {
+        return $this->cin_user	;
+    }
+
+    public function setCinUser(string $cinUser): self
+    {
+        $this->cin_user	 = $cinUser;
+
+        return $this;
+    } public function getAdresseUser(): ?string
+    {
+        return $this->adresse_user;
+    }
+
+    public function setAdresseUser(string $adresseUser): self
+    {
+        $this->adresse_user = $adresseUser;
+
+        return $this;
+    } public function getImgUser(): ?string
+    {
+        return $this->img_user;
+    } public function setImgUser(?string $imgUser): self
+    {
+        $this->img_user = $imgUser;
+
+        return $this;
+    }
     public function getId(): ?int
     {
         return $this->id;
@@ -53,7 +101,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+        return (string) $this->username;
     }
 
     /**
@@ -61,9 +109,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->email;
+        return (string) $this->username;
     }
 
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
+
+        return $this;
+    }
     /**
      * @see UserInterface
      */

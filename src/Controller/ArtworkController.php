@@ -291,13 +291,14 @@ public function pdf(ArtworkRepository $artworkRepository)
         return $this->render('artwork/admin.html.twig',['artworks' => $student]);
     }
     
-    #[Route('/commentnow/{id_artwork}',name:"commentnow")]
-    function comment(ArtworkRepository $artworkRepository, CommentaireRepository $repo,request $request,$id_artwork,UserRepository $userRepository){
+    #[Route('/commentnow/{id_artwork}/c/{id_util}',name:"commentnow")]
+    function comment(ArtworkRepository $artworkRepository, CommentaireRepository $repo,request $request,$id_util,$id_artwork,UserRepository $userRepository){
         $text =$request->get("txtcom");
         $commentaire = new Commentaire();
         $commentaire->setIdArtwork($artworkRepository->find($id_artwork));
         $commentaire->setTexte($text);
-        $commentaire->setIdUtil($userRepository->find(9));
+        $u = $userRepository->finduser($id_util);
+        $commentaire->setIdUtil($u);
         $commentaire->setDatePost(new \DateTime('now'));
         $repo->save($commentaire, true);
         return $this->redirectToRoute('app_artwork_show', ['id' => $id_artwork], Response::HTTP_SEE_OTHER);
