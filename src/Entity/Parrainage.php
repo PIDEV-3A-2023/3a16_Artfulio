@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Parrainage
  *
- * @ORM\Table(name="parrainage", indexes={@ORM\Index(name="fk_username", columns={"username"}), @ORM\Index(name="fk_email", columns={"email"}), @ORM\Index(name="fk_pro", columns={"is_pro"}), @ORM\Index(name="fk_typerole", columns={"type_role"})})
+ * @ORM\Table(name="parrainage", indexes={@ORM\Index(name="fk_typerole", columns={"type_role"}), @ORM\Index(name="fk_username", columns={"username"}), @ORM\Index(name="fk_email", columns={"email"}), @ORM\Index(name="fk_pro", columns={"is_pro"})})
  * @ORM\Entity
  */
 class Parrainage
@@ -48,59 +48,6 @@ class Parrainage
      * @ORM\Column(name="type_role", type="string", length=20, nullable=false)
      */
     private $typeRole;
-
-    public function getIdParrainage(): ?int
-    {
-        return $this->idParrainage;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    public function getUsername(): ?string
-    {
-        return $this->username;
-    }
-
-    public function setUsername(string $username): self
-    {
-        $this->username = $username;
-
-        return $this;
-    }
-
-    public function getIsPro(): ?int
-    {
-        return $this->isPro;
-    }
-
-    public function setIsPro(int $isPro): self
-    {
-        $this->isPro = $isPro;
-
-        return $this;
-    }
-
-    public function getTypeRole(): ?string
-    {
-        return $this->typeRole;
-    }
-
-    public function setTypeRole(string $typeRole): self
-    {
-        $this->typeRole = $typeRole;
-
-        return $this;
-    }
 
 
 }

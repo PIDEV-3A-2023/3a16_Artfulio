@@ -27,20 +27,22 @@
                             <div id="address-suggestions"></div>
                         </div>
                 {#*******************************************************************#}
-                        <div id="map"></div>
+                        
                         <div >{{ form_row(form.adresse , {'id' : 'adresse'}) }}</div>
-                   
+                    <div id="map"></div>
                     <div class="row">
                         <div class="col">{{ form_row(form.dateDebut) }}</div>
                         <div class="col">{{ form_row(form.dateFin) }}</div>
                     </div>
                     <div class="row">
-                        <div class="col">{{ form_row(form.latitude , {'id' : 'lat'})  }}</div>
+                           {#* {{ form_row(form.latitude, {'attr': {'novalidate': 'novalidate'}}) }}  #}
+
+                        <div class="col">{{ form_row(form.latitude , {'id' : 'lat'}, {'attr': {'novalidate': 'novalidate'}})  }}</div>
                         <div class="col">{{ form_row(form.longitude , {'id': 'lon'}) }}</div>
                     </div>
             
     {{ form_widget(form , {'attr': {'novalidate': 'novalidate'}}) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    <button class="btn">{{ button_label|default('enregistrer') }}</button>
 {{ form_end(form , {'attr': {'novalidate': 'novalidate'}}) }}
 
 </div>

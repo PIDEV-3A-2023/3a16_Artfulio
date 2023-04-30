@@ -2,13 +2,12 @@
 
 namespace App\Entity;
 
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Artwork
  *
- * @ORM\Table(name="artwork", indexes={@ORM\Index(name="fk_id_artist", columns={"id_artist_id"}), @ORM\Index(name="fk_id_type", columns={"id_type_id"})})
+ * @ORM\Table(name="artwork", indexes={@ORM\Index(name="fk_id_type", columns={"id_type_id"}), @ORM\Index(name="fk_id_artist", columns={"id_artist_id"})})
  * @ORM\Entity
  */
 class Artwork
@@ -85,118 +84,12 @@ class Artwork
      */
     private $imgArtwork;
 
-    public function getIdArtwork(): ?int
-    {
-        return $this->idArtwork;
-    }
-
-    public function getNomArtwork(): ?string
-    {
-        return $this->nomArtwork;
-    }
-
-    public function setNomArtwork(string $nomArtwork): self
-    {
-        $this->nomArtwork = $nomArtwork;
-
-        return $this;
-    }
-
-    public function getDescriptionArtwork(): ?string
-    {
-        return $this->descriptionArtwork;
-    }
-
-    public function setDescriptionArtwork(string $descriptionArtwork): self
-    {
-        $this->descriptionArtwork = $descriptionArtwork;
-
-        return $this;
-    }
-
-    public function getPrixArtwork(): ?int
-    {
-        return $this->prixArtwork;
-    }
-
-    public function setPrixArtwork(int $prixArtwork): self
-    {
-        $this->prixArtwork = $prixArtwork;
-
-        return $this;
-    }
-
-    public function getIdTypeId(): ?int
-    {
-        return $this->idTypeId;
-    }
-
-    public function setIdTypeId(int $idTypeId): self
-    {
-        $this->idTypeId = $idTypeId;
-
-        return $this;
-    }
-
-    public function getDate(): ?\DateTimeInterface
-    {
-        return $this->date;
-    }
-
-    public function setDate(\DateTimeInterface $date): self
-    {
-        $this->date = $date;
-
-        return $this;
-    }
-
-    public function getIdArtistId(): ?int
-    {
-        return $this->idArtistId;
-    }
-
-    public function setIdArtistId(int $idArtistId): self
-    {
-        $this->idArtistId = $idArtistId;
-
-        return $this;
-    }
-
-    public function getLienArtwork(): ?string
-    {
-        return $this->lienArtwork;
-    }
-
-    public function setLienArtwork(string $lienArtwork): self
-    {
-        $this->lienArtwork = $lienArtwork;
-
-        return $this;
-    }
-
-    public function getDimensionArtwork(): ?int
-    {
-        return $this->dimensionArtwork;
-    }
-
-    public function setDimensionArtwork(int $dimensionArtwork): self
-    {
-        $this->dimensionArtwork = $dimensionArtwork;
-
-        return $this;
-    }
-
-    public function getImgArtwork(): ?string
-    {
-        return $this->imgArtwork;
-    }
-
-    public function setImgArtwork(string $imgArtwork): self
-    {
-        $this->imgArtwork = $imgArtwork;
-
-        return $this;
-    }
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="likes_count", type="integer", nullable=false)
+     */
+    private $likesCount;
 
 
 }

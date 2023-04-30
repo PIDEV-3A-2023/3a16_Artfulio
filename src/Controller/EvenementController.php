@@ -87,7 +87,7 @@ class EvenementController extends AbstractController
     }
 
 
-    #[Route('/{id?10}', name: 'app_evenement_show', methods: ['GET'])]
+    #[Route('/{id?1}', name: 'app_evenement_show', methods: ['GET'])]
     public function show(Evenement $evenement = null): Response
     {
         return $this->render('evenement/show.html.twig', [
@@ -95,7 +95,7 @@ class EvenementController extends AbstractController
         ]);
     }
 
-    #[Route('/adresse/{id}', name: 'app_evenement_adresse', methods: ['GET', 'POST'])]
+    #[Route('/adresse/{id?42}', name: 'app_evenement_adresse', methods: ['GET', 'POST'])]
     public function adresse(Evenement $evenement = null): Response
     {
         echo $evenement->getLongitude();
@@ -113,7 +113,7 @@ class EvenementController extends AbstractController
         $form = $this->createForm(EvenementType::class, $evenement);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
             $entityManager->flush();
 
             return $this->redirectToRoute('app_evenement_index', [], Response::HTTP_SEE_OTHER);
@@ -136,7 +136,8 @@ class EvenementController extends AbstractController
         return $this->redirectToRoute('app_evenement_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/{id}/like', name: 'app_evenement_like')]
+
+    #[Route('/{id?1}/like', name: 'app_evenement_like')]
     public function like(Evenement $evenement, ManagerRegistry $manager): Response
     {
         //$user = $this->getUser();   a décomenter fonction symfony qui permet de recupérer le user connecté
@@ -196,7 +197,7 @@ class EvenementController extends AbstractController
         //$user = $this->getUser();   a décomenter fonction symfony qui permet de recupérer le user connecté
         $em = $manager->getManager();    //a effacer plus tard
         $partRrepo = $manager->getRepository(User::class);  //a effacer plus tard
-        $user = $partRrepo->find(42);                    //a effacer plus tard
+        $user = $partRrepo->find(1);                    //a effacer plus tard
 
         $partRrepo = $manager->getRepository(ParticipEvent::class);
 
@@ -219,7 +220,7 @@ class EvenementController extends AbstractController
             );
             $em->remove($part); //efface le like
             $em->flush();
-
+            $user->removeParticipe($part);
             //on retourne le js avec un code,un message et le nbre de partcipant de levenement
             return $this->json([
                 'code' => 200,
@@ -234,15 +235,14 @@ class EvenementController extends AbstractController
             ->setUser($user);
         $em->persist($participe);
         $em->flush();
-
+        $user->removeParticipe($participe);
         return $this->json([
             'code' => 200,
             'message' => "sa marche bien",
             'participes' => $partRrepo->count(['evenement' => $evenement])
         ], 200);
     }
-
-    #[Route('/{id?10}/ajax', name: 'ajax_recup_event')]
+    /*  #[Route('/{id?10}/ajax', name: 'ajax_recup_event')]
     public function ajaxRecupEvent(ManagerRegistry $manager, Request $request, Evenement $evenement = null)
     {
 
@@ -256,5 +256,5 @@ class EvenementController extends AbstractController
         ];
 
         return new JsonResponse($data);
-    }
+    }   */
 }

@@ -45,46 +45,5 @@ class Commande
      */
     private $idProduit;
 
-    public function getIdVente(): ?int
-    {
-        return $this->idVente;
-    }
-
-    public function getPrixArtwork(): ?float
-    {
-        return $this->prixArtwork;
-    }
-
-    public function setPrixArtwork(float $prixArtwork): self
-    {
-        $this->prixArtwork = $prixArtwork;
-
-        return $this;
-    }
-
-    public function getPaiement(): ?string
-    {
-        return $this->paiement;
-    }
-
-    public function setPaiement(string $paiement): self
-    {
-        $this->paiement = $paiement;
-
-        return $this;
-    }
-
-    public function getIdProduit(): ?Artwork
-    {
-        return $this->idProduit;
-    }
-
-    public function setIdProduit(?Artwork $idProduit): self
-    {
-        $this->idProduit = $idProduit;
-
-        return $this;
-    }
-
 
 }

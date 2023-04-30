@@ -83,6 +83,4 @@ class ArtisteCollaboration
 
         return $this;
     }
-
-
 }

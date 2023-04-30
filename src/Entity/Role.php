@@ -28,22 +28,5 @@ class Role
      */
     private $typeRole;
 
-    public function getIdRole(): ?int
-    {
-        return $this->idRole;
-    }
-
-    public function getTypeRole(): ?string
-    {
-        return $this->typeRole;
-    }
-
-    public function setTypeRole(string $typeRole): self
-    {
-        $this->typeRole = $typeRole;
-
-        return $this;
-    }
-
 
 }

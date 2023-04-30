@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
-
+#[Route('/admin/collaboration')]
 class AdminCollaborationController extends AbstractController
 {
     /* #[Route('/admin/collaboration', name: 'app_admin_collaboration')]
@@ -25,7 +25,7 @@ class AdminCollaborationController extends AbstractController
     } */
 
     // #[Route('/admin/collaboration', name: 'app_collaboration_index', methods: ['GET'])]
-    #[Route('/aa', name: 'adm_collaboration_index', methods: ['GET'])]
+    #[Route('/', name: 'adm_collaboration_index', methods: ['GET'])]
     public function index(EntityManagerInterface $entityManager, PaginatorInterface $paginator, Request $request): Response
     {
         $collaborations = $entityManager
@@ -43,7 +43,7 @@ class AdminCollaborationController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/collaboration/new', name: 'adm_collaboration_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'adm_collaboration_new', methods: ['GET', 'POST'])]
     public function ajouter(Request $request, EntityManagerInterface $entityManager): Response
     {
         $collaboration = new Collaboration();
@@ -77,7 +77,7 @@ class AdminCollaborationController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/collaboration/{idCollaboration}', name: 'adm_collaboration_show', methods: ['GET'])]
+    #[Route('/{idCollaboration?1}/detail', name: 'adm_collaboration_show', methods: ['GET'])]
     public function detail(Collaboration $collaboration): Response
     {
         return $this->render('admin_collaboration/show.html.twig', [
@@ -85,7 +85,7 @@ class AdminCollaborationController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/collaboration/{idCollaboration}/edit', name: 'adm_collaboration_edit', methods: ['GET', 'POST'])]
+    #[Route('/{idCollaboration?1}/edit', name: 'adm_collaboration_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Collaboration $collaboration, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(CollaborationType::class, $collaboration);
@@ -103,7 +103,7 @@ class AdminCollaborationController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/collaboration/{idCollaboration}', name: 'adm_collaboration_delete', methods: ['POST'])]
+    #[Route('/{idCollaboration}/delete', name: 'adm_collaboration_delete', methods: ['POST'])]
     public function delete(Request $request, Collaboration $collaboration, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $collaboration->getIdCollaboration(), $request->request->get('_token'))) {

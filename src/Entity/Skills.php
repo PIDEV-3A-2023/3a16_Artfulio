@@ -45,46 +45,5 @@ class Skills
      */
     private $idProfile;
 
-    public function getIdSkill(): ?int
-    {
-        return $this->idSkill;
-    }
-
-    public function getTitreSkill(): ?string
-    {
-        return $this->titreSkill;
-    }
-
-    public function setTitreSkill(string $titreSkill): self
-    {
-        $this->titreSkill = $titreSkill;
-
-        return $this;
-    }
-
-    public function getDescSkill(): ?string
-    {
-        return $this->descSkill;
-    }
-
-    public function setDescSkill(string $descSkill): self
-    {
-        $this->descSkill = $descSkill;
-
-        return $this;
-    }
-
-    public function getIdProfile(): ?Profile
-    {
-        return $this->idProfile;
-    }
-
-    public function setIdProfile(?Profile $idProfile): self
-    {
-        $this->idProfile = $idProfile;
-
-        return $this;
-    }
-
 
 }

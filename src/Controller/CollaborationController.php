@@ -27,6 +27,17 @@ class CollaborationController extends AbstractController
         $collaborations = $entityManager
             ->getRepository(Collaboration::class)
             ->findAll();
+        /*
+        $repository = $entityManager->getRepository(Collaboration::class);
+
+        $query = $repository->createQueryBuilder('c')
+            ->where('c.name LIKE :name')
+            ->setParameter('name', '%'.$name.'%')          // a la place de $name mettre app.user.name
+            ->getQuery();
+
+        $collaborations = $query->getResult();                 //rechercher selon ses collaboration
+
+        */
 
         $collaborations = $paginator->paginate(
             $collaborations, /* query NOT result */
@@ -40,12 +51,12 @@ class CollaborationController extends AbstractController
     }
 
     #[Route('/new', name: 'app_collaboration_new', methods: ['GET', 'POST'])]
-    public function ajouter(Request $request, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
+    public function ajouter(Request $request, EntityManagerInterface $entityManager): Response
     {
         $collaboration = new Collaboration();
         $collaboration->setStatus("en attente");
-        $collaboration->setNomUser("lelouche");
-        $collaboration->setEmailUser("lelouche@gmail.com");
+        $collaboration->setNomUser("lelouche");         //mettre nom user principale connecté
+        $collaboration->setEmailUser("lelouche@gmail.com"); //mettre nom user 2
         $artCollaborat = new ArtisteCollaboration();
         $form = $this->createForm(CollaborationType::class, $collaboration);
         $form->remove('status');
@@ -55,32 +66,17 @@ class CollaborationController extends AbstractController
 
 
 
-        // Send email to the user
-        $email = new Mail();
-        $email->setFrom("michelscoot@gmail.com", "Artfulio Bot");
-        $email->setSubject("");
-        $email->addTo("michelscoot@gmail.com", "userName");
-        $email->addContent("text/plain", "la vie");
-        $sendgrid = new \SendGrid('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');
-        $sendgrid->send($email);
-
+        // Send email to the use
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            /*     $email = (new Email())
-                ->from('georgeGreen@gmail.com')
-                ->to('michelscoot@gmail.com')
-                ->subject('Demande de collaboration!')
-                ->text("Mme Astrid voulez vous collaborer avec moi!");
 
-            $mailer->send($email);
- */
             $entityManager->persist($collaboration);
             $entityManager->flush();
 
             $artCollaborat->setIdCollaborationFk($collaboration->getIdCollaboration());
+            $artCollaborat->setIdArtisteFk($collaboration->getIdCollaboration());   //mettre id artiste connecté
             $entityManager->persist($artCollaborat);
-            $artCollaborat->setIdArtisteFk($collaboration->getIdCollaboration());
 
             $date = new \DateTime();
             $artCollaborat->setDateEntree($date);
@@ -101,8 +97,20 @@ class CollaborationController extends AbstractController
     public function detail(Collaboration $collaboration, ManagerRegistry $manager): Response
     {
 
-        $repo = $manager->getRepository(Collaboration::class);
+        $repo = $manager->getRepository(Collaboration::class);      //ca on va supprimer
         $collaborations = $repo->findAll();
+
+        /*
+        $repository = $entityManager->getRepository(Collaboration::class);
+
+        $query = $repository->createQueryBuilder('c')
+            ->where('c.name LIKE :name')
+            ->setParameter('name', '%'.$name.'%')          // a la place de $name mettre app.user.name
+            ->getQuery();
+
+        $collaborations = $query->getResult();                 //rechercher selon ses collaboration
+
+        */
 
         //****************** recup d'info pour le chart ******************************************* */
         $dataTypeColChart = FonctionsUtils::comptageColParType($collaborations);
@@ -125,6 +133,9 @@ class CollaborationController extends AbstractController
     public function edit(Request $request, Collaboration $collaboration, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(CollaborationType::class, $collaboration);
+        $form->remove('status');
+        $form->remove('nomUser');
+        $form->remove('emailUser');
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

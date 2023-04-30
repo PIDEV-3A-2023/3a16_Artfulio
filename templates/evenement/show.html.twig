@@ -19,7 +19,7 @@
 
 {% block body %}
 <div class="container">
-                <h1>Evenement</h1>
+               
             
   <div class="row">
     <div class="col-8">
@@ -27,8 +27,11 @@
 
 
                 {#*********************************************************************************#}
-
-                <h2>A clean timeline design, with animated links</h2>
+                <div>
+                <br>
+                <h2>Evenement</h2>
+                </div>
+                
             <div class="timeline"> 
               <div class="timeline__event  animated fadeInUp delay-3s timeline__event--type1">
                 <div class="timeline__event__icon ">
@@ -84,7 +87,7 @@
               </div>
               <div class="timeline__event animated fadeInUp timeline__event--type1">
                 <div class="timeline__event__icon">
-                  <i class="lni-cake"></i>
+                 {# <i class="lni-cake"></i> #}
 
                 </div>
                 <div class="timeline__event__date">
@@ -136,7 +139,7 @@
                        {#  {% set image = chemin ~ evenement.image %} #}
                         {% set image = chemin ~ 'black.jpg' %}
 
-                        <img src="{{ asset(image) }}" alt="Mon image">
+                        <img src="{{ asset(image) }}" alt="Mon image" width="100" height="200">
                         
                         
                   </div>
@@ -151,13 +154,14 @@
                 <div class="timeline__event__date">
                   Lieu
                 </div>
+                
                 <div class="timeline__event__content">
                   <div class="timeline__event__title">
                     adresse de levenement
                   </div>
                   <div class="timeline__event__description">
                             
-                      <a href="{{ path('app_evenement_adresse', {'id': evenement.id}) }}">{{ evenement.adresse }}</a>  
+ {#                     <a href="{{ path('app_evenement_adresse', {'id': evenement.id}) }}">{{ evenement.adresse }}</a>  
 
 
                       {#{{ evenement.image }}   #}   
@@ -183,7 +187,7 @@
     </div>
 
     <button class="custom-btn btn-11"><a href="{{ path('app_evenement_index') }}"><span class="sp"> retour </span> </a></button> 
-    <button class="custom-btn btn-11"><a href="{{ path('app_evenement_edit', {'id': evenement.id}) }}"><span class="sp"> edit</span> </a></button>
+    <button class="custom-btn btn-11"><a href="{{ path('app_evenement_edit', {'id': evenement.id}) }}"><span class="sp"> editer</span> </a></button>
     <div>
 </div>
  

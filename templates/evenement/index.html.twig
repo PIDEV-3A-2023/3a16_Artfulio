@@ -43,8 +43,7 @@
                             pour verifier si il a deja liké -->
                   {#  {% if app.user and evenement.isLikeByUser(app.user) %    #}
 
-
-                  {% if evenement.isLikeByUser(user) %}
+                  {% if  user != null and andevenement.isLikeByUser(user) %}
                   <!-- on change la couleur du bouton -->
                   <i class="fa-solid fa-thumbs-up fa-xl"></i>
                     {% else %}
@@ -62,7 +61,8 @@
                         {#  {% if app.user and evenement.isLikeByUser(app.user) %    #}
 
 
-                        {% if evenement.isParticipeByUser(user) %}
+                        {% if user != null and evenement.isParticipeByUser(user) %}
+                           
                         <!-- on change la couleur du bouton -->
                       <i class="fa-solid fa-people-pulling fa-2xl"></i>
                           {#    <i class="fa-sharp fa-solid fa-calendar-circle-plus"></i> #}
@@ -71,14 +71,14 @@
                              <i class="fa-solid fa-person fa-2xl"></i>
                         {% endif %}
                                 <span class="js-participes">{{ evenement.participes | length }}</span>
-                                <span class="js-label">participer</span>
+                                <span class="js-texte" >participer</span>
                         </a>
     <!-- ########################################################################################### -->
 
                     </div>
 
                    
-
+                        
 
                     
                         <div class="hover_color_bubble"></div>
@@ -153,7 +153,7 @@
     </div>
 
    {% else %}
-                <div>no records found</div>           
+                <div>pas d'evenement trouvé</div>           
        
 {% endfor %}
        <div class="d-flex align-items-center justify-content-center">
@@ -169,4 +169,5 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="{{asset("assets/js/like_event.js")}}"></script> 
     <script src="{{asset("assets/js/participe_event.js")}}"></script> 
+
 {% endblock %}

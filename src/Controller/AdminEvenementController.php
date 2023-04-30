@@ -14,6 +14,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
+#[Route('/admin/evenement')]
 class AdminEvenementController extends AbstractController
 {
     /*  #[Route('/admin/evenement', name: 'app_admin_evenement')]
@@ -28,7 +29,7 @@ class AdminEvenementController extends AbstractController
     /*
 *@KnpPaginator/Pagination/bootstrap_v5_pagination.html.twig
 */
-    #[Route('/aaaa', name: 'adm_evenement_index', methods: ['GET'])]
+    #[Route('/', name: 'adm_evenement_index', methods: ['GET'])]
     public function index(EntityManagerInterface $entityManager, PaginatorInterface $paginator, Request $request): Response
     {
 
@@ -47,7 +48,7 @@ class AdminEvenementController extends AbstractController
         ]);
     }
 
-    #[Route('/ne', name: 'adm_evenement_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'adm_evenement_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
         $evenement = new Evenement();
@@ -96,7 +97,7 @@ class AdminEvenementController extends AbstractController
     }
 
 
-    #[Route('show/{id?156}', name: 'adm_evenement_show', methods: ['GET'])]
+    #[Route('show/{id?1}', name: 'adm_evenement_show', methods: ['GET'])]
     public function show(Evenement $evenement = null): Response
     {
         return $this->render('admin_evenement/show.html.twig', [
@@ -104,8 +105,8 @@ class AdminEvenementController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'adm_evenement_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Evenement $evenement, EntityManagerInterface $entityManager): Response
+    #[Route('/{id?1}/edit', name: 'adm_evenement_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Evenement $evenement = null, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(EvenementType::class, $evenement);
         $form->handleRequest($request);
@@ -122,13 +123,16 @@ class AdminEvenementController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'adm_evenement_delete', methods: ['POST'])]
-    public function delete(Request $request, Evenement $evenement, EntityManagerInterface $entityManager): Response
+    #[Route('/{id?1}', name: 'adm_evenement_delete', methods: ['POST'])]
+    public function delete(Request $request, Evenement $evenement = null, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $evenement->getId(), $request->request->get('_token'))) {
-            $entityManager->remove($evenement);
-            $entityManager->flush();
+        if ($evenement != null) {
+            if ($this->isCsrfTokenValid('delete' . $evenement->getId(), $request->request->get('_token'))) {
+                $entityManager->remove($evenement);
+                $entityManager->flush();
+            }
         }
+
 
         return $this->redirectToRoute('adm_evenement_index', [], Response::HTTP_SEE_OTHER);
     }

@@ -49,58 +49,5 @@ class Reclamation
      */
     private $email;
 
-    public function getIdRec(): ?int
-    {
-        return $this->idRec;
-    }
-
-    public function getIdUser(): ?int
-    {
-        return $this->idUser;
-    }
-
-    public function setIdUser(int $idUser): self
-    {
-        $this->idUser = $idUser;
-
-        return $this;
-    }
-
-    public function getTitre(): ?string
-    {
-        return $this->titre;
-    }
-
-    public function setTitre(string $titre): self
-    {
-        $this->titre = $titre;
-
-        return $this;
-    }
-
-    public function getReclamationSec(): ?string
-    {
-        return $this->reclamationSec;
-    }
-
-    public function setReclamationSec(string $reclamationSec): self
-    {
-        $this->reclamationSec = $reclamationSec;
-
-        return $this;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
 
 }

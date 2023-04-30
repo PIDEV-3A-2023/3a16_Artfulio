@@ -42,46 +42,5 @@ class SousCat
      */
     private $idCategorie;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function getNomSousCat(): ?string
-    {
-        return $this->nomSousCat;
-    }
-
-    public function setNomSousCat(string $nomSousCat): self
-    {
-        $this->nomSousCat = $nomSousCat;
-
-        return $this;
-    }
-
-    public function getTypeSousCat(): ?string
-    {
-        return $this->typeSousCat;
-    }
-
-    public function setTypeSousCat(string $typeSousCat): self
-    {
-        $this->typeSousCat = $typeSousCat;
-
-        return $this;
-    }
-
-    public function getIdCategorie(): ?int
-    {
-        return $this->idCategorie;
-    }
-
-    public function setIdCategorie(int $idCategorie): self
-    {
-        $this->idCategorie = $idCategorie;
-
-        return $this;
-    }
-
 
 }

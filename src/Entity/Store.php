@@ -52,58 +52,5 @@ class Store
      */
     private $idPieceArt;
 
-    public function getIdProduit(): ?int
-    {
-        return $this->idProduit;
-    }
-
-    public function getNomArtwork(): ?string
-    {
-        return $this->nomArtwork;
-    }
-
-    public function setNomArtwork(string $nomArtwork): self
-    {
-        $this->nomArtwork = $nomArtwork;
-
-        return $this;
-    }
-
-    public function getPrixArtwork(): ?float
-    {
-        return $this->prixArtwork;
-    }
-
-    public function setPrixArtwork(float $prixArtwork): self
-    {
-        $this->prixArtwork = $prixArtwork;
-
-        return $this;
-    }
-
-    public function getImgArtwork(): ?string
-    {
-        return $this->imgArtwork;
-    }
-
-    public function setImgArtwork(string $imgArtwork): self
-    {
-        $this->imgArtwork = $imgArtwork;
-
-        return $this;
-    }
-
-    public function getIdPieceArt(): ?Artwork
-    {
-        return $this->idPieceArt;
-    }
-
-    public function setIdPieceArt(?Artwork $idPieceArt): self
-    {
-        $this->idPieceArt = $idPieceArt;
-
-        return $this;
-    }
-
 
 }

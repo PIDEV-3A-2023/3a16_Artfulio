@@ -2,9 +2,11 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 
 /**
  * User
@@ -12,6 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="user", indexes={@ORM\Index(name="is_pro", columns={"is_pro"}), @ORM\Index(name="username", columns={"username"}), @ORM\Index(name="role", columns={"type_role"}), @ORM\Index(name="email_user", columns={"email_user"})})
  * @ORM\Entity
  */
+#[UniqueEntity(fields: ['username'], message: 'There is already an account with this username')]
 class User
 {
     /**
@@ -86,7 +89,7 @@ class User
     private Collection $likes;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ParticipEvent", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\ParticipEvent", mappedBy="user" )
      */
 
     private Collection $participes;
@@ -149,6 +152,7 @@ class User
     {
         return $this->passwordUser;
     }
+
 
     public function setPasswordUser(string $passwordUser): self
     {
@@ -262,4 +266,8 @@ class User
 
         return $this;
     }
+
+    //------------------------ ajouter par UserInterface -------------------------------------------
+
+
 }

@@ -159,6 +159,4 @@ class Collaboration
 
         return $this;
     }
-
-
 }

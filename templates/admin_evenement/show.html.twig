@@ -1,5 +1,9 @@
 {% extends '/admin/index.html.twig' %}
 
+{% block css %}
+   <link rel="stylesheet" href="{{asset("assets/css/button_anime.css")}}">  
+{% endblock %}
+
 {% block title %}Evenement{% endblock %}
 
 {% block body %}
@@ -30,7 +34,7 @@
                         </tr>
                         <tr>
                             <th>Lieu</th>
-                            <td>{{ evenement.lieu }}</td>
+                            <td>{{ evenement.adresse }}</td>
                         </tr>
                         <tr>
                             <th>DateDebut</th>
@@ -40,24 +44,11 @@
                             <th>DateFin</th>
                             <td>{{ evenement.dateFin ? evenement.dateFin|date('Y-m-d') : '' }}</td>
                         </tr>
-                        <tr>
-                            <th>Image</th>
-                            <td>{{ evenement.image }}</td>
-                        </tr>
-                        <tr>
-                            <th>HeureDebut</th>
-                            <td>{{ evenement.heureDebut ? evenement.heureDebut|date('H:i:s') : '' }}</td>
-                        </tr>
-                        <tr>
-                            <th>HeureFin</th>
-                            <td>{{ evenement.heureFin ? evenement.heureFin|date('H:i:s') : '' }}</td>
-                        </tr>
                     </tbody>
                 </table>
 
-                <a href="{{ path('adm_evenement_index') }}">back to list</a>
-
-                <a href="{{ path('adm_evenement_edit', {'id': evenement.id}) }}">edit</a>
+                <button class="custom-btn btn-1"><a href="{{ path('adm_evenement_index') }}"><span class="sp"> revenir a la liste</span> </a></button>
+                <button class="custom-btn btn-1"><a href="{{ path('adm_evenement_edit', {'id': evenement.id}) }}"><span class="sp"> editer</span> </a></button>
 
         </div>
     </div>
