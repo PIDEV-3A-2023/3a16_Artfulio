@@ -122,15 +122,6 @@
             "./src/Kernel.php"
         ]
     },
-    "symfony/google-mailer": {
-        "version": "5.4",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "main",
-            "version": "4.4",
-            "ref": "f8fd4ddb9b477510f8f4bce2b9c054ab428c0120"
-        }
-    },
     "symfony/mailer": {
         "version": "5.4",
         "recipe": {
@@ -227,27 +218,6 @@
         "files": [
             "./config/packages/security.yaml"
         ]
-    },
-    "symfony/sendgrid-mailer": {
-        "version": "5.4",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "main",
-            "version": "4.4",
-            "ref": "b46e4f8f1adb2864f0aa9c0ff57aea3324a07199"
-        }
-    },
-    "symfony/sendinblue-mailer": {
-        "version": "5.4",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "main",
-            "version": "5.2",
-            "ref": "ae1cf494ce06b9a4578a8445c610402a1676ee8d"
-        }
-    },
-    "symfony/swiftmailer-bundle": {
-        "version": "v2.3.8"
     },
     "symfony/translation": {
         "version": "5.4",

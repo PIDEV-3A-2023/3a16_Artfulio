@@ -1,8 +1,0 @@
-{
-  "dependencies": {
-    "paginationjs": "^2.6.0"
-  },
-  "devDependencies": {
-    "chart.js": "^4.2.1"
-  }
-}

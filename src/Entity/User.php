@@ -2,89 +2,67 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * User
- *
- * @ORM\Table(name="user", indexes={@ORM\Index(name="id_user_2", columns={"id_user"}), @ORM\Index(name="username", columns={"username"}), @ORM\Index(name="is_pro", columns={"is_pro"}), @ORM\Index(name="role", columns={"type_role"}), @ORM\Index(name="id_user", columns={"id_user"}), @ORM\Index(name="email_user", columns={"email_user"})})
- * @ORM\Entity
- */
+use Repository;
+use App\Repository\UserRepository;
+
+#[ORM\Entity(repositoryClass: UserRepository::class)]
 class User
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id_user", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $idUser;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id= null;
+    #[ORM\Column(length: 255)]
+    private ?string $username = null;
+ 
+    #[ORM\Column(length: 255)]
+    private ?string $cin_user = null;
+ 
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="username", type="string", length=50, nullable=false)
-     */
-    private $username;
+    #[ORM\Column(length: 255)]
+    private ?string $adresse_user = null;
+ 
+  
+    #[ORM\Column(length: 255)]
+    private ?string $password_user = null;
+ 
+  
+    #[ORM\Column(length: 255)]
+    private ?string $email_user  = null;
+ 
+  
+    #[ORM\Column]
+    private ?bool $is_pro  = false;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="cin_user", type="string", length=8, nullable=false)
-     */
-    private $cinUser;
+    
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="adresse_user", type="string", length=50, nullable=false)
-     */
-    private $adresseUser;
+    #[ORM\Column(length: 255)]
+    private ?string $img_user	 = null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="password_user", type="string", length=50, nullable=false)
-     */
-    private $passwordUser;
+    // #[ORM\ManyToOne(targetEntity: Role::class, inversedBy: 'User')]
+    // #[ORM\JoinColumn(name: 'type_role', referencedColumnName: 'type_role')]
+    
+    private ?string $type_role  = null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="email_user", type="string", length=50, nullable=false)
-     */
-    private $emailUser;
+    #[ORM\OneToMany(mappedBy: 'id_artist', targetEntity: Artwork::class)]
+    private Collection $artworks;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="is_pro", type="integer", nullable=false)
-     */
-    private $isPro = '0';
+    #[ORM\OneToMany(mappedBy: 'id_util', targetEntity: Commentaire::class)]
+    private Collection $commentaires;
 
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="img_user", type="string", length=255, nullable=true)
-     */
-    private $imgUser;
-
-    /**
-     * @var \Role
-     *
-     * @ORM\ManyToOne(targetEntity="Role")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="type_role", referencedColumnName="id_role")
-     * })
-     * @ORM\JoinColumn(nullable=true)
-
-     */
-    private $typeRole;
-
-    public function getIdUser(): ?int
+    public function __construct()
     {
-        return $this->idUser;
+        $this->artworks = new ArrayCollection();
+        $this->commentaires = new ArrayCollection();
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
     }
 
     public function getUsername(): ?string
@@ -101,92 +79,151 @@ class User
 
     public function getCinUser(): ?string
     {
-        return $this->cinUser;
+        return $this->cin_user	;
     }
 
     public function setCinUser(string $cinUser): self
     {
-        $this->cinUser = $cinUser;
+        $this->cin_user	 = $cinUser;
 
         return $this;
     }
 
     public function getAdresseUser(): ?string
     {
-        return $this->adresseUser;
+        return $this->adresse_user;
     }
 
     public function setAdresseUser(string $adresseUser): self
     {
-        $this->adresseUser = $adresseUser;
+        $this->adresse_user = $adresseUser;
 
         return $this;
     }
 
     public function getPasswordUser(): ?string
     {
-        return $this->passwordUser;
+        return $this->password_user;
     }
 
     public function setPasswordUser(string $passwordUser): self
     {
-        $this->passwordUser = $passwordUser;
+        $this->password_user = $passwordUser;
 
         return $this;
     }
 
     public function getEmailUser(): ?string
     {
-        return $this->emailUser;
+        return $this->email_user ;
     }
 
     public function setEmailUser(string $emailUser): self
     {
-        $this->emailUser = $emailUser;
+        $this->email_user  = $emailUser;
 
         return $this;
     }
 
-    public function getIsPro(): ?int
+    public function isIsPro(): ?bool
     {
-        return $this->isPro;
+        return $this->is_pro ;
     }
 
-    public function setIsPro(int $isPro): self
+    public function setIsPro(bool $isPro): self
     {
-        $this->isPro = $isPro;
+        $this->is_pro  = $isPro;
 
         return $this;
     }
 
     public function getImgUser(): ?string
     {
-        return $this->imgUser;
+        return $this->img_user;
     }
 
     public function setImgUser(?string $imgUser): self
     {
-        $this->imgUser = $imgUser;
+        $this->img_user = $imgUser;
 
         return $this;
     }
 
     public function getTypeRole(): ?Role
     {
-        return $this->typeRole;
+        return $this->type_role ;
     }
 
     public function setTypeRole(?Role $typeRole): self
     {
-        $this->typeRole = $typeRole;
+        $this->type_role  = $typeRole;
 
         return $this;
     }
 
-    public function __toString()
+    public function getIsPro(): ?string
     {
-        return(string) $this->getIdUser();
+        return $this->is_pro ;
+    }
 
+    /**
+     * @return Collection<int, Artwork>
+     */
+    public function getArtworks(): Collection
+    {
+        return $this->artworks;
+    }
+
+    public function addArtwork(Artwork $artwork): self
+    {
+        if (!$this->artworks->contains($artwork)) {
+            $this->artworks->add($artwork);
+            $artwork->setIdArtist($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArtwork(Artwork $artwork): self
+    {
+        if ($this->artworks->removeElement($artwork)) {
+            // set the owning side to null (unless already changed)
+            if ($artwork->getIdArtist() === $this) {
+                $artwork->setIdArtist(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Commentaire>
+     */
+    public function getCommentaires(): Collection
+    {
+        return $this->commentaires;
+    }
+
+    public function addCommentaire(Commentaire $commentaire): self
+    {
+        if (!$this->commentaires->contains($commentaire)) {
+            $this->commentaires->add($commentaire);
+            $commentaire->setIdUtil($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaire(Commentaire $commentaire): self
+    {
+        if ($this->commentaires->removeElement($commentaire)) {
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getIdUtil() === $this) {
+                $commentaire->setIdUtil(null);
+            }
+        }
+
+        return $this;
     }
 
 
