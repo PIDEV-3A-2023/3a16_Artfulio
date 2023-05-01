@@ -8,11 +8,11 @@
     {{ form_widget(form) }}
     {% if app.user %}
         <button type="submit" class="btn btn-secondary display-4" style="width: 200px;">
-            {% if is_granted('ROLE_USER') and not parrainageRepository.hasRequest(app.user) %}
+            {# {% if is_granted('ROLE_USER') and not ParrainageRepository.hasRequest(app.user) %} #}
                 Envoyer parrainage
-            {% else %}
+            {# {% else %}
                 Vous avez déjà effectué une demande de parrainage.
-            {% endif %}
+            {% endif %} #}
         </button>
     {% else %}
         <p>Veuillez vous connecter pour effectuer une demande de parrainage.</p>
