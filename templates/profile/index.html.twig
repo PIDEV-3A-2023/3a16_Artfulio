@@ -247,7 +247,10 @@
                     {% for image in images %}
                     {% if image.IdArtist.id == users.id %}
                     <div class="embla__slide slider-image item" style="margin-left: 1rem; margin-right: 1rem;">
+
                         <div class="slide-content">
+                                                        <button class="btn btn-primary" onclick="window.location.href='{{ path('addtostore',{'id_artwork': image.getIdArtwork()}) }}'">Add To Store</button>
+
                             <div class="item-wrapper">
                                 <div class="item-img">
                                     <img src="{{ asset('uploads/images/' ~ image.imgArtwork) }}" alt="Mobirise Website Builder" title="">

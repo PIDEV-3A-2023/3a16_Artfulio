@@ -3,12 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\Artwork;
+use App\Entity\Store;
+
 use App\Entity\Commentaire;
 use App\Form\ArtworkType;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use App\Repository\ArtworkRepository;
 use App\Repository\UserRepository;
+use App\Repository\StoreRepository;
+
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -208,6 +212,23 @@ class ArtworkController extends AbstractController
         ]);
         
     }
+    #[Route('addtostore/{id_artwork}', name: 'addtostore', methods: ['GET'])]
+    public function addtostore(StoreRepository $StoreRepository,ArtworkRepository $artworkRepository,$id_artwork): Response
+    {
+
+        $artwork = $artworkRepository->find($id_artwork);
+        $store = new Store();
+        $store->setIdPieceArt($artwork->getIdArtwork());
+        $store->setNomArtwork($artwork->getNomArtwork());
+        $store->setImgArtwork($artwork->getImgArtwork());
+        $store->setPrixArtwork($artwork->getPrixArtwork());
+        $store->setartwork($artwork);
+        $StoreRepository->save($store, true);
+
+
+        return $this->redirectToRoute('store_index', [], Response::HTTP_SEE_OTHER);
+
+    }
 
 //     #[Route('/generateqrcode/{id_artwork}', name: 'app_artwork_generate_qr_code', methods: ['GET'])]
 // public function generateQrCode(Request $request,$id_artwork): Response
@@ -350,5 +371,7 @@ public function pdf(ArtworkRepository $artworkRepository)
 
         return $this->redirectToRoute('app_artwork_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    
     
 }

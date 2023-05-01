@@ -18,7 +18,7 @@ use Symfony\UX\Chartjs\Model\Chart;
 class ProfileController extends AbstractController
 {
     #[Route('/{id}', name: 'app_profile_index', methods: ['GET'])]
-    public function index(ChartBuilderInterface $chartBuilder,ArtworkRepository $ar,ProfileRepository $profileRepository,UserRepository $us,$id): Response
+    public function index(ArtworkRepository $ar,ProfileRepository $profileRepository,UserRepository $us,$id): Response
     {    
         // Retrieve data
         $images = $ar->findBytypeimage();
@@ -30,25 +30,24 @@ class ProfileController extends AbstractController
         $videoCount = count($videos);
         $musicCount = count($music);
     
-        // Build chart
-        $chart = $chartBuilder->createChart(Chart::TYPE_PIE);
-        $chart->setData([
-            'labels' => ['Images', 'Videos', 'Music'],
-            'datasets' => [
-                [
-                    'label' => 'Media Types',
-                    'data' => [$imageCount, $videoCount, $musicCount],
-                    'backgroundColor' => ['#FF6384', '#36A2EB', '#FFCE56'],
-                ],
-            ],
-        ]);
+        // // Build chart
+        // $chart = $chartBuilder->createChart(Chart::TYPE_PIE);
+        // $chart->setData([
+        //     'labels' => ['Images', 'Videos', 'Music'],
+        //     'datasets' => [
+        //         [
+        //             'label' => 'Media Types',
+        //             'data' => [$imageCount, $videoCount, $musicCount],
+        //             'backgroundColor' => ['#FF6384', '#36A2EB', '#FFCE56'],
+        //         ],
+        //     ],
+        // ]);
         return $this->render('profile/index.html.twig', [
             'profiles' => $profileRepository->findAll(),
             'users' => $us->finduser($id),
             'images' => $ar->findBytypeimage(),
             'videos' => $ar->findBytypevideo(),
             'music' => $ar->findBytypemusic(),
-            'chart' => $chart,
             'imageCount'=>$imageCount,
             'videoCount'=>$videoCount,
             'musicCount'=>$musicCount,

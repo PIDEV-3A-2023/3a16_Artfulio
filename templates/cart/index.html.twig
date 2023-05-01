@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon panier{% endblock %}
+
+{% block body %}
+
+    
+
+    
+    
+ <section data-bs-version="5.1" class="features10 cid-tueWtkHEaE" id="features11-11">       
+<main class ="page-wrapper">
+ {% if cart |length > 0 %}
+ <div class="container position-relative zindex-2 pt-5 pb-lg-5 pb-md-4 pd-2">
+    <div class="row">
+        <div class="col-lg-12 offset-lg-1 pt-1">
+            <h3 class="mbr-section-title mbr-fonts-style mb-4 display-2">
+                <strong>Mon panier</strong></h3>
+            <p>Ajouter d'autres articles disponibles sur le site <a href="{{path('store_index')}}">Voir les articles</a></p>
+{%for item in cart %}
+        <div class="card">
+            <div class="card-wrapper">
+                <div class="row align-items-center">
+                    <div class="col-12 col-md-3">
+                        <div class="image-wrapper">
+                            <img src="{{ asset(item.product.getImgArtwork()) }}" alt="Artwork Image">
+                        </div>
+                    </div>
+                    <div class="col-12 col-md">
+                        <div class="card-box">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="top-line">
+                                        <h4 class="card-title mbr-fonts-style display-5"><strong>{{ item.product.getNomArtwork() }}</strong></h4>
+                                        <p class="cost mbr-fonts-style display-5">
+                                            ${{ item.product.getPrixArtwork() }}</p>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="bottom-line">
+                                    
+                                        <form method="post" action="{{ path('cart_remove', {'id': item.product.idProduit}) }}">
+                                        <button class="button-1" type="submit" formaction="{{ path('cart_remove', {'id': item.product.idProduit}) }}">supprimer de la liste</button>
+                                    </form>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+         {% endfor %}
+         <div >
+        
+        <form action="/checkout" method="POST">
+      <button type="submit" class="button-1">Checkout</button>
+    </form>
+        </div>
+        </div>
+    </div>
+ </div>
+ 
+ {% else %}
+  
+{% endif %}
+{% endblock %}

@@ -1,0 +1,127 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Store{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+ .card img{
+    width:auto;
+    height:auto;
+ }
+
+</style>
+
+<section data-bs-version="5.1" class="features10 cid-tueWtkHEaE" id="features11-11">
+    {# <a href="{{ path('cart_index') }}"><button class="monpanier button-1">mon panier</button></a> #}
+    
+ 
+    
+    <div class="container">
+        <div class="title">
+            <h3 class="mbr-section-title mbr-fonts-style mb-4 display-2">
+                <strong>Liste des produits</strong></h3>
+            <form method="get">
+  <div style="
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 25px;
+  ">
+    <label style="margin-right: 15px;" for="name"><strong>Search:</strong></label>
+    <input style="margin-right: 15px;" type="text" id="name" name="name" value="{{ app.request.query.get('name') }}">
+    
+    <label style="margin-right: 15px;" for="price"><strong>Price:</strong></label>
+    <select id="price" name="price" style="margin-right: 15px;
+      width: 11%;
+      height: 49px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding-left: 5px;
+      padding: 10px;
+      font-size: 18px;
+      font-family: 'Open Sans', sans-serif;
+      color: #555;
+      background-color: rgb(255, 255, 255);
+      background-image: none;
+      border: 1px solid rgb(41, 18, 18);
+    ">
+      <option value="">All</option>
+      <option value="low" {% if app.request.query.get('price') == 'low' %}selected{% endif %}>Low to high</option>
+      <option value="high" {% if app.request.query.get('price') == 'high' %}selected{% endif %}>High to low</option>
+    </select>
+    
+    <button style="
+      font-family: 'Heebo', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.025rem;
+      font-style: normal;
+      text-transform: capitalize;
+      color: #FFFFFF;
+      background-color: #EA4C89;
+      border-radius: 0.4375rem;
+      -webkit-border-radius: 0.4375rem;
+      -moz-border-radius: 0.4375rem;
+      padding: 0.4375rem 0.4rem;
+      border-style: none;
+      border-width: 0rem;
+      border-color: #EF2D56;
+      -webkit-box-shadow: -4px 12px 144px 0px rgba(51,51,51,0.36);
+      -moz-box-shadow: -4px 12px 144px 0px rgba(51,51,51,0.36);
+      box-shadow: -4px 12px 144px 0px rgba(51,51,51,0.36);
+    " type="submit">Apply filters</button>
+  </div>
+</form>
+
+        {% for storeItem in storeItems %}
+        <div class="card">
+            <div class="card-wrapper">
+                <div class="row align-items-center">
+                    <div class="col-12 col-md-3">
+                        <div class="image-wrapper">
+                            <img src="{{ asset(storeItem.getImgArtwork()) }}" alt="Artwork Image">
+                        </div>
+                    </div>
+                    <div class="col-12 col-md">
+                        <div class="card-box">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="top-line">
+                                        <h4 class="card-title mbr-fonts-style display-5"><strong>{{ storeItem.getNomArtwork() }}</strong></h4>
+                                        <p class="cost mbr-fonts-style display-5">
+                                            ${{ storeItem.getPrixArtwork() }}</p>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="bottom-line">
+                                        <p class="mbr-text mbr-fonts-style m-0 display-7">
+                                            Themes in the Mobirise website builder offer multiple blocks: intros,
+                                            sliders, galleries, forms, articles, and so on. Start a project and click on
+                                            the red plus buttons to see the blocks available for your theme.
+                                        </p>
+                                    </div>
+                                    <form method="post" action="{{ path('cart_add', {'id': storeItem.getIdProduit()}) }}">
+                                        <button class="button-1" type="submit" formaction="{{ path('cart_add', {'id': storeItem.getIdProduit()}) }}">Ajouter au panier</button>
+                                    </form>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+         {% endfor %}
+        
+    </div>
+</section>
+
+<section data-bs-version="5.1" class="content16 cid-tueWBeISKu" id="content16-13">
+
+
+ 
+
+{% endblock %}
