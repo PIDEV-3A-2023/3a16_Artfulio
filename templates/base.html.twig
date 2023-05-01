@@ -105,9 +105,44 @@
 
                     <li class="nav-item"><a class="nav-link link text-black display-4" href="{{ path('app_artwork_video') }}"><span class="mbri-video-play mbr-iconfont mbr-iconfont-btn"></span>Video</a></li><li class="nav-item"><a class="nav-link link text-black display-4" href="{{ path('app_artwork_music') }}"><span class="mbri-music mbr-iconfont mbr-iconfont-btn"></span>Musique</a></li>
                     <li class="nav-item"><a class="nav-link link text-black display-4" href="page4.html"><span class="mbri-shopping-cart mbr-iconfont mbr-iconfont-btn"></span>Shop</a>
+                    <style>
+                    .dropdown {
+  display: inline-block;
+  position: relative;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  width: 100%;
+  overflow: auto;
+  box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.4);
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+.dropdown-content a {
+  display: block;
+  color: #000000;
+  padding: 5px;
+  text-decoration: none;
+}
+.dropdown-content a:hover {
+  color: black;
+  background-color: #dd5498;
+}</style>
                     </li></ul>
                         {% if app.user %}
-                                        <div class="navbar-buttons mbr-section-btn"><a class="btn btn-secondary display-4" href="{{ path('app_logout') }}">{{ app.user.username }}</a></div>
+                        <div class="dropdown">
+  <button>{{ app.user.username }}</button>
+  <div style="width:150px;" class="dropdown-content">
+  <a style="height:50px; "href="">Events</a>
+  <a style="height:50px; " href="">Collaboratiobs</a>
+  <a style="height:50px; " href="">Reclamation</a>
+  <a style="height:50px; " href="">Parrainage</a>
+  
+  </div>
+</div>
+                                        {# <div class="navbar-buttons mbr-section-btn"><a class="btn btn-secondary display-4" href="{{ path('app_logout') }}">{{ app.user.username }}</a></div> #}
 {% else %}
                                             <div class="navbar-buttons mbr-section-btn"><a class="btn btn-secondary display-4" href="{{ path('app_login') }}">Log In</a></div>
 
