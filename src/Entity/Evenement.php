@@ -17,30 +17,48 @@ class Evenement
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"peut pas etre vide")]
+
     private ?string $titre = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"peut pas etre vide")]
+
     private ?string $type = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"peut pas etre vide")]
+
     private ?string $description = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\NotBlank(message:"peut pas etre vide")]
+
     private ?\DateTimeInterface $dateDebut = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\NotBlank(message:"peut pas etre vide")]
+
     private ?\DateTimeInterface $dateFin = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"peut pas etre vide")]
+
     private ?string $image = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message:"peut pas etre vide")]
+
     private ?float $longitude = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message:"peut pas etre vide")]
+
     private ?float $latitude = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"peut pas etre vide")]
+
     private ?string $adresse = null;
 
     #[ORM\OneToMany(mappedBy: 'evenement', targetEntity: EventLike::class)]

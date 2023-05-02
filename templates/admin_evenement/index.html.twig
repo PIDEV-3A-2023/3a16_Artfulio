@@ -1,0 +1,78 @@
+{% extends '/admin/index.html.twig' %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{asset("assets/css/table-admin-event.css")}}">
+{% endblock %}
+
+{% block title %}Evenement index{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="row"><h1>Evenement nombre {{ evenements|length }}</h1>
+     </div>
+    <div class="row"> 
+      
+{#***************************************************************************************************************#}
+        <div class="col-2">
+        </div>
+
+                        <div class="col-10" id="demo">
+                            <h1>Evenements</h1>
+                            <h2></h2>
+
+                            <!-- Responsive table starts here -->
+                            <!-- For correct display on small screens you must add 'data-title' to each 'td' in your table -->
+                                <div class="table-responsive-vertical shadow-z-1">
+                            <!-- Table starts here -->
+                                <table id="table" class="table table-hover table-mc-light-blue">
+                                    <thead>
+                                
+                                        <tr class="table-primary">
+                                        <th>Titre</th>
+                                        <th>Type</th>
+                                        <th>adresse</th>
+                                        <th>DateDebut</th>
+                                        <th>DateFin</th>
+                                        <th>actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for evenement in evenements %}
+                                        <tr class="hoverable">
+                                            <td data-title="ID">{{ evenement.titre }}</td>
+                                            <td data-title="Name">{{ evenement.type }}</td>
+                                            <td data-title="Name">{{ evenement.adresse }}</td>
+                                            <td data-title="Name">{{ evenement.dateDebut ? evenement.dateDebut|date('Y-m-d') : '' }}</td>
+                                            <td data-title="Name">{{ evenement.dateFin ? evenement.dateFin|date('Y-m-d') : '' }}</td>
+                                            <td>
+                                            <a href="{{ path('adm_evenement_show', {'id': evenement.id}) }}"><i class="fa-solid fa-circle-info fa-2xl"></i></a>
+                                            <a href="{{ path('adm_evenement_edit', {'id': evenement.id}) }}"><i class="fa-solid fa-pen-to-square fa-2xl"></i></a>
+                                            </td>
+                                        </tr>
+                                        {% else %}
+                                        <tr>
+                                        <td colspan="11">pas d'evenements trouvé</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+
+        <div class="d-flex align-items-center justify-content-center">
+            {{ knp_pagination_render(evenements) }}
+        </div>
+</div>
+
+                    
+{#***************************************************************************************************************#}
+
+{#***************************************************************************************************************#}
+  </div>
+</div>
+{% endblock %}
+
+{% block js %}
+    <script src="https://kit.fontawesome.com/5617f4f4fc.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{{asset("assets/css/table-admin-event.js")}}">
+{% endblock %}
+

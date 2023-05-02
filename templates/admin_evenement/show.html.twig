@@ -1,0 +1,58 @@
+{% extends '/admin/index.html.twig' %}
+
+{% block css %}
+   <link rel="stylesheet" href="{{asset("assets/css/button_anime.css")}}">  
+{% endblock %}
+
+{% block title %}Evenement{% endblock %}
+
+{% block body %}
+<div class="container my-5">
+
+     </div>
+    <div class="row">
+        <div class="col-2 border"></div>
+        <div class="col-10 border">
+
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th>Id</th>
+                            <td>{{ evenement.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>Titre</th>
+                            <td>{{ evenement.titre }}</td>
+                        </tr>
+                        <tr>
+                            <th>Type</th>
+                            <td>{{ evenement.type }}</td>
+                        </tr>
+                        <tr>
+                            <th>Description</th>
+                            <td>{{ evenement.description }}</td>
+                        </tr>
+                        <tr>
+                            <th>Lieu</th>
+                            <td>{{ evenement.adresse }}</td>
+                        </tr>
+                        <tr>
+                            <th>DateDebut</th>
+                            <td>{{ evenement.dateDebut ? evenement.dateDebut|date('Y-m-d') : '' }}</td>
+                        </tr>
+                        <tr>
+                            <th>DateFin</th>
+                            <td>{{ evenement.dateFin ? evenement.dateFin|date('Y-m-d') : '' }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <button class="custom-btn btn-1"><a href="{{ path('adm_evenement_index') }}"><span class="sp"> revenir a la liste</span> </a></button>
+                <button class="custom-btn btn-1"><a href="{{ path('adm_evenement_edit', {'id': evenement.id}) }}"><span class="sp"> editer</span> </a></button>
+
+        </div>
+    </div>
+</div>
+
+    {{ include('evenement/_delete_form.html.twig') }}
+{% endblock %}
