@@ -47,7 +47,7 @@
         <div class="container">
             <div class="navbar-brand">
                 <span class="navbar-logo">
-                    <a href="{{ path('app_home') }}">
+                    <a href="{{ path('app_artwork_index') }}">
                         <img src="{{asset("assets/images/logoblack-350x96.png")}}" alt="Mobirise Website Builder" style="height: 3rem;">
                     </a>
                 </span>
@@ -62,17 +62,125 @@
                 </div>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav nav-dropdown" data-app-modern-menu="true"><li class="nav-item"><a class="nav-link link text-black display-4" href="{{ path('app_artwork_new') }}"><span class="mbri-image-slider mbr-iconfont mbr-iconfont-btn"></span>Post</a></li><li class="nav-item"><a class="nav-link link text-black display-4" href="{{ path('app_artwork_index') }}"><span class="mbri-image-slider mbr-iconfont mbr-iconfont-btn"></span>Image</a></li>
-                    <li class="nav-item"><a class="nav-link link text-black display-4" href="page3.html"><span class="mbri-video-play mbr-iconfont mbr-iconfont-btn"></span>Video</a></li><li class="nav-item"><a class="nav-link link text-black display-4" href="page5.html"><span class="mbri-music mbr-iconfont mbr-iconfont-btn"></span>Musique</a></li>
-                    <li class="nav-item"><a class="nav-link link text-black display-4" href="page4.html"><span class="mbri-shopping-cart mbr-iconfont mbr-iconfont-btn"></span>Shop</a>
+                <ul class="navbar-nav nav-dropdown" data-app-modern-menu="true">
+                <li class="nav-item"><form autocomplete="off" class="nav-link  display-4"method="post" action="{{path('searchf')}}">
+
+<div class="container">
+    {# <form>
+      <div class="form-group">
+        <textarea style=" display: block;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border: none;
+  resize: none;
+  outline: none;
+  background-color: transparent;"name="txtcom"   placeholder="Search..."></textarea>
+  
+
+      </div>
+          <li class=" nav-item"><input  class="btn-secondary"type="submit" value="Search"></input></li>
+
+    </form></li> #}
+    <div class="search-bar">
+                    <form class="search-form d-flex align-items-center" method="POST" action="#">
+                        <input style=" display: block;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border: none;
+  resize: none;
+  outline: none;
+  background-color: transparent;" type="text" name="txtcom" placeholder="Search...." title="Enter search keyword">
+                        <button style="display: none;" type="submit" title="Search"><i class="bi bi-search"></i></button>
+                    </form>
+                </div>
+                <li class="nav-item"><a class="nav-link link text-black display-4" href="{{ path('app_artwork_new') }}"><span class="mbri-image-slider mbr-iconfont mbr-iconfont-btn"></span>Post</a></li><li class="nav-item"><a class="nav-link link text-black display-4" href="{{ path('app_artwork_index') }}"><span class="mbri-image-slider mbr-iconfont mbr-iconfont-btn"></span>Image</a></li>
+                                    
+                                    
+
+                    <li class="nav-item"><a class="nav-link link text-black display-4" href="{{ path('app_artwork_video') }}"><span class="mbri-video-play mbr-iconfont mbr-iconfont-btn"></span>Video</a></li><li class="nav-item"><a class="nav-link link text-black display-4" href="{{ path('app_artwork_music') }}"><span class="mbri-music mbr-iconfont mbr-iconfont-btn"></span>Musique</a></li>
+                    <li class="nav-item"><a class="nav-link link text-black display-4" href="{{ path('store_index') }}"><span class="mbri-shopping-cart mbr-iconfont mbr-iconfont-btn"></span>Shop</a>
+                    <style>
+                    .dropdown {
+  display: inline-block;
+  position: relative;
+}
+.dropdown-content {
+    background-color: #eddcd9;
+  display: none;
+  position: absolute;
+  width: 100%;
+  overflow: auto;
+  box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.4);
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+.dropdown-content a {
+  display: block;
+  color: #000000;
+  padding: 5px;
+  text-decoration: none;
+}
+.dropdown-content a:hover {
+  color: black;
+  background-color: #dd5498;
+}
+</style>
                     </li></ul>
-                
-                <div class="navbar-buttons mbr-section-btn"><a class="btn btn-secondary display-4" href="index.html">Log in</a></div>
+                        {% if app.user %}
+                        <div class="dropdown">
+  <button class="btn btn-secondary display-4">{{ app.user.username }}</button>
+  <div style="width:170px;" class="dropdown-content">
+  <a class="btn btn-secondary display-4" style="height:50px; "href="{{ path('app_profile_index', {'id': app.user.id}) }}"> Portfolio Personel</a>
+  
+  <a class="btn btn-secondary display-4" style="height:50px; "href="{{ path('app_evenement_index') }}"> Events</a>
+  <a class="btn btn-secondary display-4"style="height:50px; " href="{{ path('app_collaboration_index') }}">Collaborations</a>
+  <a class="btn btn-secondary display-4" style="height:50px; " href="{{ path('app_reclamation_new') }}">Reclamer</a>
+  <a class="btn btn-secondary display-4" style="height:50px; " href="{{ path('app_parrainage_new') }}">Parrainage</a>
+  <a   class="btn btn-secondary display-4"style="height:50px; " href="{{ path('app_logout') }}">Log Out</a>
+  
+  
+  </div>
+</div> 
+
+
+
+
+                                        {# <div class="navbar-buttons mbr-section-btn"><a class="btn btn-secondary display-4" href="{{ path('app_logout') }}">{{ app.user.username }}</a></div> #}
+{% else %}
+                                            <div class="navbar-buttons mbr-section-btn"><a class="btn btn-secondary display-4" href="{{ path('app_login') }}">Log In</a></div>
+
+    {% endif %}
+
             </div>
         </div>
     </nav>
 </section>
-
+ <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity=
+"sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous">
+    </script>
+      
+    <script src=
+"https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity=
+"sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous">
+    </script>
+      
+    <script src=
+"https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity=
+"sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous">
+    </script>
   {% block body %}
  
   {% endblock %}
@@ -145,6 +253,7 @@
             </div>
         </div>
     </div>
+    </section>
 {# </section><section class="display-7" style="padding: 0;align-items: center;justify-content: center;flex-wrap: wrap;    align-content: center;display: flex;position: relative;height: 4rem;"><a href="https://mobiri.se/2636249" style="flex: 1 1;height: 4rem;position: absolute;width: 100%;z-index: 1;">
 <img alt="" style="height: 4rem;" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="></a>
 <p style="margin: 0;text-align: center;" class="display-7">Made with &#8204;</p>
@@ -153,6 +262,7 @@
 
 {% block js %}
 
+        <script src="{{ asset('js/likes.js') }}"></script>
 <script src="{{asset("assets/bootstrap/js/bootstrap.bundle.min.js")}}"></script> 
  <script src="{{asset("assets/smoothscroll/smooth-scroll.js")}}"></script> 
   <script src="{{asset("assets/ytplayer/index.js")}}"></script>
@@ -163,7 +273,7 @@
     <script>
         setTimeout(function(){
             $('.loader_bg').fadeToggle();
-        }, 1500);
+        }, 700);
     </script>
     
 {% endblock %}

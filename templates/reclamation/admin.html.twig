@@ -1,0 +1,273 @@
+{% extends '/admin/index.html.twig' %}
+
+
+
+{% block title %}admin{% endblock %}
+
+
+{% block body %}
+    <style>
+h1{
+  font-size: 30px;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 300;
+  text-align: center;
+  margin-bottom: 15px;
+}
+table{
+  width:100%;
+  table-layout: fixed;
+}
+.tbl-header{
+  background-color: rgba(255,255,255,0.3);
+ }
+.tbl-content{
+  height:481px;
+  overflow-x:auto;
+  margin-top: 0px;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+th{
+  padding: 20px 15px;
+  text-align: left;
+  font-weight: 500;
+  font-size: 12px;
+  color: #fff;
+  text-transform: uppercase;
+}
+td{
+  padding: 15px;
+  text-align: left;
+  vertical-align:middle;
+  font-weight: 300;
+  font-size: 12px;
+  color: #fff;
+  border-bottom: solid 1px rgba(255,255,255,0.1);
+}
+
+
+/* demo styles */
+
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
+body{
+
+  
+  background: linear-gradient(to right, #000000, #b8236e );
+  font-family: 'Roboto', sans-serif;
+
+}
+section{
+  margin: 0px;
+}
+
+
+/* follow me template */
+.made-with-love {
+  margin-top: 40px;
+  padding: 10px;
+  clear: left;
+  text-align: center;
+  font-size: 10px;
+  font-family: arial;
+  color: #fff;
+}
+.made-with-love i {
+  font-style: normal;
+  color: #F50057;
+  font-size: 14px;
+  position: relative;
+  top: 2px;
+}
+.made-with-love a {
+  color: #fff;
+  text-decoration: none;
+}
+.made-with-love a:hover {
+  text-decoration: underline;
+}
+
+
+/* for custom scrollbar for webkit browser*/
+
+::-webkit-scrollbar {
+    width: 6px;
+} 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+} 
+::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+}</style>
+  <!-- ======= Header ======= -->
+ er><!-- End Header -->
+
+  <!-- ======= Sidebar ======= -->
+  <!-- End Sidebar-->
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      {# <h1>Dashboard</h1> #}
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section dashboard">
+      <div class="row">
+
+
+            <!-- Reports -->
+            <div class="col-12">
+              <div >
+
+                <div class="filter">
+                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                    <li class="dropdown-header text-start">
+                      <h6>Filter</h6>
+                    </li>
+
+                    <li><a class="dropdown-item" href="#">Today</a></li>
+                    <li><a class="dropdown-item" href="#">This Month</a></li>
+                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                  </ul>
+                </div>
+
+                <div class="card-body">
+                  {# <h5 class="card-title">Reports <span>/Today</span></h5> #}
+
+                  <!-- Line Chart -->
+                  <div id="reportsChart"></div>
+                  <section data-bs-version="5.1" class="gallery2 cid-tueENDWKwP" id="gallery2-r">
+
+
+
+
+  <h1>Reclamation index</h1>
+
+<div style="float: right;">
+<form method="get" action="{{ path('app_admin') }}">
+  <label  for="sort-by" style="color: white;">Trier par:</label>
+  <select name="sort_by" id="sort-by">
+    <option value="idUser_asc">Id User (Ascendant)</option>
+    <option value="idUser_desc">Id User (Descendant)</option>
+    <option value="titre_asc">Titre (Ascendant)</option>
+    <option value="titre_desc">Titre (Descendant)</option>
+    <option value="reclamationSec_asc">ReclamationSec (Ascendant)</option>
+    <option value="reclamationSec_desc">ReclamationSec (Descendant)</option>
+    <option value="email_asc">Email (Ascendant)</option>
+    <option value="email_desc">Email (Descendant)</option>
+  </select>
+  <button class="btn btn-secondary btn-sm display-4" type="submit">Trier</button>
+</form>
+</div>
+
+    <form action="{{ path('app_admin') }}" method="get" class="mb-3">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search by email" name="search">
+            <button type="submit" class="btn btn-secondary display-4">Search</button>
+        </div>
+    </form>
+
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>IdRec</th>
+                <th>Id User</th>
+                <th>Titre</th>
+                <th>Reclamation Sec</th>
+                <th>Email</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reclamation in reclamations %}
+            <tr>
+                <td>{{ reclamation.idRec }}</td>
+                <td>{{ reclamation.getIdUser().getIdUser()|default('NULL') }}</td>
+                <td>{{ reclamation.titre }}</td>
+                <td>{{ reclamation.reclamationSec }}</td>
+                <td>{{ reclamation.email }}</td>
+                <td>
+                    <div class="dropdown">
+                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="btn btn-secondary display-4 mx-auto" style="width: 200px;" href="{{ path('app_Reclamation_show', {'idRec': reclamation.idRec}) }}"
+                               ><i class="bx bx-show-alt me-1"></i> Voir</a>
+                            <a class="btn btn-secondary display-4 mx-auto" style="width: 200px;" href="{{ path('app_reclamation_edit', {'idRec': reclamation.idRec}) }}"
+                               ><i class="bx bx-edit-alt me-1"></i> Modifier</a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+<div class="d-flex justify-content-center mt-3">
+    {{ knp_pagination_render(reclamations) }}
+</div>
+
+
+<script>
+$(document).ready(function() {
+    // Listen for form submission
+    $('form#search-form').submit(function(event) {
+        // Prevent default form submission
+        event.preventDefault();
+        
+        // Get form data
+        var formData = $(this).serialize();
+        
+        // Send AJAX request to server
+        $.ajax({
+            type: 'GET',
+            url: '{{ path("app_admin") }}',
+            data: formData,
+            success: function(response) {
+                // Update table with new data
+                $('table tbody').html(response);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log(textStatus, errorThrown);
+            }
+        });
+    });
+});
+</script>
+
+       
+
+      
+  </div>
+</section>
+
+
+
+
+
+<!-- follow me template -->
+{# <div class="made-with-love"> #}
+ <script>.
+$(window).on("load resize ", function() {
+  var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
+  $('.tbl-header').css({'padding-right':scrollWidth});
+}).resize();
+</script>
+</div>
+        
+                    </div><!-- End Reports -->
+
+{% endblock %}

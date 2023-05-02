@@ -57,7 +57,15 @@
                     <li class="nav-item"><a class="nav-link link text-black display-4" href="page4.html"><span class="mbri-shopping-cart mbr-iconfont mbr-iconfont-btn"></span>Shop</a>
                     </li></ul>
                 
-                <div class="navbar-buttons mbr-section-btn"><a class="btn btn-secondary display-4" href="index.html">Log in</a></div>
+                
+            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+        </div>
+        {% else %}
+         <div class="mb-3">
+            Log in <a href="{{ path('app_login') }}"></a>
+        </div>
+        {% endif %}
+    {% endif %}</a></div>
             </div>
         </div>
     </nav>

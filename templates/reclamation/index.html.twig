@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Reclamation index</h1>
+
+    <form action="{{ path('app_reclamation_index') }}" method="get" class="mb-3">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search by email" name="search">
+            <button type="submit" class="btn btn-outline-secondary">Search</button>
+        </div>
+    </form>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>IdRec</th>
+                <th>Id User</th>
+                <th>Titre</th>
+                <th>ReclamationSec</th>
+                <th>Email</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reclamation in reclamations %}
+            <tr>
+                <td>{{ reclamation.idRec }}</td>
+                <td>{{ reclamation.IdUser }}</td>
+                <td>{{ reclamation.titre }}</td>
+                <td>{{ reclamation.reclamationSec }}</td>
+                <td>{{ reclamation.email }}</td>
+                <td>
+                    <div class="dropdown">
+                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="btn btn-secondary display-4 mx-auto" style="width: 200px;" href="{{ path('app_Reclamation_show', {'idRec': reclamation.idRec}) }}"
+                               ><i class="bx bx-show-alt me-1"></i> Voir</a>
+                            <a class="btn btn-secondary display-4 mx-auto" style="width: 200px;" href="{{ path('app_reclamation_edit', {'idRec': reclamation.idRec}) }}"
+                               ><i class="bx bx-edit-alt me-1"></i> Modifier</a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="d-flex justify-content-center mt-3">
+    {{ knp_pagination_render(reclamations) }}
+</div>
+
+
+    <a href="{{ path('app_reclamation_new') }}" class="btn btn-secondary display-4 mx-auto" style="width: 250px;">Créer une reclamation</a>
+{% endblock %}
+
+
+
+

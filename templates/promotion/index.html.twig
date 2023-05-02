@@ -1,0 +1,56 @@
+{% extends '/admin/index.html.twig'  %}
+
+{% block title %}Promotion index{% endblock %}
+{% block hamza %} promotion {% endblock %}
+
+ {% block other %} 
+                      <li class="nav-item">
+                        <a class="nav-link " href="{{ path('app_categorie_index') }}">
+                            <i class="bi bi-grid"></i>
+                            <span>Categorie</span>
+                        </a>
+                    </li>
+                    {% endblock %}
+
+{% block body %}
+    <h1>Promotion index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Remise</th>
+                <th>Type</th>
+                <th>Nouveau Prix</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for promotion in promotions %}
+            <tr>
+                <td>{{ promotion.id }}</td>
+                <td>{{ promotion.remise }}</td>
+                <td>{{ promotion.type }}</td>
+                <td>{{ discountedPrices[promotion.id] }}</td>
+
+                
+
+
+                
+
+                
+                <td>
+                    <a href="{{ path('app_promotion_show', {'id': promotion.id}) }}">show</a>
+                  
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+ <a href="{{ path('app_promotion_new') }}">Create new</a>
+   
+{% endblock %}

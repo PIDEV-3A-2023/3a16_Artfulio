@@ -25,13 +25,7 @@
       height: inherit;
       padding: 20px;
       }
-      form {
-      width: 100%;
-      padding: 20px;
-      border-radius: 6px;
-      background: #fff;
-      box-shadow: 0 0 10px 0 #cc0052; 
-      }
+     
       .banner {
       position: relative;
       height: 210px;
@@ -156,6 +150,7 @@
         class: 'form-floating'
     }
 }) }}
+{% if app.user.username == "admin" %}
 {{ form_row(form.id_artist, {
     label: 'Artiste de l\'oeuvre',
     attr: {
@@ -164,7 +159,19 @@
     row_attr: {
         class: 'form-floating'
     }
+   
 }) }}
+ {% else %}
+    {{ form_row(form.id_artist, {
+    label: 'Artiste de l\'oeuvre',
+    attr: {
+        placeholder: 'Artiste'
+    },
+    row_attr: {
+        style: 'display:none;'
+    }}) }}
+{% endif %}
+
 {{ form_row(form.date, {
     label: 'Date de creation de l\'oeuvre',
     attr: {

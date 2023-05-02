@@ -141,66 +141,107 @@ section{
         <section>
   <!--for demo wrap-->
   <h1>Artwork</h1>
-<form method="post" action="{{path('search')}}">
-</form>
+
 <form method="post" action="{{path('order')}}">
-<label>order 
 
-<input type="submit" value="order"></input>
+<input class="btn btn-secondary display-4" type="submit" value="order by name"></input>
 
 </form>
+<form method="post" action="{{path('orderprice')}}">
+
+
+<input class="btn btn-secondary display-4" type="submit" value="order by price"></input>
+
+</form>
+<form method="post" action="{{path('orderdate')}}">
+
+
+<input class="btn btn-secondary display-4" type="submit" value="order by date"></input>
+
+</form>
+<form method="post" action="{{path('pdf')}}">
+
+
+<input class="btn btn-secondary display-4" type="submit" value="pdf"></input>
+
+</form>
+<form method="post" action="{{path('search')}}">
 
 <label>name:
 
 <input type="text" name="mail"></input>
-<input type="submit" value="Search"></input>
+<input class="btn btn-secondary display-4" type="submit" value="Search"></input>
+
 </form>
   
   <div class="tbl-header">
+   <div class="tbl-header">
     <table class ="table-dark"cellpadding="0" cellspacing="0" border="0">
-      <thead>
-        <tr>
-          <th>Nom</th>
-          <th>Description</th>
-          <th>Prix</th>
-          <th>Date </th>
-           <th>Lien</th>
-            <th>dimension</th>
-             <th>image</th>
-          {# <th>Artiste </th>
-          <th>Type </th>
-           #}
-        </tr>
-      </thead>
-    </table>
-  </div>
-  <div class="tbl-content">
-    <table cellpadding="0" cellspacing="0" border="0">
-      <tbody>
-      {% for artwork in artworks %}
-
-        
-                <td>{{ artwork.nomArtwork }}</td>
-                <td>{{ artwork.descriptionArtwork }}</td>
-                <td>{{ artwork.prixArtwork }}</td>
-                <td>{{ artwork.date ? artwork.date|date('Y-m-d') : '' }}</td>
-                {# <td>{{ artwork.IdArtist.username }}</td> #}
-                <td>{{ artwork.lienArtwork }}</td>
-                <td>{{ artwork.dimensionArtwork }}</td>
-                <td ><img style="width : 100px;height:100px;" src="{{ asset('uploads/images/' ~ artwork.imgArtwork) }}"  /></td>
-                <td>
-                    <a class="btn btn-secondary display-4" href="{{ path('app_artwork_show', {'id_artwork': artwork.idartwork}) }}">show</a>
-                    <a class="btn btn-secondary display-4" href="{{ path('app_artwork_edit', {'id_artwork': artwork.idartwork}) }}">edit</a>
-                </td>
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Prix</th>
+                <th>Date</th>
+                <th>Lien</th>
+                <th>Dimension</th>
+               
+                {# <th>Artiste</th> #}
+                {# <th>Type</th> #}
+                 <th>Image</th>
+                <th>Action</th>
             </tr>
- {% endfor %}
-        
-      </tbody>
-      <tbody id="searchtab">
-</tbody>
-
+        </thead>
     </table>
-        
+</div>
+<div class="tbl-content">
+    <table cellpadding="0" cellspacing="0" border="0">
+        <tbody>
+            {% for artwork in artworks %}
+                <tr>
+                    <td>{{ artwork.nomArtwork }}</td>
+                    <td>{{ artwork.descriptionArtwork }}</td>
+                    <td>{{ artwork.prixArtwork }}</td>
+                    <td>{{ artwork.date ? artwork.date|date('Y-m-d') : '' }}</td>
+                    <td>{{ artwork.lienArtwork }}</td>
+                    <td>{{ artwork.dimensionArtwork }}</td>
+                   
+                    
+                    <td><img style="width:100px;height:100px;" src="{{ asset('uploads/images/' ~ artwork.imgArtwork) }}" /></td>
+                    <td>
+                        <button type="button" class="btn btn-secondary display-4" data-toggle="modal" data-target="#artworkModal{{ artwork.idartwork }}">Show</button>
+<a class="btn btn-secondary display-4" href="{{ path('app_artwork_edit', {'id_artwork': artwork.idartwork}) }}">edit</a>                    </td>
+                </tr>
+                <!-- Modal -->
+                <div class="modal fade" id="artworkModal{{ artwork.idartwork }}" tabindex="-1" role="dialog" aria-labelledby="artworkModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="artworkModalLabel"><strong>Nom: </strong>{{ artwork.nomArtwork }}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div style ="text-align: left;"class="modal-body">
+                                <p><strong>desc:</strong>{{ artwork.descriptionArtwork }}</p>
+                                <p><strong>Prix:</strong> {{ artwork.prixArtwork }}</p>
+                                <p><strong>Date: </strong>{{ artwork.date ? artwork.date|date('Y-m-d') : '' }}</p>
+                                <p><strong>Lien:</strong> {{ artwork.lienArtwork }}</p>
+                                <p><strong>Dimension: </strong>{{ artwork.dimensionArtwork }}</p>
+                                <p><strong>Artiste:</strong> {{ artwork.IdArtist.username}}</p>
+                                <p><strong>Type:</strong> {{ artwork.IdType.TypeSousCat }}</p>
+                                 
+                                <img style="width:100%;height:auto;" src="{{ asset('uploads/images/' ~ artwork.imgArtwork) }}" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Modal -->
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
 
   </div>
   <a class=" btn btn-secondary display-4" href="{{ path('app_artwork_new') }}">Create new</a>
@@ -223,4 +264,41 @@ $(window).on("load resize ", function() {
         
                     </div><!-- End Reports -->
 
+{% endblock %}
+    {% block javascripts %}
+    {# <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> #}
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Add click event listener to the "show" button
+        $('.show-modal-btn').on('click', function() {
+            // Get the artwork ID from the button's data-id attribute
+            var artworkId = $(this).data('id');
+            // Send an AJAX request to fetch the artwork data from the server
+            $.ajax({
+                url: '/artwork/' + artworkId,
+                method: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    // Populate the modal body with the artwork data
+                    $('#modal-nomArtwork').text(response.nomArtwork);
+                    $('#modal-descriptionArtwork').text(response.descriptionArtwork);
+                    $('#modal-prixArtwork').text(response.prixArtwork);
+                    $('#modal-date').text(response.date);
+                    $('#modal-lienArtwork').text(response.lienArtwork);
+                    $('#modal-dimensionArtwork').text(response.dimensionArtwork);
+                    $('#modal-imgArtwork').attr('src', '/uploads/images/' + response.imgArtwork);
+                    // Show the modal
+                    $('#show-artwork-modal').modal('show');
+                },
+                error: function() {
+                    // Handle error
+                    alert('An error occurred while fetching artwork data!');
+                }
+            });
+        });
+    });
+</script>
 {% endblock %}

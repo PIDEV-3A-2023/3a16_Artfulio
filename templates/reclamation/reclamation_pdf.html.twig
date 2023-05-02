@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{{ reclamation.titre }} - Reclamation PDF</title>
+    <style>
+        h1 {
+            font-size: 20px;
+            text-align: center;
+            margin-top: 20px;
+            color: #000000;
+            text-shadow: 1px 1px 0px rgba(0,0,0,0.3);
+        }
+
+        table {
+            border-collapse: collapse;
+            margin: auto;
+            margin-top: 50px;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid black;
+        }
+
+        th {
+            text-align: center;
+            background-color: #b8236e;
+            color: #fff;
+        }
+        
+        .logo {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        /* Custom color styles */
+        body {
+            background-color: #fce7f3;
+            background-image: linear-gradient(to bottom right, #fce7f3, #fff3f7);
+        }
+
+        /* Random pattern */
+        .pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Cdefs%3E%3Cpattern id="pattern" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse"%3E%3Cpath d="M-1,1 l2,-2 M0,10 l10,-10 M9,11 l2,-2" stroke="%23d44987" stroke-width="1" /%3E%3C/pattern%3E%3C/defs%3E%3Crect x="0" y="0" width="100" height="100" fill="url(%23pattern)" /%3E%3C/svg%3E');
+        }
+    </style>
+</head>
+<body>
+    <div class="pattern"></div>
+    <img src="{{ image_url }}" alt="Image">
+    <h1>{{ reclamation.titre }}</h1>
+    <table>
+        <tr>
+            <th>Reclamation Section</th>
+            <td>{{ reclamation.reclamationSec }}</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>{{ reclamation.email }}</td>
+        </tr>
+    </table>
+
+    <script>
+        // Apply the background color to the body element
+        document.body.style.backgroundColor = "#fce7f3";
+    </script>
+</body>
+</html>

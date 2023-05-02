@@ -1,0 +1,44 @@
+/* Style pour le formulaire */
+.form-control {
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    box-shadow: none;
+  }
+  
+  .form-group label {
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+  
+  .form-group textarea.form-control {
+    height: 150px;
+  }
+  
+  .selectType {
+    appearance: none;
+    background-color: transparent;
+    background-image: url("../images/arrow-down.svg");
+    background-repeat: no-repeat;
+    background-position: right .75rem center;
+    background-size: auto 50%;
+    padding-right: 2rem;
+  }
+  
+  /* Style pour le bouton d'envoi */
+  .btn-envoyer {
+    background-color: #0088cc;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 0.75rem 1.5rem;
+  }
+  
+  .btn-envoyer:hover {
+    background-color: #006699;
+    color: #fff;
+  }
+  
