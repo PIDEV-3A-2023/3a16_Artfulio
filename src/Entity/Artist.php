@@ -35,9 +35,17 @@ class Artist implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'idUser', targetEntity: Parrainage::class)]
     private Collection $parrainages;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: EventLike::class)]
+    private Collection $eventLikes;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: ParticipEvent::class)]
+    private Collection $participEvents;
+
     public function __construct()
     {
         $this->parrainages = new ArrayCollection();
+        $this->eventLikes = new ArrayCollection();
+        $this->participEvents = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -160,6 +168,66 @@ class Artist implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($parrainage->getIdUser() === $this) {
                 $parrainage->setIdUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, EventLike>
+     */
+    public function getEventLikes(): Collection
+    {
+        return $this->eventLikes;
+    }
+
+    public function addEventLike(EventLike $eventLike): self
+    {
+        if (!$this->eventLikes->contains($eventLike)) {
+            $this->eventLikes->add($eventLike);
+            $eventLike->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEventLike(EventLike $eventLike): self
+    {
+        if ($this->eventLikes->removeElement($eventLike)) {
+            // set the owning side to null (unless already changed)
+            if ($eventLike->getUser() === $this) {
+                $eventLike->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ParticipEvent>
+     */
+    public function getParticipEvents(): Collection
+    {
+        return $this->participEvents;
+    }
+
+    public function addParticipEvent(ParticipEvent $participEvent): self
+    {
+        if (!$this->participEvents->contains($participEvent)) {
+            $this->participEvents->add($participEvent);
+            $participEvent->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParticipEvent(ParticipEvent $participEvent): self
+    {
+        if ($this->participEvents->removeElement($participEvent)) {
+            // set the owning side to null (unless already changed)
+            if ($participEvent->getUser() === $this) {
+                $participEvent->setUser(null);
             }
         }
 

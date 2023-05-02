@@ -5,33 +5,35 @@ namespace App\Entity;
 use App\Repository\ParticipEventRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-
-/**
- * @ORM\Entity(repositoryClass="App\Repository\ParticipEventRepository")
- */
+#[ORM\Entity(repositoryClass: ParticipEventRepository::class)]
 class ParticipEvent
 {
-    /**
-     * @ORM\id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
     private ?int $id = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Evenement", inversedBy="participes")
-     */
-    private $evenement = null;
+    #[ORM\ManyToOne(inversedBy: 'participEvents')]
+    private ?Artist $user = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="participes")
-     * @ORM\JoinColumn(name="id_user", referencedColumnName="id_user", nullable=false)
-     */
-    private $user = null;
+    #[ORM\ManyToOne(inversedBy: 'participes')]
+    private ?Evenement $evenement = null;
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getUser(): ?Artist
+    {
+        return $this->user;
+    }
+
+    public function setUser(?Artist $user): self
+    {
+        $this->user = $user;
+
+        return $this;
     }
 
     public function getEvenement(): ?Evenement
@@ -42,18 +44,6 @@ class ParticipEvent
     public function setEvenement(?Evenement $evenement): self
     {
         $this->evenement = $evenement;
-
-        return $this;
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
 
         return $this;
     }
