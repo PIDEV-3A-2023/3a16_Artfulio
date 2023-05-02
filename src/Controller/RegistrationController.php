@@ -31,6 +31,19 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+            $file = $form['img_user']->getData();
+            $imageFile = $form->get('img_user')->getData();
+            
+            // génération d un nom de fichier unique
+            $newFilename = uniqid().'.'.$imageFile->guessExtension();
+
+            // déplacement du file dans le dossier public/images
+            $imageFile->move(
+                $this->getParameter('images_directory'),
+                $newFilename
+            );
+            $art->setImgUser($newFilename);
+            $user->setImgUser($newFilename);
             $art->setUsername($user->getUsername());
             $art->setPassword($user->getPassword());
             $art->setRoles($user->getRoles());

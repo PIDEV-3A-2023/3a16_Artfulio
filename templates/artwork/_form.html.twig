@@ -150,6 +150,7 @@
         class: 'form-floating'
     }
 }) }}
+{% if app.user.username == "admin" %}
 {{ form_row(form.id_artist, {
     label: 'Artiste de l\'oeuvre',
     attr: {
@@ -158,7 +159,18 @@
     row_attr: {
         class: 'form-floating'
     }
+   
 }) }}
+ {% else %}
+    {{ form_row(form.id_artist, {
+    label: 'Artiste de l\'oeuvre',
+    attr: {
+        placeholder: 'Artiste'
+    },
+    row_attr: {
+        style: 'display:none;'
+    }}) }}
+{% endif %}
 
 {{ form_row(form.date, {
     label: 'Date de creation de l\'oeuvre',

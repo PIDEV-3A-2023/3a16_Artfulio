@@ -7,6 +7,10 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Repository;
+use App\Entity\Artist;
+use App\Entity\User;
+
+
 use App\Repository\ArtworkRepository;
 use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: ArtworkRepository::class)]
@@ -194,6 +198,7 @@ class Artwork
 
         return $this;
     }
+   
 
     public function getIdType(): ?SousCat
     {

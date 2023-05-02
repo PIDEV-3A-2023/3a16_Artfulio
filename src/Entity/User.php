@@ -86,6 +86,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->email;
     }
+    public function setIdu(int $email): self
+    {
+        $this->id = $email;
+
+        return $this;
+    }
 
     public function setEmail(string $email): self
     {

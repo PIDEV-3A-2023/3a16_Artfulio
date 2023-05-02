@@ -41,7 +41,7 @@
     <div class="loader"></div>
 </div>
 
-  <section data-bs-version="5.1" class="menu menu2 cid-sFF0ciwnEL" once="menu" id="menu2-0" style="margin-top:-50px">
+  <section data-bs-version="5.1" class="menu menu2 cid-sFF0ciwnEL" once="menu" id="menu2-0">
     
     <nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
         <div class="container">
@@ -137,6 +137,7 @@
                         <div class="dropdown">
   <button class="btn btn-secondary display-4">{{ app.user.username }}</button>
   <div style="width:170px;" class="dropdown-content">
+  <a class="btn btn-secondary display-4" style="height:50px; "href="{{ path('app_profile_index', {'id': app.user.id}) }}"> Portfolio Personel</a>
   
   <a class="btn btn-secondary display-4" style="height:50px; "href="{{ path('app_evenement_index') }}"> Events</a>
   <a class="btn btn-secondary display-4"style="height:50px; " href="{{ path('app_collaboration_index') }}">Collaborations</a>

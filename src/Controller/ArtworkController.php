@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Artwork;
 use App\Entity\Store;
+use App\Entity\User;
+
 
 use App\Entity\Commentaire;
 use App\Form\ArtworkType;
@@ -154,9 +156,13 @@ class ArtworkController extends AbstractController
             'artworks' => $artworkRepository->findAll(),  ]);
     }
     #[Route('/new', name: 'app_artwork_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, ArtworkRepository $artworkRepository): Response
-    {
+    public function new(Request $request, ArtworkRepository $artworkRepository,UserRepository $ur): Response
+    {  
         $artwork = new Artwork();
+        $date = new \DateTime();
+$artwork->setdate($date);
+       $u=$ur->findOneByUsername($this->getUser()->getUsername());
+        $artwork->setIdArtist($u);
         $form = $this->createForm(ArtworkType::class, $artwork);
         $form->handleRequest($request);
 
