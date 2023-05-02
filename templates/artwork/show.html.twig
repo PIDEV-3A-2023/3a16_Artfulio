@@ -20,6 +20,7 @@ body {
     
 	font-family: var(--primary-font);
 	font-size: 100%;
+	background-color: #efefef;
 }
 
 img {
@@ -436,7 +437,7 @@ button {
 
 {# <section class="gallery2 cid-tueENDWKwP" > #}
 <div class="container">
-       
+                        {% if app.user %}
 <div class="row mt-4">
      
 	<article class="post">
@@ -475,13 +476,20 @@ button {
 			<div class="post__footer">
 			{# {% if app.user %} #}
     
+
 {# {% endif %} #}
 				<span>#{{ artwork.idtype.typesouscat }}</span>
                 <p style="color:black;">{{ artwork.descriptionArtwork  }}</p>
 				{# <span>#{{ artwork.idtype.NomSousCat}}</span> #}
-			
+			    <a class="btn btn-secondary display-4" href="{{ path('app_artwork_edit', {'id_artwork': artwork.idartwork}) }}">Edit Post</a>
+    			{# <a class="btn btn-secondary display-4" href="">Edit Post</a> #}
+
+				
+
 			</div>
+			
 		</div>
+		
 	</article>
 
 </section>
@@ -601,14 +609,17 @@ button {
 
         {% endfor %}
 
-<a href="{{ path('app_artwork_index') }}">back to list</a>
+{# <a href="{{ path('app_artwork_index') }}">back to list</a> #}
 
-    <a href="{{ path('app_artwork_edit', {'id_artwork': artwork.idartwork}) }}">edit</a>
-
-    {# {{ include('artwork/_delete_form.html.twig') }} #}
+ {% else %}
+ <br><br><br><br><h3>
+Please <a href="{{ path('app_login') }}">Log in</a> to access this page 
+   </h3>
+   <br><br><br><br> {# {{ include('artwork/_delete_form.html.twig') }} #}
 </div>
-    
     </section>
+	    {% endif %}
+
 {% endblock %}
     {% block javascripts %}
 <script>

@@ -47,6 +47,9 @@ class ArtistAuthAuthenticator extends AbstractLoginFormAuthenticator
         }
 
         // For example:
+        if($token->getUser()->getUsername()=== 'admin'){
+            return new RedirectResponse($this->urlGenerator->generate('app_admin'));
+        }
         return new RedirectResponse($this->urlGenerator->generate('app_artwork_index'));
         // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }

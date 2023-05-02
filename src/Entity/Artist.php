@@ -31,7 +31,8 @@ class Artist implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255)]
     private ?string $email = null;
-
+    #[ORM\Column(length: 255)]
+    private ?string $img_user	 = null;
     #[ORM\OneToMany(mappedBy: 'idUser', targetEntity: Parrainage::class)]
     private Collection $parrainages;
 
@@ -52,7 +53,15 @@ class Artist implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->id;
     }
+    public function getImgUser(): ?string
+    {
+        return $this->img_user;
+    } public function setImgUser(?string $imgUser): self
+    {
+        $this->img_user = $imgUser;
 
+        return $this;
+    }
     /**
      * @deprecated since Symfony 5.3, use getUserIdentifier instead
      */
