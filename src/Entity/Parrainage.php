@@ -4,34 +4,54 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-use Repository;
-use App\Repository\ParrainageRepository;
-
-#[ORM\Entity(repositoryClass: ParrainageRepository::class)]
+/**
+ * Parrainage
+ *
+ * @ORM\Table(name="parrainage")
+ * @ORM\Entity
+ */
 class Parrainage
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id_parrainage  = null;
-    #[ORM\Column(length: 255)]
-    private ?string $email = null;
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id_parrainage", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idParrainage;
 
-    #[ORM\Column(length: 255)]
-    private ?string $username = null;
-    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=255, nullable=false)
+     */
+    private $email;
 
-    #[ORM\Column]
-    private ?int $is_pro  = null;
-   
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="username", type="string", length=255, nullable=false)
+     */
+    private $username;
 
-    #[ORM\Column(length: 255)]
-    private ?string $type_role  = null;
-  
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="is_pro", type="integer", nullable=false)
+     */
+    private $isPro;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type_role", type="string", length=255, nullable=false)
+     */
+    private $typeRole;
 
     public function getIdParrainage(): ?int
     {
-        return $this->id_parrainage ;
+        return $this->idParrainage;
     }
 
     public function getEmail(): ?string
@@ -60,24 +80,24 @@ class Parrainage
 
     public function getIsPro(): ?int
     {
-        return $this->is_pro ;
+        return $this->isPro;
     }
 
     public function setIsPro(int $isPro): self
     {
-        $this->is_pro  = $isPro;
+        $this->isPro = $isPro;
 
         return $this;
     }
 
     public function getTypeRole(): ?string
     {
-        return $this->type_role ;
+        return $this->typeRole;
     }
 
     public function setTypeRole(string $typeRole): self
     {
-        $this->type_role  = $typeRole;
+        $this->typeRole = $typeRole;
 
         return $this;
     }

@@ -4,40 +4,60 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-use Repository;
-use App\Repository\CommandeRepository;
-
-#[ORM\Entity(repositoryClass: CommandeRepository::class)]
+/**
+ * Commande
+ *
+ * @ORM\Table(name="commande", indexes={@ORM\Index(name="IDX_6EEAA67DF7384557", columns={"id_produit"})})
+ * @ORM\Entity
+ */
 class Commande
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $Id_Vente    = null;
-   
-    #[ORM\Column]
-    private ?float $prixArtwork = null;
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id_vente", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idVente;
 
-    #[ORM\Column(length: 255)]
-    private ?string $paiement = null;
-    #[ORM\ManyToOne(targetEntity: Artwork::class, inversedBy: 'Commande')]
-    #[ORM\JoinColumn(name: 'id_produit', referencedColumnName: 'id_artwork')]
-  
-    private  ?int $id_produit    = null;
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="prix_artwork", type="float", precision=10, scale=0, nullable=false)
+     */
+    private $prixArtwork;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="paiement", type="string", length=255, nullable=false)
+     */
+    private $paiement;
+
+    /**
+     * @var \Artwork
+     *
+     * @ORM\ManyToOne(targetEntity="Artwork")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_produit", referencedColumnName="id_artwork")
+     * })
+     */
+    private $idProduit;
 
     public function getIdVente(): ?int
     {
-        return $this->Id_Vente;
+        return $this->idVente;
     }
 
     public function getPrixArtwork(): ?float
     {
-        return $this->prix_artwork;
+        return $this->prixArtwork;
     }
 
     public function setPrixArtwork(float $prixArtwork): self
     {
-        $this->prix_artwork = $prixArtwork;
+        $this->prixArtwork = $prixArtwork;
 
         return $this;
     }
@@ -56,12 +76,12 @@ class Commande
 
     public function getIdProduit(): ?Artwork
     {
-        return $this->id_produit;
+        return $this->idProduit;
     }
 
     public function setIdProduit(?Artwork $idProduit): self
     {
-        $this->id_produit = $idProduit;
+        $this->idProduit = $idProduit;
 
         return $this;
     }

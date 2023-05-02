@@ -4,67 +4,84 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-use Repository;
-use App\Repository\SkillsRepository;
-
-#[ORM\Entity(repositoryClass: SkillsRepository::class)]
+/**
+ * Skills
+ *
+ * @ORM\Table(name="skills", indexes={@ORM\Index(name="IDX_D53116705FCA037F", columns={"id_profile"})})
+ * @ORM\Entity
+ */
 class Skills
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id_skill   = null;
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id_skill", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idSkill;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="titre_skill", type="string", length=255, nullable=false)
+     */
+    private $titreSkill;
 
-    #[ORM\Column(length: 255)]
-    private ?string $titre_skill = null;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="desc_skill", type="string", length=255, nullable=false)
+     */
+    private $descSkill;
 
-
-    #[ORM\Column(length: 255)]
-    private ?string $desc_skill = null;
-
-    #[ORM\ManyToOne(targetEntity: Profile::class, inversedBy: 'Skills')]
-    #[ORM\JoinColumn(name: 'id_profile', referencedColumnName: 'id_profil')]
-    private ?int $id_profile  = null;
-  
+    /**
+     * @var \Profile
+     *
+     * @ORM\ManyToOne(targetEntity="Profile")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_profile", referencedColumnName="id_profil")
+     * })
+     */
+    private $idProfile;
 
     public function getIdSkill(): ?int
     {
-        return $this->id_skill ;
+        return $this->idSkill;
     }
 
     public function getTitreSkill(): ?string
     {
-        return $this->titre_skill;
+        return $this->titreSkill;
     }
 
     public function setTitreSkill(string $titreSkill): self
     {
-        $this->titre_skill = $titreSkill;
+        $this->titreSkill = $titreSkill;
 
         return $this;
     }
 
     public function getDescSkill(): ?string
     {
-        return $this->desc_skill;
+        return $this->descSkill;
     }
 
     public function setDescSkill(string $descSkill): self
     {
-        $this->desc_skill = $descSkill;
+        $this->descSkill = $descSkill;
 
         return $this;
     }
 
     public function getIdProfile(): ?Profile
     {
-        return $this->id_profile ;
+        return $this->idProfile;
     }
 
     public function setIdProfile(?Profile $idProfile): self
     {
-        $this->id_profile  = $idProfile;
+        $this->idProfile = $idProfile;
 
         return $this;
     }

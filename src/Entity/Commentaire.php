@@ -5,47 +5,62 @@ namespace App\Entity;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-use Repository;
-use App\Repository\CommentaireRepository;
-
-#[ORM\Entity(repositoryClass: CommentaireRepository::class)]
+/**
+ * Commentaire
+ *
+ * @ORM\Table(name="commentaire", indexes={@ORM\Index(name="IDX_67F068BC56826C06", columns={"id_artwork"}), @ORM\Index(name="IDX_67F068BC5546AEA1", columns={"id_util"})})
+ * @ORM\Entity
+ */
 class Commentaire
 {
-    #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message:"peut pas etre vide")]
-    private ?string $texte = null;
-  
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id_com", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idCom;
 
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $Id_com   = null;
- 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="texte", type="string", length=255, nullable=false)
+     */
+    private $texte;
 
-      #[ORM\Column(type: 'datetime')]
-    private ?\DateTimeInterface $Date_post = null;
-   
-    //#[ORM\ManyToOne(targetEntity: Artwork::class, inversedBy: 'Commentaire')]
-   // #[ORM\JoinColumn(name: 'id_artwork', referencedColumnName: 'id_artwork')]
-   
-   // private ?int $idArtwork  = null;
-    //#[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'Commentaire')]
-    //#[ORM\JoinColumn(name: 'id_util', referencedColumnName: 'id_user')]
-   // #[ORM\ManyToOne(inversedBy: 'commentaires')]
-    //private ?User $id_util = null;
-    //private ?int $id_util   = null;
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_post", type="date", nullable=false)
+     */
+    private $datePost;
 
-     #[ORM\ManyToOne(inversedBy: 'commentaires')]
-   #[ORM\JoinColumn(name: 'id_artwork', referencedColumnName: 'id_artwork')]
+    /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_util", referencedColumnName="id_user")
+     * })
+     */
+    private $idUtil;
 
-   private ?Artwork $idArtwork = null;
+    /**
+     * @var \Artwork
+     *
+     * @ORM\ManyToOne(targetEntity="Artwork")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_artwork", referencedColumnName="id_artwork")
+     * })
+     */
+    private $idArtwork;
 
-     #[ORM\ManyToOne(inversedBy: 'commentaires')]
+    public function getIdCom(): ?int
+    {
+        return $this->idCom;
+    }
 
-     #[ORM\JoinColumn(name: 'id_util', referencedColumnName: 'id')]
-
-     private ?User $id_util = null;
-   //private ?int $idArtwork  = null;
     public function getTexte(): ?string
     {
         return $this->texte;
@@ -58,43 +73,38 @@ class Commentaire
         return $this;
     }
 
-    public function getIdCom(): ?int
-    {
-        return $this->Id_com ;
-    }
-
     public function getDatePost(): ?\DateTimeInterface
     {
-        return $this->Date_post;
+        return $this->datePost;
     }
 
     public function setDatePost(\DateTimeInterface $datePost): self
     {
-        $this->Date_post = $datePost;
-
-        return $this;
-    }
-
-    public function getIdArtwork(): ?Artwork
-    {
-        return $this->idArtwork ;
-    }
-
-    public function setIdArtwork(?Artwork $idArtwork): self
-    {
-        $this->idArtwork  = $idArtwork;
+        $this->datePost = $datePost;
 
         return $this;
     }
 
     public function getIdUtil(): ?User
     {
-        return $this->id_util ;
+        return $this->idUtil;
     }
 
     public function setIdUtil(?User $idUtil): self
     {
-        $this->id_util  = $idUtil;
+        $this->idUtil = $idUtil;
+
+        return $this;
+    }
+
+    public function getIdArtwork(): ?Artwork
+    {
+        return $this->idArtwork;
+    }
+
+    public function setIdArtwork(?Artwork $idArtwork): self
+    {
+        $this->idArtwork = $idArtwork;
 
         return $this;
     }

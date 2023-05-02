@@ -2,109 +2,64 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-use Repository;
-use App\Repository\SousCatRepository;
-
-#[ORM\Entity(repositoryClass: SousCatRepository::class)]
+/**
+ * SousCat
+ *
+ * @ORM\Table(name="sous_cat")
+ * @ORM\Entity
+ */
 class SousCat
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id= null;
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id_sous_cat", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idSousCat;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type_sous_cat", type="string", length=255, nullable=false)
+     */
+    private $typeSousCat;
 
-    #[ORM\Column(length: 255)]
-    private ?string $type_sous_cat  = null;
-   
-
-    #[ORM\Column]
-    private ?int $id_categorie  = null;
-
-    #[ORM\OneToMany(mappedBy: 'id_type', targetEntity: Artwork::class)]
-    private Collection $artworks;
-
-    public function __construct()
-    {
-        $this->artworks = new ArrayCollection();
-    }
- 
-    #[ORM\ManyToOne(targetEntity: Categorie::class, inversedBy: 'SousCat')]
-    #[ORM\JoinColumn(name: 'nom_sous_cat', referencedColumnName: 'nom_categorie')]
-
-   
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id_categorie", type="integer", nullable=false)
+     */
+    private $idCategorie;
 
     public function getIdSousCat(): ?int
     {
-        return $this->id_sous_cat ;
+        return $this->idSousCat;
     }
 
     public function getTypeSousCat(): ?string
     {
-        return $this->type_sous_cat ;
+        return $this->typeSousCat;
     }
 
     public function setTypeSousCat(string $typeSousCat): self
     {
-        $this->type_sous_cat  = $typeSousCat;
+        $this->typeSousCat = $typeSousCat;
 
         return $this;
     }
 
     public function getIdCategorie(): ?int
     {
-        return $this->id_categorie ;
+        return $this->idCategorie;
     }
 
     public function setIdCategorie(int $idCategorie): self
     {
-        $this->id_categorie  = $idCategorie;
-
-        return $this;
-    }
-
-    public function getNomSousCat(): ?Categorie
-    {
-        return $this->nom_sous_cat ;
-    }
-
-    public function setNomSousCat(?Categorie $nomSousCat): self
-    {
-        $this->nom_sous_cat  = $nomSousCat;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Artwork>
-     */
-    public function getArtworks(): Collection
-    {
-        return $this->artworks;
-    }
-
-    public function addArtwork(Artwork $artwork): self
-    {
-        if (!$this->artworks->contains($artwork)) {
-            $this->artworks->add($artwork);
-            $artwork->setIdType($this);
-        }
-
-        return $this;
-    }
-
-    public function removeArtwork(Artwork $artwork): self
-    {
-        if ($this->artworks->removeElement($artwork)) {
-            // set the owning side to null (unless already changed)
-            if ($artwork->getIdType() === $this) {
-                $artwork->setIdType(null);
-            }
-        }
+        $this->idCategorie = $idCategorie;
 
         return $this;
     }

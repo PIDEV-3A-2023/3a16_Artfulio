@@ -1,0 +1,23 @@
+{% extends '/admin/index.html.twig' %}
+
+{% block title %}Edit Categorie{% endblock %}
+
+{% block hamza %} categorie {% endblock %}
+ {% block other %} 
+                      <li class="nav-item">
+                        <a class="nav-link " href="{{ path('app_promotion_index') }}">
+                            <i class="bi bi-grid"></i>
+                            <span>Promotion</span>
+                        </a>
+                    </li>
+                    {% endblock %}
+
+{% block body %}
+    <h1>Edit Categorie</h1>
+
+    {{ include('categorie/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_categorie_index') }}">back to list</a>
+
+    {{ include('categorie/_delete_form.html.twig') }}
+{% endblock %}

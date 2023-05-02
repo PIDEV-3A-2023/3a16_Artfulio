@@ -3,7 +3,7 @@ Artfulio is a web application built with Symfony/Doctrine/PHP that serves as a p
 
 Installation:
 
-Clone the repository: git clone https://github.com/PIDEV-3A-2023/3a16_Artfulio.git
+Clone the repository: git clone https://github.com/YOUR-USERNAME/Artfulio.git
 Install dependencies: composer install
 Configure database connection in .env file
 Run migrations: php bin/console doctrine:migrations:migrate

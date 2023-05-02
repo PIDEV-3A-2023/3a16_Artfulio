@@ -4,80 +4,103 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-use Repository;
-use App\Repository\StoreRepository;
-
-#[ORM\Entity(repositoryClass:StoreRepository::class)]
+/**
+ * Store
+ *
+ * @ORM\Table(name="store", indexes={@ORM\Index(name="IDX_FF575877CF1D26F5", columns={"id_piece_art"})})
+ * @ORM\Entity
+ */
 class Store
-{#[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id_produit   = null;
-  
-    #[ORM\Column(length: 255)]
-    private ?string $nom_artwork = null;
-   
- 
-    #[ORM\Column]
-    private ?float $prix_artwork = null;
-    
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id_produit", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idProduit;
 
-    #[ORM\Column(length: 255)]
-    private ?string $img_artwork = null;
-  
-   // #[ORM\ManyToOne(targetEntity: Artwork::class, inversedBy: 'Store')]
-   // #[ORM\JoinColumn(name: 'id_piece_art', referencedColumnName: 'id_artwork')]
-    private ?int $id_piece_art  = null;
- 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom_artwork", type="string", length=255, nullable=false)
+     */
+    private $nomArtwork;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="prix_artwork", type="float", precision=10, scale=0, nullable=false)
+     */
+    private $prixArtwork;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="img_artwork", type="string", length=255, nullable=false)
+     */
+    private $imgArtwork;
+
+    /**
+     * @var \Artwork
+     *
+     * @ORM\ManyToOne(targetEntity="Artwork")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_piece_art", referencedColumnName="id_artwork")
+     * })
+     */
+    private $idPieceArt;
+
     public function getIdProduit(): ?int
     {
-        return $this->id_produit ;
+        return $this->idProduit;
     }
 
     public function getNomArtwork(): ?string
     {
-        return $this->nom_artwork;
+        return $this->nomArtwork;
     }
 
     public function setNomArtwork(string $nomArtwork): self
     {
-        $this->nom_artwork = $nomArtwork;
+        $this->nomArtwork = $nomArtwork;
 
         return $this;
     }
 
     public function getPrixArtwork(): ?float
     {
-        return $this->prix_artwork;
+        return $this->prixArtwork;
     }
 
     public function setPrixArtwork(float $prixArtwork): self
     {
-        $this->prix_artwork = $prixArtwork;
+        $this->prixArtwork = $prixArtwork;
 
         return $this;
     }
 
     public function getImgArtwork(): ?string
     {
-        return $this->img_artwork;
+        return $this->imgArtwork;
     }
 
     public function setImgArtwork(string $imgArtwork): self
     {
-        $this->img_artwork = $imgArtwork;
+        $this->imgArtwork = $imgArtwork;
 
         return $this;
     }
 
     public function getIdPieceArt(): ?Artwork
     {
-        return $this->id_piece_art ;
+        return $this->idPieceArt;
     }
 
     public function setIdPieceArt(?Artwork $idPieceArt): self
     {
-        $this->id_piece_art  = $idPieceArt;
+        $this->idPieceArt = $idPieceArt;
 
         return $this;
     }

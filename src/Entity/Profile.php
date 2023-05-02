@@ -2,64 +2,80 @@
 
 namespace App\Entity;
 
-
 use Doctrine\ORM\Mapping as ORM;
 
-use Repository;
-use App\Repository\ProfileRepository;
-
-#[ORM\Entity(repositoryClass: ProfileRepository::class)]
+/**
+ * Profile
+ *
+ * @ORM\Table(name="profile")
+ * @ORM\Entity
+ */
 class Profile
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id_profil  = null;
-  
-    #[ORM\Column]
-    private ?int $id_util  = null;
-   
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id_profil", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idProfil;
 
-    #[ORM\Column(length: 255)]
-    private ?string $bio = null;
-   
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id_util", type="integer", nullable=false)
+     */
+    private $idUtil;
 
-    #[ORM\Column(length: 255)]
-    private ?string $ig = null;
-   
- 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="bio", type="string", length=255, nullable=false)
+     */
+    private $bio;
 
-    
-    #[ORM\Column(length: 255)]
-    private ?string $fb = null;
-   
- 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ig", type="string", length=255, nullable=false)
+     */
+    private $ig;
 
-    
-    #[ORM\Column(length: 255)]
-    private ?string $twitter = null;
-   
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="fb", type="string", length=255, nullable=false)
+     */
+    private $fb;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="twitter", type="string", length=255, nullable=false)
+     */
+    private $twitter;
 
-   
-    #[ORM\Column(length: 255)]
-    private ?string $ytb = null;
-   
-
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ytb", type="string", length=255, nullable=false)
+     */
+    private $ytb;
 
     public function getIdProfil(): ?int
     {
-        return $this->id_profil ;
+        return $this->idProfil;
     }
 
     public function getIdUtil(): ?int
     {
-        return $this->id_util ;
+        return $this->idUtil;
     }
 
     public function setIdUtil(int $idUtil): self
     {
-        $this->id_util  = $idUtil;
+        $this->idUtil = $idUtil;
 
         return $this;
     }

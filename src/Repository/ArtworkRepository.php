@@ -63,23 +63,4 @@ class ArtworkRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
-
-public function findByname($value): array
-   {
-       return $this->createQueryBuilder('a')
-           ->Where('a.nom_artwork like :val')
-           ->setParameter('val', '%'.$value.'%')
-           ->getQuery()
-           ->getResult()
-       ;
-   }
-   public function orderbyname(){
-  
-    return $this->createQueryBuilder('a')
-               ->orderBy('a.nom_artwork', 'DESC')
-               ->getQuery()
-               ->getResult()
-           ;
-   }
-   
 }

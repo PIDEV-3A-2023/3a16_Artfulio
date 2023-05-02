@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Categorie index{% endblock %}
+
+{% block body %}
+    <h1>Categorie index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>IdCategorie</th>
+                <th>TypeCategorie</th>
+                <th>NomCategorie</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for categorie in categories %}
+            <tr>
+                <td>{{ categorie.idCategorie }}</td>
+                <td>{{ categorie.typeCategorie }}</td>
+                <td>{{ categorie.nomCategorie }}</td>
+                <td>
+                    <a href="{{ path('app_categorie_show', {'idCategorie': categorie.idCategorie}) }}">show</a>
+                    <a href="{{ path('app_categorie_edit', {'idCategorie': categorie.idCategorie}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_categorie_new') }}">Create new</a>
+    {{ knp_pagination_render(categories) }}
+{% endblock %}

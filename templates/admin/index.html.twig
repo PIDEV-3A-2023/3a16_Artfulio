@@ -285,11 +285,16 @@
                 <ul class="sidebar-nav" id="sidebar-nav">
 
                     <li class="nav-item">
-                        <a class="nav-link " href="{{ path('app_commentaire_index') }}">
+                        <a class="nav-link " href="{{ path('app_promotion_index') }}">
                             <i class="bi bi-grid"></i>
-                            <span>Comments</span>
+                            <span>{% block hamza %} {% endblock %} </span>
                         </a>
-                    </li><!-- End Dashboard Nav -->
+                    </li>
+                    
+                  <!-- End Dashboard Nav -->
+                    {% block other %} 
+                    
+                    {% endblock %}
 
                     <li class="nav-item">
                         <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
