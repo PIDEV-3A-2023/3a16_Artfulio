@@ -248,9 +248,111 @@
                     {% if image.IdArtist.id == users.id %}
                     <div class="embla__slide slider-image item" style="margin-left: 1rem; margin-right: 1rem;">
 
-                        <div class="slide-content">
+                        <div class="slide-content">{% if app.user %}
+                                                    {% if image.IdArtist.id == app.user.id %}
                                                         <button class="btn btn-primary" onclick="window.location.href='{{ path('addtostore',{'id_artwork': image.getIdArtwork()}) }}'">Add To Store</button>
+                                                    {% endif %}
+                                                    {% endif %}
+                                                    
+                            <div class="item-wrapper">
+                                <div class="item-img">
+                                    <img src="{{ asset('uploads/images/' ~ image.imgArtwork) }}" alt="Mobirise Website Builder" title="">
+                                </div>
+                            </div>
+                            <div class="item-content">
+                                <h5 class="item-title mbr-fonts-style display-4"><em>{{ image.Date ? image.Date|date('Y-m-d ') : '' }}</em></h5>
+                                <h6 class="item-subtitle mbr-fonts-style mt-1 display-7"><strong>{{image.nomartwork}}</strong></h6>
+                                <p class="mbr-text mbr-fonts-style mt-3 display-7">{{ image.descriptionArtwork  }}</p>
+                            </div>
+                            <div class="mbr-section-btn item-footer mt-2"><a href="{{ path('app_artwork_show', {'id': image.getIdArtwork()}) }}" class="btn item-btn btn-primary-outline display-7" >See Post &gt;</a></div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    {# <div class="embla__slide slider-image item" style="margin-left: 1rem; margin-right: 1rem;">
+                        <div class="slide-content">
+                            <div class="item-wrapper">
+                                <div class="item-img">
+                                    <img src="assets/images/product4.jpg" alt="Mobirise Website Builder" title="">
+                                </div>
+                            </div>
+                            <div class="item-content">
+                                <h5 class="item-title mbr-fonts-style display-4"><em>Jan 09, 2025</em></h5>
+                                <h6 class="item-subtitle mbr-fonts-style mt-1 display-7"><strong>Automagically Mobile</strong>
+                                </h6>
+                                <p class="mbr-text mbr-fonts-style mt-3 display-7">Mobirise Site Creator offers a huge
+                                    collection of 3500+ site blocks, templates and themes with thousands flexible options. <br>
+                                </p>
+                            </div>
+                            <div class="mbr-section-btn item-footer mt-2"><a href="" class="btn item-btn btn-primary-outline display-7" target="_blank">Read More &gt;</a></div>
+                        </div>
+                    </div> #}
+                    {# <div class="embla__slide slider-image item" style="margin-left: 1rem; margin-right: 1rem;">
+                        <div class="slide-content">
+                            <div class="item-wrapper">
+                                <div class="item-img">
+                                    <img src="assets/images/product3.jpg" alt="Mobirise Website Builder" title="">
+                                </div>
+                            </div>
+                            <div class="item-content">
+                                <h5 class="item-title mbr-fonts-style display-4"><em>Jan 08, 2025</em></h5>
+                                <h6 class="item-subtitle mbr-fonts-style mt-1 display-7"><strong>Boost Your Ranking</strong></h6>
+                                <p class="mbr-text mbr-fonts-style mt-3 display-7">Mobirise Page Maker is a free and simple
+                                    website builder - just drop site blocks to your page, add content and style it!</p>
+                            </div>
+                            <div class="mbr-section-btn item-footer mt-2"><a href="" class="btn item-btn btn-primary-outline display-7" target="_blank">Read More &gt;</a></div>
+                        </div>
+                    </div> #}
+                    {# <div class="embla__slide slider-image item" style="margin-left: 1rem; margin-right: 1rem;">
+                        <div class="slide-content">
+                            <div class="item-wrapper">
+                                <div class="item-img">
+                                    <img src="assets/images/product4.jpg" alt="Mobirise Website Builder" title="">
+                                </div>
+                            </div>
+                            <div class="item-content">
+                                <h5 class="item-title mbr-fonts-style display-4"><em>Jan 08, 2025</em></h5>
+                                <h6 class="item-subtitle mbr-fonts-style mt-1 display-7"><strong>Boost Your Ranking</strong></h6>
+                                <p class="mbr-text mbr-fonts-style mt-3 display-7">Mobirise Page Maker is a free and simple
+                                    website builder - just drop site blocks to your page, add content and style it!</p>
+                            </div>
+                            <div class="mbr-section-btn item-footer mt-2"><a href="" class="btn item-btn btn-primary-outline display-7" target="_blank">Read More &gt;</a></div>
+                        </div>
+                    </div> #}
+                </div>
+            </div>
+            <button class="embla__button embla__button--prev">
+                <span class="mobi-mbri mobi-mbri-arrow-prev mbr-iconfont" aria-hidden="true"></span>
+                <span class="sr-only visually-hidden visually-hidden">Previous</span>
+            </button>
+            <button class="embla__button embla__button--next">
+                <span class="mobi-mbri mobi-mbri-arrow-next mbr-iconfont" aria-hidden="true"></span>
+                <span class="sr-only visually-hidden visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+</section>
+<section data-bs-version="5.1" class="slider6 mbr-embla cid-tuevVipcwY" id="slider6-k">
+    
+    
+    <div class="position-relative">
+        <div class="mbr-section-head">
+            <h4 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2"><strong>Videos&nbsp;</strong></h4>
+            
+        </div>
+        <div class="embla mt-4" data-skip-snaps="true" data-align="center" data-contain-scroll="trimSnaps" data-auto-play-interval="5" data-draggable="true">
+            <div class="embla__viewport container-fluid">
+                <div class="embla__container">
+                    {% for image in videos %}
+                    {% if image.IdArtist.id == users.id %}
+                    <div class="embla__slide slider-image item" style="margin-left: 1rem; margin-right: 1rem;">
 
+                        <div class="slide-content">{% if app.user %}
+                                                    {% if image.IdArtist.id == app.user.id %}
+                                                        <button class="btn btn-primary" onclick="window.location.href='{{ path('addtostore',{'id_artwork': image.getIdArtwork()}) }}'">Add To Store</button>
+                                                    {% endif %}
+                                                    {% endif %}
+                                                    
                             <div class="item-wrapper">
                                 <div class="item-img">
                                     <img src="{{ asset('uploads/images/' ~ image.imgArtwork) }}" alt="Mobirise Website Builder" title="">
@@ -330,19 +432,19 @@
     </div>
 </section>
 
-<section data-bs-version="5.1" class="video3 cid-tuezxwsF5w" id="video3-m">
+{# <section data-bs-version="5.1" class="video3 cid-tuezxwsF5w" id="video3-m">
     
     
     
     <div class="container">
         <div class="mbr-section-head">
             <h4 class="mbr-section-title mbr-fonts-style mb-0 display-2">
-                <strong>Video</strong></h4>
+                <strong>Musique</strong></h4>
             
         </div>
         <div class="row mt-4"> 
             <div class="col-12 col-md-6 video-block">
-           {% for image in videos %}
+           {% for image in music %}
                     {% if image.IdArtist.id == users.id %}
                 <div class="video-wrapper"><iframe class="mbr-embedded-video" src="{{image.lienartwork}}" width="1280" height="720" frameborder="0" allowfullscreen></iframe></div>
                 <p class="mbr-text pt-2 mbr-fonts-style display-4">
@@ -356,6 +458,113 @@
             </div>
         </div>
     </div> 
+</section> #}
+<section data-bs-version="5.1" class="slider6 mbr-embla cid-tuevVipcwY" id="slider6-k">
+    
+    
+    <div class="position-relative">
+        <div class="mbr-section-head">
+            <h4 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2"><strong>Musique&nbsp;</strong></h4>
+            
+        </div>
+        <div class="embla mt-4" data-skip-snaps="true" data-align="center" data-contain-scroll="trimSnaps" data-auto-play-interval="5" data-draggable="true">
+            <div class="embla__viewport container-fluid">
+                <div class="embla__container">
+                    {% for image in music %}
+                    {% if image.IdArtist.id == users.id %}
+                     {% if image is null %}
+                                         <div class="embla__slide slider-image item" style="margin-left: 1rem; margin-right: 1rem;">
+
+    <p>No image available</p></div>
+  {% else %}
+                    <div class="embla__slide slider-image item" style="margin-left: 1rem; margin-right: 1rem;">
+
+                        <div class="slide-content">{% if app.user %}
+                                                    {% if image.IdArtist.id == app.user.id %}
+                                                        <button class="btn btn-primary" onclick="window.location.href='{{ path('addtostore',{'id_artwork': image.getIdArtwork()}) }}'">Add To Store</button>
+                                                    {% endif %}
+                                                    {% endif %}
+                                                    
+                                                    
+                            <div class="item-wrapper">
+                                <div class="item-img">
+                                    <img src="{{ asset('uploads/images/' ~ image.imgArtwork) }}" alt="Mobirise Website Builder" title="">
+                                </div>
+                            </div>
+                            <div class="item-content">
+                                <h5 class="item-title mbr-fonts-style display-4"><em>{{ image.Date ? image.Date|date('Y-m-d ') : '' }}</em></h5>
+                                <h6 class="item-subtitle mbr-fonts-style mt-1 display-7"><strong>{{image.nomartwork}}</strong></h6>
+                                <p class="mbr-text mbr-fonts-style mt-3 display-7">{{ image.descriptionArtwork  }}</p>
+                            </div>
+                            <div class="mbr-section-btn item-footer mt-2"><a href="{{ path('app_artwork_show', {'id': image.getIdArtwork()}) }}" class="btn item-btn btn-primary-outline display-7" >See Post &gt;</a></div>
+                        </div>
+                    </div>
+                    {% endif %}
+                     {% endif %}
+                    {% endfor %}
+                    {# <div class="embla__slide slider-image item" style="margin-left: 1rem; margin-right: 1rem;">
+                        <div class="slide-content">
+                            <div class="item-wrapper">
+                                <div class="item-img">
+                                    <img src="assets/images/product4.jpg" alt="Mobirise Website Builder" title="">
+                                </div>
+                            </div>
+                            <div class="item-content">
+                                <h5 class="item-title mbr-fonts-style display-4"><em>Jan 09, 2025</em></h5>
+                                <h6 class="item-subtitle mbr-fonts-style mt-1 display-7"><strong>Automagically Mobile</strong>
+                                </h6>
+                                <p class="mbr-text mbr-fonts-style mt-3 display-7">Mobirise Site Creator offers a huge
+                                    collection of 3500+ site blocks, templates and themes with thousands flexible options. <br>
+                                </p>
+                            </div>
+                            <div class="mbr-section-btn item-footer mt-2"><a href="" class="btn item-btn btn-primary-outline display-7" target="_blank">Read More &gt;</a></div>
+                        </div>
+                    </div> #}
+                    {# <div class="embla__slide slider-image item" style="margin-left: 1rem; margin-right: 1rem;">
+                        <div class="slide-content">
+                            <div class="item-wrapper">
+                                <div class="item-img">
+                                    <img src="assets/images/product3.jpg" alt="Mobirise Website Builder" title="">
+                                </div>
+                            </div>
+                            <div class="item-content">
+                                <h5 class="item-title mbr-fonts-style display-4"><em>Jan 08, 2025</em></h5>
+                                <h6 class="item-subtitle mbr-fonts-style mt-1 display-7"><strong>Boost Your Ranking</strong></h6>
+                                <p class="mbr-text mbr-fonts-style mt-3 display-7">Mobirise Page Maker is a free and simple
+                                    website builder - just drop site blocks to your page, add content and style it!</p>
+                            </div>
+                            <div class="mbr-section-btn item-footer mt-2"><a href="" class="btn item-btn btn-primary-outline display-7" target="_blank">Read More &gt;</a></div>
+                        </div>
+                    </div> #}
+                    {# <div class="embla__slide slider-image item" style="margin-left: 1rem; margin-right: 1rem;">
+                        <div class="slide-content">
+                            <div class="item-wrapper">
+                                <div class="item-img">
+                                    <img src="assets/images/product4.jpg" alt="Mobirise Website Builder" title="">
+                                </div>
+                            </div>
+                            <div class="item-content">
+                                <h5 class="item-title mbr-fonts-style display-4"><em>Jan 08, 2025</em></h5>
+                                <h6 class="item-subtitle mbr-fonts-style mt-1 display-7"><strong>Boost Your Ranking</strong></h6>
+                                <p class="mbr-text mbr-fonts-style mt-3 display-7">Mobirise Page Maker is a free and simple
+                                    website builder - just drop site blocks to your page, add content and style it!</p>
+                            </div>
+                            <div class="mbr-section-btn item-footer mt-2"><a href="" class="btn item-btn btn-primary-outline display-7" target="_blank">Read More &gt;</a></div>
+                        </div>
+                    </div> #}
+                </div>
+            </div>
+            <button class="embla__button embla__button--prev">
+                <span class="mobi-mbri mobi-mbri-arrow-prev mbr-iconfont" aria-hidden="true"></span>
+                <span class="sr-only visually-hidden visually-hidden">Previous</span>
+            </button>
+            <button class="embla__button embla__button--next">
+                <span class="mobi-mbri mobi-mbri-arrow-next mbr-iconfont" aria-hidden="true"></span>
+                <span class="sr-only visually-hidden visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+    <br><br><br><br><br><br><br><br><br><br><br><br>
 </section>
 
 {# <section data-bs-version="5.1" class="gallery5 mbr-gallery cid-tueEjo9S84" id="gallery5-p">
@@ -459,7 +668,7 @@
     </div>
 </section> #}
 
-<section data-bs-version="5.1" class="slider3 mbr-embla cid-tuezAEQjCh" id="slider3-n">
+{# <section data-bs-version="5.1" class="slider3 mbr-embla cid-tuezAEQjCh" id="slider3-n">
     
 
     
@@ -620,7 +829,7 @@
             </button>
         </div>
     </div>
-</section>
+</section> #}
 
 
   

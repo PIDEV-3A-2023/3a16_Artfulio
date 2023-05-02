@@ -42,6 +42,9 @@
             <script src="{{ asset('assets/js/main.js') }}"></script>        {% endblock %}
     </head>
     <body>
+{% if app.user %}
+{% if app.user.username =='admin' %}
+
 
         {% block header %}
             <!-- ======= Header ======= -->
@@ -364,6 +367,18 @@
             </div>
         </footer><!-- End Footer --> #}
     {% endblock %}
-        
+    {% else  %}
+     <br><br><br><br><br><br><br><br><br><br><h1>
+    Please <a href="{{ path('app_login') }}">Log in</a> as <strong>Admin</strong>
+</h1>
+    {% endif %}
+    {% else %}
+    <br><br><br><br><br><br><br><br><br><br><h1>
+    Please <a href="{{ path('app_login') }}">Log in</a> as <strong>Admin</strong>
+</h1>
+
+
+        {% endif %}
     </body>
+
 </html>

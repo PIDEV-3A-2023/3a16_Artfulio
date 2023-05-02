@@ -82,7 +82,7 @@
                 <div class="row align-items-center">
                     <div class="col-12 col-md-3">
                         <div class="image-wrapper">
-                            <img src="{{ asset(storeItem.getImgArtwork()) }}" alt="Artwork Image">
+                            <img src="{{ asset('uploads/images/' ~ storeItem.imgArtwork) }}" alt="Artwork Image">
                         </div>
                     </div>
                     <div class="col-12 col-md">
@@ -103,9 +103,14 @@
                                             the red plus buttons to see the blocks available for your theme.
                                         </p>
                                     </div>
+                                                            {% if app.user %}
+
                                     <form method="post" action="{{ path('cart_add', {'id': storeItem.getIdProduit()}) }}">
                                         <button class="button-1" type="submit" formaction="{{ path('cart_add', {'id': storeItem.getIdProduit()}) }}">Ajouter au panier</button>
                                     </form>
+                                    {% else %}
+                                  Please  <a href="{{ path('app_login') }}"><button style="color:orange;"class="button-1">Login</button></a>
+                                    {% endif %}
                                 </div>
                                 
                             </div>
