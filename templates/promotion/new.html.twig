@@ -1,0 +1,20 @@
+{% extends '/admin/index.html.twig' %}
+
+{% block title %}New Promotion{% endblock %}
+{% block hamza %} promotion {% endblock %}
+ {% block other %} 
+                      <li class="nav-item">
+                        <a class="nav-link " href="{{ path('app_categorie_index') }}">
+                            <i class="bi bi-grid"></i>
+                            <span>Categorie</span>
+                        </a>
+                    </li>
+                    {% endblock %}
+
+{% block body %}
+    <h1>Create new Promotion</h1>
+
+    {{ include('promotion/_form.html.twig') }}
+
+    <a href="{{ path('app_promotion_index') }}">back to list</a>
+{% endblock %}
