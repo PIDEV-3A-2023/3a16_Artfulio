@@ -111,6 +111,7 @@
   position: relative;
 }
 .dropdown-content {
+    background-color: #eddcd9;
   display: none;
   position: absolute;
   width: 100%;
@@ -134,10 +135,10 @@
                     </li></ul>
                         {% if app.user %}
                         <div class="dropdown">
-                   	{# <img style="widht:20px;"class=" img post__avatar" src="{{asset('uploads/artworkimg/pdp/' ~ app.user.ImgUser) }}" alt="" />      #}
   <button class="btn btn-secondary display-4">{{ app.user.username }}</button>
   <div style="width:170px;" class="dropdown-content">
-  <a class="btn btn-secondary display-4" style="height:50px; "href="{{ path('app_logout') }}">Events</a>
+  
+  <a class="btn btn-secondary display-4" style="height:50px; "href="{{ path('app_logout') }}"> <img src="{{asset("assets/images/logoblack-350x96.png")}}" alt="Mobirise Website Builder" width="20" height="15">Events</a>
   <a class="btn btn-secondary display-4"style="height:50px; " href="{{ path('app_collaboration_index') }}">Collaborations</a>
   <a class="btn btn-secondary display-4" style="height:50px; " href="{{ path('app_reclamation_new') }}">Reclamer</a>
   <a class="btn btn-secondary display-4" style="height:50px; " href="{{ path('app_parrainage_new') }}">Parrainage</a>
@@ -145,7 +146,41 @@
   
   
   </div>
-</div>
+</div> 
+
+
+
+  <div class="dropdown">
+            <button class="btn btn-success 
+                    dropdown-toggle" type="button" 
+                    id="dropdownMenuButton" 
+                    data-toggle="dropdown"
+                    aria-haspopup="true" 
+                    aria-expanded="false">
+                Country Flags
+            </button>
+  
+            <ul class="dropdown-menu" 
+                aria-labelledby="dropdownMenuButton">
+                <li class="dropdown-item">
+                    <img src=
+"https://media.geeksforgeeks.org/wp-content/uploads/20200630132503/iflag.jpg"
+                    width="20" height="15"> India</li>
+                <li class="dropdown-item">
+                    <img src=
+"https://media.geeksforgeeks.org/wp-content/uploads/20200630132504/uflag.jpg" 
+                    width="20" height="15"> USA</li>
+                <li class="dropdown-item">
+                    <img src=
+"https://media.geeksforgeeks.org/wp-content/uploads/20200630132502/eflag.jpg" 
+                    width="20" height="15"> England</li>
+                <li class="dropdown-item">
+                    <img src=
+"https://media.geeksforgeeks.org/wp-content/uploads/20200630132500/bflag.jpg"
+                    width="20" height="15"> Brazil</li>
+            </ul>
+        </div>
+
                                         {# <div class="navbar-buttons mbr-section-btn"><a class="btn btn-secondary display-4" href="{{ path('app_logout') }}">{{ app.user.username }}</a></div> #}
 {% else %}
                                             <div class="navbar-buttons mbr-section-btn"><a class="btn btn-secondary display-4" href="{{ path('app_login') }}">Log In</a></div>
@@ -156,7 +191,25 @@
         </div>
     </nav>
 </section>
-
+ <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity=
+"sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous">
+    </script>
+      
+    <script src=
+"https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity=
+"sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous">
+    </script>
+      
+    <script src=
+"https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity=
+"sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous">
+    </script>
   {% block body %}
  
   {% endblock %}
