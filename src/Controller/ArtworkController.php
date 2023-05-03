@@ -324,8 +324,10 @@ public function pdf(ArtworkRepository $artworkRepository)
         $commentaire = new Commentaire();
         $commentaire->setIdArtwork($artworkRepository->find($id_artwork));
         $commentaire->setTexte($text);
+        $u2=$userRepository->findOneByUsername($this->getUser()->getUsername());
+        //$commentaire->setIdUtil($u);
         $u = $userRepository->finduser($id_util);
-        $commentaire->setIdUtil($u);
+        $commentaire->setIdUtil($u2);
         $commentaire->setDatePost(new \DateTime('now'));
         $repo->save($commentaire, true);
         return $this->redirectToRoute('app_artwork_show', ['id' => $id_artwork], Response::HTTP_SEE_OTHER);
