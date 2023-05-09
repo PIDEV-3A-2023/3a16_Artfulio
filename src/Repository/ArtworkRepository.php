@@ -63,7 +63,15 @@ class ArtworkRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
-
+public function findart($value): ?Artwork
+   {
+    return $this->createQueryBuilder('u')
+               ->andWhere('u.id_artwork = :val')
+               ->setParameter('val', $value)
+               ->getQuery()
+               ->getOneOrNullResult()
+           ;
+   }
 public function findonly5(): array
    {
        return $this->createQueryBuilder('a')

@@ -63,16 +63,16 @@ public function edit(Request $request, Reclamation $reclamation, EntityManagerIn
         $entityManager->flush();
 
         // Create and send email using SendGrid API
-     $email = new Mail();
-     $userEmail = $reclamation->getEmail();
-     $email->setFrom("daadsoufi01@gmail.com", "Manager");
-     $email->setSubject($reclamation->getTitre());
-     $email->addTo($reclamation->getEmail(), "");
-     $email->addContent("text/plain", "Updated reclamation: " . $reclamation->getReclamationSec());
-     $sendgrid = new \SendGrid('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');
-     $reclamation-> setTitre($abc);
-     $reclamation-> setReclamationSec($bcd);
-     $sendgrid->send($email);
+    //  $email = new Mail();
+    //  $userEmail = $reclamation->getEmail();
+    //  $email->setFrom("daadsoufi01@gmail.com", "Manager");
+    //  $email->setSubject($reclamation->getTitre());
+    //  $email->addTo($reclamation->getEmail(), "");
+    //  $email->addContent("text/plain", "Updated reclamation: " . $reclamation->getReclamationSec());
+    //  $sendgrid = new \SendGrid('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');
+    //  $reclamation-> setTitre($abc);
+    //  $reclamation-> setReclamationSec($bcd);
+    //  $sendgrid->send($email);
 
      return $this->redirectToRoute('app_admin', [], Response::HTTP_SEE_OTHER);
      

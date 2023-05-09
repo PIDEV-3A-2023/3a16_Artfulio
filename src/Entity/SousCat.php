@@ -40,7 +40,7 @@ class SousCat
 
     public function getIdSousCat(): ?int
     {
-        return $this->id_sous_cat ;
+        return $this->id ;
     }
 
     public function getTypeSousCat(): ?string
@@ -67,17 +67,17 @@ class SousCat
         return $this;
     }
 
-    public function getNomSousCat(): ?Categorie
-    {
-        return $this->nom_sous_cat ;
-    }
+    // public function getNomSousCat(): ?Categorie
+    // {
+    //     return $this->nom_sous_cat ;
+    // }
 
-    public function setNomSousCat(?Categorie $nomSousCat): self
-    {
-        $this->nom_sous_cat  = $nomSousCat;
+    // public function setNomSousCat(?Categorie $nomSousCat): self
+    // {
+    //     $this->nom_sous_cat  = $nomSousCat;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     /**
      * @return Collection<int, Artwork>

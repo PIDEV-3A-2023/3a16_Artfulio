@@ -7,6 +7,16 @@ use App\Entity\Store;
 use App\Entity\User;
 
 
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Exception\CircularReferenceException;
+use Symfony\Component\Serializer\SerializerInterface;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+ use Symfony\Component\Serializer\Serializer;   
+ use Symfony\Component\HttpFoundation\JsonResponse;
+ use Symfony\Component\Validator\Constraints\Json;
 use App\Entity\Commentaire;
 use App\Form\ArtworkType;
 use Dompdf\Dompdf;
@@ -381,5 +391,185 @@ public function pdf(ArtworkRepository $artworkRepository)
     }
 
     
+    #[Route('/display', name: 'display_Artwork2')]
+public function allRecAction(SerializerInterface $serializer): JsonResponse
+{
+    $reclamation = $this->getDoctrine()->getManager()->getRepository(Artwork::class)->findAll();
+    $formatted = $serializer->normalize($reclamation, null, [ObjectNormalizer::GROUPS => 'Artwork']);
+
+    return new JsonResponse($formatted);
+}
+#[Route('/allArtwork', name: 'allArtwork', methods: ['GET'])]
+    public function allArtwork(EntityManagerInterface $entityManager): Response
+    {        
+        $entityManager = $this->getDoctrine()->getManager();
+        $categories = $entityManager->getRepository(Artwork::class)->findAll();
+
+        $responseArray = array();
+        foreach ($categories as $categorie) {
+            $responseArray[] = array(
+                'id' => $categorie->getIdArtwork(),
+                'nom' => $categorie->getNomArtwork(),
+                
+                'prix' => $categorie->getPrixArtwork(),
+                'description' => $categorie->getDescriptionArtwork(),
+                'date' => $categorie->getDate(),
+                'lien' => $categorie->getLienArtwork(),
+                'dimension' => $categorie->getDimensionArtwork(),
+                'image' => $categorie->getImgArtwork(),
+                'artist' => $categorie->getIdArtist(),
+                'type' => $categorie->getIdType(),
     
+            );
+        }
+
+        $responseData = json_encode($responseArray);
+        $response = new Response($responseData);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+     
+// #[Route('/addart', name: 'add_art')]
+// public function ajouterReclamationAction(Request $request,UserRepository $userRepository)
+// {
+//     $reclamation = new Artwork();
+//     $description = $request->query->get('description');
+//     $objet = $request->query->get('nom');
+//     $prix = $request->query->get('prix');
+//     $lien = $request->query->get('lien');
+//     $img=$request->query->get('img');
+//     $artist=$request->query->get('artist');
+//     $em = $this->getDoctrine()->getManager();
+//     $date = new \DateTime('now');
+
+//     $reclamation->setNomArtwork($objet);
+//     $reclamation->setDescriptionArtwork($description); // modify this line
+//     $reclamation->setPrixArtwork($prix);
+//     $reclamation->setDate($date);
+//     $reclamation->setLienArtwork($lien);
+//     $reclamation->setImgArtwork($img);
+//     $reclamation->setIdArtist($userRepository->findOneByUsername($artist));
+
+//     $em->persist($reclamation);
+//     $em->flush();
+//     $serializer = new Serializer([new ObjectNormalizer()]);
+//     $formatted = $serializer->normalize($reclamation);
+//     return new JsonResponse($formatted);
+
+// }
+#[Route('/addart', name: 'add_art')]
+    public function ajouterArtworkJson(Request $req, NormalizerInterface $normalizer,userRepository $userRepository)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $park = new Artwork();
+    $date = new \DateTime('now');
+    $park->setNomArtwork($req->get('nom'));
+    $park->setPrixArtwork($req->get('prix'));
+    $park->setLienArtwork($req->get('lien'));
+    $park->setImgArtwork($req->get('img'));
+    $park->setIdArtist($userRepository->finduser($req->get('artist')));
+    $park->setDescriptionArtwork($req->get('description'));
+    $park->setDate($date);
+        $em->persist($park);
+        $em->flush();
+
+        $jsonContent = $normalizer->normalize($park,'json',['groups'=>'artwork']);
+        return new Response(json_encode($jsonContent));
+    }
+// #[Route('/addart', name: 'add_art')]
+// public function addparkJSON(Request $req,   NormalizerInterface $Normalizer,UserRepository $userRepository, SerializerInterface $serializer)
+// {
+
+//     $em = $this->getDoctrine()->getManager();
+//     $park = new Artwork();
+//     $date = new \DateTime('now');
+//     $park->setNomArtwork($req->get('nom'));
+//     $park->setPrixArtwork($req->get('prix'));
+//     $park->setLienArtwork($req->get('lien'));
+//     $park->setImgArtwork($req->get('img'));
+//     $park->setIdArtist($userRepository->finduser($req->get('artist')));
+//     $park->setDescriptionArtwork($req->get('description'));
+//     $park->setDate($date);
+
+    
+//     $em->persist($park);
+//     $em->flush();
+
+//         $json = $serializer->serialize($park, 'json', ['Groups' => 'Artworks']);
+
+//         return new Response($json, 200, [
+//             'Content-Type' => 'application/json'
+//         ]);
+// }
+#[Route('modify{id}',name:"modifierartJSON")]
+public function modifierBadgeJson(Request $req, $id, NormalizerInterface $normalizer)
+{
+    $em=$this->getDoctrine()->getManager();
+    $badge=$em->getRepository(Badge::class)->find($id);
+    $park->setNomArtwork($req->get('nom'));
+    $park->setPrixArtwork($req->get('prix'));
+    $park->setLienArtwork($req->get('lien'));
+    $park->setImgArtwork($req->get('img'));
+    $park->setIdArtist($userRepository->finduser($req->get('artist')));
+    $park->setDescriptionArtwork($req->get('description'));
+    $em->flush();
+
+    $jsonContent = $normalizer->normalize($badge,'json',['groups'=>'badges']);
+    return new Response("badge modifié avec succés".json_encode($jsonContent));
+
+}
+#[Route('/allArtwork/{id}', name: 'artedit', methods: ['PUT'])]
+public function editCategorie(Request $request, $id): JsonResponse
+{
+    $entityManager = $this->getDoctrine()->getManager();
+    $categorie = $entityManager->getRepository(Artwork::class)->find($id);
+
+    if (!$categorie) {
+        return new JsonResponse(['status' => 'Faild']);;
+    }
+    $categorie->setNomArtwork($request->request->get('nom'));
+
+
+    $entityManager->persist($categorie);
+    $entityManager->flush();
+
+    $response = new JsonResponse(['status' => 'edited'], Response::HTTP_OK);
+    return $response;
+}
+#[Route('/allArtwork/{id}', name: 'evenement_delete')]
+    public function deleteCategorie($id): JsonResponse
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $categorie = $entityManager->getRepository(Artwork::class)->find($id);
+        // $categorie->removePromotion($categorie->promotions/());
+        if (!$categorie) {
+            throw $this->createNotFoundException('The Artwork does not exist');
+        }
+
+        $entityManager->remove($categorie);
+        $entityManager->flush();
+
+        $response = new JsonResponse(['status' => 'deleted'], Response::HTTP_OK);
+        return $response;
+    }
+    #[Route('/supprimer/{id}',name:"supprimerartjs")]
+    public function supprimerBadgeJson(Request $req, $id, NormalizerInterface $normalizer)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $categorie = $entityManager->getRepository(Artwork::class)->find($id);
+        // $categorie->removePromotion($categorie->promotions/());
+        if (!$categorie) {
+            throw $this->createNotFoundException('The Artwork does not exist');
+        }
+
+        $entityManager->remove($categorie);
+        $entityManager->flush();
+        $jsonContent = $normalizer->normalize($categorie,'json',['groups'=>'artowrk']);
+        return new Response("artowrk supprimé avec succés".json_encode($jsonContent));
+
+    }
+
+
 }

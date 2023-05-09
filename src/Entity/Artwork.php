@@ -55,9 +55,13 @@ class Artwork
 
     #[ORM\ManyToOne(inversedBy: 'artworks')]
     #[ORM\JoinColumn(nullable: false)]
+    #[MaxDepth(1)]
+
     private ?User $id_artist = null;
 
     #[ORM\ManyToOne(inversedBy: 'artworks')]
+    #[MaxDepth(1)]
+
     private ?SousCat $id_type = null;
 
     #[ORM\OneToMany(mappedBy: 'id_artwork', targetEntity: Promotion::class)]

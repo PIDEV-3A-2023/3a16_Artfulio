@@ -84,10 +84,11 @@ class ParrainageController extends AbstractController
     $form = $this->createForm(ParrainageType::class, $parrainage);
 
     $form->handleRequest($request);
-//    $user=entityManager()->getRepository(User::class)->find();
-    $parrainage->setidUser($security->getUser());
+//   $user=entityManager()->getRepository(User::class)->find();
+    $parrainage->setIdUserz($security->getUser()->getId());
 
     if ($form->isSubmitted() && $form->isValid()) {
+
         $entityManager->persist($parrainage);
         $entityManager->flush();
 
