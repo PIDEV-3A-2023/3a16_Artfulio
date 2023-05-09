@@ -3,81 +3,61 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
+use App\Repository\CategorieRepository;
 
-
-/**
- * Categorie
- *
- * @ORM\Table(name="categorie")
- * @ORM\Entity
- */
+#[ORM\Table(name: "categorie")]
+#[ORM\Entity(repositoryClass: CategorieRepository::class)]
 class Categorie
 {
-    /**
-     * @var int
-     *
-     * 
-     * @ORM\Column(name="id_categorie", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $idCategorie;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id  = null;
+  
+    #[ORM\Column(length: 255)]
+    private ?string $type_categorie = null;
+  
 
-    /**
-     * @var string
-     *
-     *  @Assert\NotBlank(message=" Type doit etre non vide")
-     * @Assert\Length(
-     *      min = 5,
-     *      minMessage=" Entrer un type au mini de 5 caracteres"
-     *
-     *     )
-     * @ORM\Column(name="type_categorie", type="string", length=255, nullable=false)
-     */
-    private $typeCategorie;
-
-    /**
-     * @var string
-     *
-     *  @Assert\NotBlank(message=" Nom doit etre non vide")
-     * @Assert\Length(
-     *      min = 5,
-     *      minMessage=" Entrer un nom au mini de 5 caracteres"
-     *
-     *     )
-     * @ORM\Column(name="nom_categorie", type="string", length=255, nullable=false)
-     */
-    private $nomCategorie;
+    #[ORM\Column(length: 255)]
+    private ?string $nom_categorie = null;
+  
 
     public function getIdCategorie(): ?int
     {
-        return $this->idCategorie;
+        return $this->id;
+    }
+    public function getId_Categorie(): ?int
+    {
+        return $this->id;
     }
 
     public function getTypeCategorie(): ?string
     {
-        return $this->typeCategorie;
+        return $this->type_categorie;
     }
 
     public function setTypeCategorie(string $typeCategorie): self
     {
-        $this->typeCategorie = $typeCategorie;
+        $this->type_categorie = $typeCategorie;
 
         return $this;
     }
 
     public function getNomCategorie(): ?string
     {
-        return $this->nomCategorie;
+        return $this->nom_categorie;
     }
 
     public function setNomCategorie(string $nomCategorie): self
     {
-        $this->nomCategorie = $nomCategorie;
+        $this->nom_categorie = $nomCategorie;
 
         return $this;
     }
+    public function setIdCategorie($id): self
+    {
+        $this->id = $id;
 
-
+        return $this;
+    }
 }

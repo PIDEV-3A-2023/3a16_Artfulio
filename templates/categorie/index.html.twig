@@ -2,25 +2,108 @@
 
 {% block title %}Categorie index{% endblock %}
 
-{% block hamza %} categorie {% endblock %}
- {% block other %} 
-                      <li class="nav-item">
-                        <a class="nav-link " href="{{ path('app_promotion_index') }}">
-                            <i class="bi bi-grid"></i>
-                            <span>Promotion</span>
-                        </a>
-                    </li>
-                    {% endblock %}
-
 {% block body %}
+<style>
+h1{
+  font-size: 30px;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 300;
+  text-align: center;
+  margin-bottom: 15px;
+}
+table{
+  width:100%;
+  table-layout: fixed;
+}
+.tbl-header{
+  background-color: rgba(255,255,255,0.3);
+ }
+.tbl-content{
+  height:481px;
+  overflow-x:auto;
+  margin-top: 0px;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+th{
+  padding: 20px 15px;
+  text-align: left;
+  font-weight: 500;
+  font-size: 12px;
+  color: #fff;
+  text-transform: uppercase;
+}
+td{
+  padding: 15px;
+  text-align: left;
+  vertical-align:middle;
+  font-weight: 300;
+  font-size: 12px;
+  color: #fff;
+  border-bottom: solid 1px rgba(255,255,255,0.1);
+}
+
+
+/* demo styles */
+
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
+body{
+
+  
+  background: linear-gradient(to right, #000000, #b8236e );
+  font-family: 'Roboto', sans-serif;
+
+}
+section{
+  margin: 0px;
+}
+
+
+/* follow me template */
+.made-with-love {
+  margin-top: 40px;
+  padding: 10px;
+  clear: left;
+  text-align: center;
+  font-size: 10px;
+  font-family: arial;
+  color: #fff;
+}
+.made-with-love i {
+  font-style: normal;
+  color: #F50057;
+  font-size: 14px;
+  position: relative;
+  top: 2px;
+}
+.made-with-love a {
+  color: #fff;
+  text-decoration: none;
+}
+.made-with-love a:hover {
+  text-decoration: underline;
+}
+
+
+/* for custom scrollbar for webkit browser*/
+
+::-webkit-scrollbar {
+    width: 6px;
+} 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+} 
+::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+}</style>
     <h1>Categorie index</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>IdCategorie</th>
-                <th>TypeCategorie</th>
-                <th>NomCategorie</th>
+                <th>Id_categorie</th>
+                <th>Type_categorie</th>
+                <th>Nom_categorie</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -31,8 +114,8 @@
                 <td>{{ categorie.typeCategorie }}</td>
                 <td>{{ categorie.nomCategorie }}</td>
                 <td>
-                    <a href="{{ path('app_categorie_show', {'idCategorie': categorie.idCategorie}) }}">show</a>
-                    <a href="{{ path('app_categorie_edit', {'idCategorie': categorie.idCategorie}) }}">edit</a>
+                    <a href="{{ path('app_categorie_show', {'id_categorie': categorie.id_categorie}) }}">show</a>
+                    <a href="{{ path('app_categorie_edit', {'id_categorie': categorie.id_categorie}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -44,6 +127,4 @@
     </table>
 
     <a href="{{ path('app_categorie_new') }}">Create new</a>
-    {{ knp_pagination_render(categories) }}
-
 {% endblock %}

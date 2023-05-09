@@ -5,71 +5,34 @@ namespace App\Entity;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * Artwork
- *
- * @ORM\Table(name="artwork", indexes={@ORM\Index(name="nom_artwork", columns={"nom_artwork"}), @ORM\Index(name="prix_artwork", columns={"prix_artwork"})})
- * @ORM\Entity
- */
+#[ORM\Table(name: "artwork")]
+#[ORM\Index(name: "nom_artwork", columns: ["nom_artwork"])]
+#[ORM\Index(name: "prix_artwork", columns: ["prix_artwork"])]
+#[ORM\Entity]
 class Artwork
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id_artwork", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: "integer")]
     private $id_artwork;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nom_artwork", type="string", length=255, nullable=false)
-     */
+    #[ORM\Column(type: "string", length: 255)]
     private $nomArtwork;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="description_artwork", type="string", length=255, nullable=false)
-     */
+    #[ORM\Column(type: "string", length: 255)]
     private $descriptionArtwork;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="prix_artwork", type="integer", nullable=false)
-     */
+    #[ORM\Column(type: "integer")]
     private $prixArtwork;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="date", type="date", nullable=false)
-     */
+    #[ORM\Column(type: "date")]
     private $date;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="lien_artwork", type="string", length=255, nullable=false)
-     */
+    #[ORM\Column(type: "string", length: 255)]
     private $lienArtwork;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="dimension_artwork", type="integer", nullable=false)
-     */
+    #[ORM\Column(type: "integer")]
     private $dimensionArtwork;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="img_artwork", type="string", length=255, nullable=false)
-     */
-    private $imgArtwork;
 
    /*  public function getIdArtwork(): ?int
     {

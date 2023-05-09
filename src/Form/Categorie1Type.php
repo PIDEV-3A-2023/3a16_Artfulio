@@ -7,13 +7,13 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class Categorie1Type extends AbstractType
+class CategorieType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('typeCategorie')
-            ->add('nomCategorie')
+            ->add('type_categorie')
+            ->add('nom_categorie')
         ;
     }
 

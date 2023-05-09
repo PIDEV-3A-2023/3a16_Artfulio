@@ -31,7 +31,7 @@ class PromotionController extends AbstractController
         ]);
     }
 
-    #[Route('/admin', name: 'app_promotion_index', methods: ['GET'])]
+    #[Route('/admin', name: 'app_promotion_admin', methods: ['GET'])]
     public function indexadmin(EntityManagerInterface $entityManager ): Response
     {
         $promotions = $entityManager
