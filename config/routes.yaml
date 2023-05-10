@@ -13,7 +13,7 @@ generate_qr_code:
     path: /generate-qr-code
     controller: App\Controller\ArtworkController::generateQrCode
   
-  
+
 artwork_like:
   path: '/artworks/{id}/like'
   controller: 'App\Controller\ArtworkController::like'
@@ -99,3 +99,17 @@ app_admin_ad:
 app_reclamation_chart:
     path: /reclamation/chart
     controller: App\Controller\ReclamationController::chart
+
+display_reclamation:
+    path: /displayReclamations
+    controller: App\Controller\ReclamationController::allRecAction
+delete_reclamation:
+    path: /deleteReclamation
+    controller: App\Controller\ReclamationController::deleteReclamationAction
+add_reclamation:
+    path: /addReclamation
+    controller: App\Controller\ReclamationController::ajouterReclamationAction
+update_reclamation:
+    path: /updateReclamation
+    controller: App\Controller\ReclamationController::modifierReclamationAction
+    

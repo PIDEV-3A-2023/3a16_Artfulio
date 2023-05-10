@@ -21,6 +21,14 @@ use Symfony\Component\Asset\Package;
 use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\Validator\Constraints\Json;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 
 
@@ -253,7 +261,33 @@ private function generatePdf(Reclamation $reclamation): string
         ]);
     }
 
+/******************Modifier Reclamation*****************************************/
+   
+#[Route('/updateReclamation', name: 'update_reclamation', methods: ['PUT'])]
 
+public function modifierReclamationAction(Request $request) {
+    $em = $this->getDoctrine()->getManager();
+    $reclamation = $this->getDoctrine()->getManager()
+->getRepository(Reclamation::class)
+->find($request->get("idRec"));
+
+     $titre = $request->get("titre"); // Make sure to assign a valid string value to $titre
+     $reclamation->setTitre($titre);
+     $ReclamationSec = $request->get("reclamationSec"); // Make sure to assign a valid string value to $titre
+     $reclamation->setReclamationSec($ReclamationSec);
+     $email = $request->get("email"); // Make sure to assign a valid string value to $titre
+     $reclamation->setEmail($email);
+
+     
+     
+
+    $em->persist($reclamation);
+    $em->flush();
+    $serializer = new Serializer([new ObjectNormalizer()]);
+    $formatted = $serializer->normalize($reclamation);
+    return new JsonResponse("Reclamation a ete modifiee avec success.");
+
+}
     #[Route('/{idRec}', name: 'app_reclamation_delete', methods: ['POST'])]
     public function delete(Request $request, Reclamation $reclamation, EntityManagerInterface $entityManager): Response
     {
@@ -265,7 +299,74 @@ private function generatePdf(Reclamation $reclamation): string
         return $this->redirectToRoute('app_Reclamation_admin', [], Response::HTTP_SEE_OTHER);
     }
     
+  
     
+      #[Route('/displayReclamations', name: 'display_reclamation', methods: ['POST'])]
+      public function allRecAction()
+      {
+ 
+          $reclamation = $this->getDoctrine()->getManager()->getRepository(Reclamation::class)->findAll();
+          $serializer = new Serializer([new ObjectNormalizer()]);
+          $formatted = $serializer->normalize($reclamation);
+ 
+          return new JsonResponse($formatted);
+ 
+      }
+   
     
+    /******************Ajouter Reclamation*****************************************/
+    
+      #[Route('/addReclamation', name: 'add_reclamation', methods: ['POST'])]
+
+      public function ajouterReclamationAction(Request $request)
+      {
+          $reclamation = new Reclamation();
+          $titre = $request->query->get("titre");
+          $reclamationSec = $request->query->get("reclamationSec");
+          $email = $request->query->get("email");
+          $em = $this->getDoctrine()->getManager();
+ 
+          $titre = $request->get("titre"); // Make sure to assign a valid string value to $titre
+          $reclamation->setTitre($titre);
+          $ReclamationSec = $request->get("reclamationSec"); // Make sure to assign a valid string value to $titre
+          $reclamation->setReclamationSec($ReclamationSec);
+          $email = $request->get("email"); // Make sure to assign a valid string value to $titre
+          $reclamation->setEmail($email);
+ 
+ 
+          $em->persist($reclamation);
+          $em->flush();
+          $serializer = new Serializer([new ObjectNormalizer()]);
+          $formatted = $serializer->normalize($reclamation);
+          return new JsonResponse($formatted);
+ 
+      }
+
+        /******************Supprimer Reclamation*****************************************/
+
+    
+      #[Route('/deleteReclamation', name: 'delete_reclamation', methods: ['DELETE'])]
+
+     public function deleteReclamationAction(Request $request) {
+        $id = $request->get("idRec");
+
+        $em = $this->getDoctrine()->getManager();
+        $reclamation = $em->getRepository(Reclamation::class)->find($id);
+        if($reclamation!=null ) {
+            $em->remove($reclamation);
+            $em->flush();
+
+            $serialize = new Serializer([new ObjectNormalizer()]);
+            $formatted = $serialize->normalize("Reclamation a ete supprimee avec success.");
+            return new JsonResponse($formatted);
+
+        }
+        return new JsonResponse("id reclamation invalide.");
+
+
+    }
+
+  
+
     
 }
