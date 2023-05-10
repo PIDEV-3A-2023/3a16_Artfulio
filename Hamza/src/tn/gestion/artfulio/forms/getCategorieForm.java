@@ -19,18 +19,18 @@ import tn.gestion.promotion.service.CategorieWebService;
 public class getCategorieForm extends BaseForm {
 
     private MultiList eventList;
-    private List<Categorie> cats;
+    private List<Categorie> categories;
 
     public getCategorieForm() {
         this.init(Resources.getGlobalResources());
         eventList = new MultiList(new DefaultListModel<>());
         add(eventList);
 
-        getAllCats();
+        getAllCategories();
 
         Button sortButton = new Button("Sort by Name");
         sortButton.addActionListener(e -> {
-            Collections.sort(cats, new Comparator<Categorie>() {
+            Collections.sort(categories, new Comparator<Categorie>() {
                 @Override
                 public int compare(Categorie c1, Categorie c2) {
                     return c1.getName().compareToIgnoreCase(c2.getName());
@@ -41,9 +41,9 @@ public class getCategorieForm extends BaseForm {
         addComponent(BorderLayout.south(sortButton));
     }
 
-    private void getAllCats() {
+    private void getAllCategories() {
         CategorieWebService service = new CategorieWebService();
-        cats = service.getAllCategorie();
+        categories = service.getAllCategorie();
         updateList();
 
         eventList.addActionListener(new ActionListener() {
@@ -51,9 +51,9 @@ public class getCategorieForm extends BaseForm {
             public void actionPerformed(ActionEvent evt) {
                 try {
                     Map<String, Object> selectedItem = (Map<String, Object>) eventList.getSelectedItem();
-                    int catId = (int) selectedItem.get("Line3");
+                    int catId = (int) selectedItem.get("Line9");
                     Categorie selectedEvent = null;
-                    for (Categorie c : cats) {
+                    for (Categorie c : categories) {
                         if (c.getId() == catId) {
                             selectedEvent = c;
                             break;
@@ -71,11 +71,11 @@ public class getCategorieForm extends BaseForm {
     private void updateList() {
         DefaultListModel<Map<String, Object>> model = (DefaultListModel<Map<String, Object>>) eventList.getModel();
         model.removeAll();
-        for (Categorie c : cats) {
+        for (Categorie c : categories) {
             Map<String, Object> item = new HashMap<>();
             item.put("Line1", "Nom : " + c.getName());
             item.put("Line2", "Type : " + c.getType());
-            item.put("Line3", c.getId());
+            item.put("Line9", c.getId());
             model.addItem(item);
         }
     }
