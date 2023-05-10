@@ -142,9 +142,9 @@ public function admin(UserRepository $userRepository): Response
         return new Response("User deleted successfully " . json_encode($jsonContent));
     }
 
-/**
-     * @Route("/afficherJsons", name="afficherjson")
-     */
+
+    #[Route("/afficherJsons", name: "afficherjson")]
+
     public function Aff(NormalizerInterface $Normalizer)
     {
 

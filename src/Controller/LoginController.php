@@ -90,4 +90,32 @@ class LoginController extends AbstractController
         return $this->redirectToRoute('app_login');
     }
 
+
+
+    #[Route('/fcb-login-json', name: 'app_login_action')]
+
+    public function siginAction(Request $request) 
+    {
+        $Email = $request->query->get("email");
+        $Password = $request->query->get("password");
+
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository(User::class)->findOneBy(['email'=>$Email]);
+
+        if($user) {
+            if($Password == $user->getPassword()) {
+                $serializer = new Serializer([new ObjectNormalizer()]);
+                $formatted = $serializer->normalize($user);
+                return new JsonResponse($formatted);
+            }
+            else {
+                return new Response("password not found");
+            }
+        }
+        else 
+        {
+            return new Response("user not found");
+        }
+    }
+
 }
