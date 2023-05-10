@@ -1,0 +1,19 @@
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                    <div class="row">
+                        <div >{{ form_row(form.titre) }}</div>
+                        <div >{{ form_row(form.type) }}</div>
+                        <div >{{ form_row(form.description) }}</div>
+                        <div >{{ form_row(form.lieu) }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col">{{ form_row(form.dateDebut) }}</div>
+                        <div class="col">{{ form_row(form.heureDebut) }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col">{{ form_row(form.dateFin) }}</div>
+                        <div class="col">{{ form_row(form.heureFin) }}</div>
+                    </div>
+            
+    {{ form_widget(form , {'attr': {'novalidate': 'novalidate'}}) }}
+    <button class="btn">{{ button_label|default('enregistrer') }}</button>
+{{ form_end(form , {'attr': {'novalidate': 'novalidate'}}) }}

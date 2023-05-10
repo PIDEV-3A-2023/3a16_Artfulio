@@ -3,66 +3,63 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\RegisterType;
-use App\Form\LoginFormType;
-
-
+use App\Entity\Artist;
+use App\Form\RegistrationFormType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use App\Notification\CreationCompteNotification;
-
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RegistrationController extends AbstractController
 {
-    
-   
-    #[Route('/register', name: 'app_register',methods: ['GET','POST'])]
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
+    #[Route('/register', name: 'app_register')]
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
-        // Créer une instance de l'entité User
         $user = new User();
-
-        // Créer le formulaire à partir de la classe RegisterType
-        $form = $this->createForm(RegisterType::class, $user);
-
-        // Traiter la soumission du formulaire
+        $art= new Artist();
+        $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Encoder le mot de passe de l'utilisateur
+            // encode the plain password
             $user->setPassword(
-                $passwordEncoder->encodePassword(
+                $userPasswordHasher->hashPassword(
                     $user,
                     $form->get('plainPassword')->getData()
                 )
             );
+            $file = $form['img_user']->getData();
+            $imageFile = $form->get('img_user')->getData();
+            
+            // génération d un nom de fichier unique
+            $newFilename = uniqid().'.'.$imageFile->guessExtension();
 
-            // Enregistrer l'utilisateur dans la base de données
-            $entityManager = $this->getDoctrine()->getManager();
+            // déplacement du file dans le dossier public/images
+            $imageFile->move(
+                $this->getParameter('images_directory'),
+                $newFilename
+            );
+            $art->setImgUser($newFilename);
+            $user->setImgUser($newFilename);
+            $art->setUsername($user->getUsername());
+            $art->setPassword($user->getPassword());
+            $art->setRoles($user->getRoles());
+            $art->setEmail($user->getEmail());
+            
+            $entityManager->persist($art);
+
             $entityManager->persist($user);
             $entityManager->flush();
+            // do anything else you need here, like send an email
 
-            // Rediriger l'utilisateur vers la page de connexion
-            return $this->redirectToRoute('app_login');
+            return $this->redirectToRoute('app_artwork_index');
         }
 
-        return $this->render('security/register.html.twig', [
-            'form' => $form->createView(),
+        return $this->render('registration/register.html.twig', [
+            'registrationForm' => $form->createView(),
         ]);
     }
- /**
-     */
-    #[Route('/login', name: 'app_login')]
-
-    public function login() {
-        $form = $this->createForm(LoginFormType::class);
-        return $this->render('security/login.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    }
-
-
 }

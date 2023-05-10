@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block css %}
+<!-- Inclure la bibliothèque Leaflet -->
+ 
+{% endblock %}
+{% block body %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+     integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+     crossorigin=""/>
+<link rel="stylesheet" href="{{asset("assets/css/map-event.css")}}">     
+
+<div class="container my-2">
+
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+
+                    <div class="row">
+                        <div >{{ form_row(form.titre) }}</div>
+                        <div >{{ form_row(form.type) }}</div>
+                        <div >{{ form_row(form.description) }}</div>
+                        
+                {#*******************************************************************#}
+                
+                     {#   <div class="form-group">
+                            {{ form_label(form.lieu) }}
+                            {{ form_widget(form.lieu, {'attr': {'class': 'form-control', 'id': 'address'}}) }}
+                            <div id="address-suggestions"></div>
+                        </div>
+                {#*******************************************************************#}
+                        
+                        <div >{{ form_row(form.adresse , {'id' : 'adresse'}) }}</div>
+                    <div id="map"></div>
+                    <div class="row">
+                        <div class="col">{{ form_row(form.dateDebut) }}</div>
+                        <div class="col">{{ form_row(form.dateFin) }}</div>
+                    </div>
+                    <div class="row">
+                           {#* {{ form_row(form.latitude, {'attr': {'novalidate': 'novalidate'}}) }}  #}
+
+                        <div class="col">{{ form_row(form.latitude , {'id' : 'lat'}, {'attr': {'novalidate': 'novalidate'}})  }}</div>
+                        <div class="col">{{ form_row(form.longitude , {'id': 'lon'}) }}</div>
+                    </div>
+            
+    {{ form_widget(form , {'attr': {'novalidate': 'novalidate'}}) }}
+    <button class="btn">{{ button_label|default('enregistrer') }}</button>
+{{ form_end(form , {'attr': {'novalidate': 'novalidate'}}) }}
+
+</div>
+    
+{% endblock %}
+
+{% block js %}
+
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+     integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+     crossorigin=""></script>
+
+<script src="{{asset("assets/js/map-event.js")}}"></script> 
+
+
+{% endblock %}

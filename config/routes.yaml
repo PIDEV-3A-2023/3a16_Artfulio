@@ -1,5 +1,100 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
-# Route pour l'inscription
+app_artwork_show:
+    path: /artworks/{id}
+    controller: App\Controller\ArtworkController::show
+    requirements:
+        id: '\d+'
+app_admin:
+    path: /artwork/admin
+    controller: App\Controller\ArtworkController::admin
+generate_qr_code:
+    path: /generate-qr-code
+    controller: App\Controller\ArtworkController::generateQrCode
+  
+artwork_like:
+  path: '/artworks/{id}/like'
+  controller: 'App\Controller\ArtworkController::like'
+  methods: ['POST']
 
+app_Parrainage_index:
+    path: /parrainage
+    controller: App\Controller\ParrainageController::index
+    methods: GET
+
+app_Parrainage_admin:
+    path: /parrainage/admin
+    controller: App\Controller\ParrainageController::admin
+
+app_Parrainage_new:
+    path: /parrainage/new
+    controller: App\Controller\ParrainageController::new
+    methods: ['GET', 'POST']
+
+app_Parrainage_show:
+    path: /parrainage/{idParrainage}
+    controller: App\Controller\ParrainageController::show
+    methods: GET
+    requirements:
+        idParrainage: '\d+'
+
+app_Parrainage_edit:
+    path: /parrainage/{idParrainage}/edit
+    controller: App\Controller\ParrainageController::edit
+    methods: [GET, POST]
+    requirements:
+        idParrainage: '\d+'
+
+app_Parrainage_delete:
+    path: /parrainage/{idParrainage}
+    controller: App\Controller\ParrainageController::delete
+    methods: POST
+    requirements:
+        idParrainage: '\d+'
+
+# config/routes/reclamation.yaml
+app_Reclamation_index:
+    path: /reclamation/
+    controller: App\Controller\ReclamationController::index
+    methods: GET
+
+app_Reclamation_admin:
+    path: /reclamation/admin
+    controller: App\Controller\ReclamationController::admin
+
+app_Reclamation_new:
+    path: /reclamation/new
+    controller: App\Controller\ReclamationController::new
+    methods: [GET, POST]
+
+app_Reclamation_show:
+    path: /reclamation/{idRec}
+    controller: App\Controller\ReclamationController::show
+    methods: GET
+    requirements:
+        idRec: '\d+'
+
+app_Reclamation_edit:
+    path: /reclamation/{idRec}/edit
+    controller: App\Controller\ReclamationController::edit
+    methods: [GET, POST]
+    requirements:
+        idRec: '\d+'
+
+app_Reclamation_delete:
+    path: /reclamation/{idRec}
+    controller: App\Controller\ReclamationController::delete
+    methods: POST
+    requirements:
+        idRec: '\d+'
+
+
+app_admin_ad:
+    path: /Adminn/abc
+    controller: App\Controller\AdminController::admin
+
+
+app_reclamation_chart:
+    path: /reclamation/chart
+    controller: App\Controller\ReclamationController::chart

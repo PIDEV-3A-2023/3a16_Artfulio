@@ -9,11 +9,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+
+
+use Symfony\Component\Serializer\SerializerInterface;
 
 #[Route('/user')]
 class UserController extends AbstractController
 {
-    #[Route('/', name: 'app_user_index', methods: ['GET'])]
+    #[Route('/home', name: 'app_user_index', methods: ['GET'])]
     public function index(UserRepository $userRepository): Response
     {
         return $this->render('user/index.html.twig', [
@@ -49,7 +53,39 @@ public function admin(UserRepository $userRepository): Response
         ]);
     }
 
-    #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
+    #[Route("/addJSON/new", name: "addJSON")]
+    public function addJSON(Request $req,   NormalizerInterface $Normalizer)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $user = new User();
+        $user->setCinUser($req->get('cinUser'));
+        $user->setAdresseUser($req->get('adresseUser'));
+        $user->setImgUser($req->get('imgUser'));
+        $user->setEmail($req->get('email'));
+        $user->setUsername($req->get('username'));
+        $user->setRoles($req->get('roles'));
+        $user->setPassword($req->get('password'));
+
+        $em->persist($user);
+        $em->flush();
+
+        $jsonContent = $Normalizer->normalize($user, 'json', ['groups' => 'post:read']);
+        return new Response(json_encode($jsonContent));
+    }
+
+    #[Route('/ShowUser/{id}', name: 'ShowUser')]
+    public function ShowUser(NormalizerInterface $Normalizer,Request $request)
+    {
+
+
+        $user = $this->getDoctrine()->getManager()->getRepository(User::class)->find($request->get('id'));
+        $jsonContent = $Normalizer->normalize($user,'json',['groups'=>'post:read']);
+        return new Response(json_encode($jsonContent));
+    }
+
+
+    #[Route('/{id}/show', name: 'app_user_show', methods: ['GET'])]
     public function show(User $user): Response
     {
         return $this->render('user/show.html.twig', [
@@ -75,7 +111,51 @@ public function admin(UserRepository $userRepository): Response
         ]);
     }
 
-    #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
+    #[Route("/{id}/updateJSON", name: "updateJSON")]
+    public function updateJSON(Request $req, $id, NormalizerInterface $Normalizer)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository(User::class)->find($id);
+        $user->setCinUser($req->get('cinUser'));
+        $user->setAdresseUser($req->get('adresseUser'));
+        $user->setImgUser($req->get('imgUser'));
+        $user->setEmail($req->get('email'));
+        $user->setUsername($req->get('username'));
+        $user->setRoles($req->get('roles'));
+        $user->setPassword($req->get('password'));
+        $em->flush();
+
+        $jsonContent = $Normalizer->normalize($user, 'json', ['groups' => 'post:read']);
+        return new Response("User updated successfully " . json_encode($jsonContent));
+    }
+
+    #[Route("/deleteJSON/{id}", name: "deleteJSON")]
+    public function deleteJSON(Request $req, $id, NormalizerInterface $Normalizer)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository(User::class)->find($id);
+        $em->remove($user);
+        $em->flush();
+        $jsonContent = $Normalizer->normalize($user, 'json', ['groups' => 'user']);
+        return new Response("User deleted successfully " . json_encode($jsonContent));
+    }
+
+/**
+     * @Route("/afficherJsons", name="afficherjson")
+     */
+    public function Aff(NormalizerInterface $Normalizer)
+    {
+
+        $user = $this->getDoctrine()->getManager()->getRepository(User::class)->findAll();
+        $jsonContent = $Normalizer->normalize($user,'json',['groups'=>'post:read']);
+        return new Response(json_encode($jsonContent));
+    }
+
+
+
+    #[Route('/{id}/delete', name: 'app_user_delete', methods: ['POST'])]
     public function delete(Request $request, User $user, UserRepository $userRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {

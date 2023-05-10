@@ -2,9 +2,15 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Repository;
+use App\Entity\Artist;
+use App\Entity\User;
+
+
 use App\Repository\ArtworkRepository;
 use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: ArtworkRepository::class)]
@@ -38,6 +44,11 @@ class Artwork
     #[ORM\Column]
     #[Assert\NotBlank(message:"dimension peut pas etre vide")]
     private ?int $dimension_artwork = null;
+    #[ORM\Column]
+    private ?int  $likesCount = 0;
+
+    
+
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message:"image peut pas etre vide")]
     private ?string $img_artwork = null;
@@ -48,6 +59,14 @@ class Artwork
 
     #[ORM\ManyToOne(inversedBy: 'artworks')]
     private ?SousCat $id_type = null;
+
+    #[ORM\OneToMany(mappedBy: 'id_artwork', targetEntity: Promotion::class)]
+    private Collection $promotions;
+
+    public function __construct()
+    {
+        $this->promotions = new ArrayCollection();
+    }
    
     // #[ORM\ManyToOne(targetEntity:"App\Entity\User", inversedBy: 'Artwork')]
     // #[ORM\JoinColumn(name: 'id_artist', referencedColumnName: 'id_user')]
@@ -64,7 +83,19 @@ class Artwork
     // private ?SousCat $id_type  = null;
     
 
+    
 
+    public function getLikesCount(): int
+    {
+        return $this->likesCount;
+    }
+
+    public function setLikesCount(int $likesCount): self
+    {
+        $this->likesCount = $likesCount;
+
+        return $this;
+    }
 
 
     public function getIdArtwork(): ?int
@@ -167,6 +198,7 @@ class Artwork
 
         return $this;
     }
+   
 
     public function getIdType(): ?SousCat
     {
@@ -176,6 +208,36 @@ class Artwork
     public function setIdType(?SousCat $idType): self
     {
         $this->id_type  = $idType;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Promotion>
+     */
+    public function getPromotions(): Collection
+    {
+        return $this->promotions;
+    }
+
+    public function addPromotion(Promotion $promotion): self
+    {
+        if (!$this->promotions->contains($promotion)) {
+            $this->promotions->add($promotion);
+            $promotion->setIdArtwork($this);
+        }
+
+        return $this;
+    }
+
+    public function removePromotion(Promotion $promotion): self
+    {
+        if ($this->promotions->removeElement($promotion)) {
+            // set the owning side to null (unless already changed)
+            if ($promotion->getIdArtwork() === $this) {
+                $promotion->setIdArtwork(null);
+            }
+        }
 
         return $this;
     }

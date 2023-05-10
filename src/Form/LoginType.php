@@ -12,12 +12,12 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\Email;
-
-class LoginFormType extends AbstractType
+class LoginType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            
         ->add('password_user', PasswordType::class, [
             'constraints' => [
                 new NotBlank([
@@ -26,25 +26,24 @@ class LoginFormType extends AbstractType
                 new Length([
                     'min' => 8,
                     'minMessage' => 'Le mot de passe doit contenir au moins {{ limit }} caractères',
-                    // you can add more constraints here if necessary
+                    // vous pouvez ajouter plus de contraintes ici si nécessaire
                 ]),
             ],
         ])
-        ->add('username', TextType::class, [
-            'constraints' => [
-                new NotBlank([
-                    'message' => 'Veuillez saisir votre username',
-                ]),
-                new Length([
-                    'min' => 3,
-                    'minMessage' => 'Le username doit contenir au moins {{ limit }} caractères',
-                    // you can add more constraints here if necessary
-                ]),
-            ],
-        ]);
-}
-
-    
+            ->add('email_user', TextType::class, [
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez saisir votre adresse email',
+                    ]),
+                    new Email([
+                        'message' => 'L\'adresse email "{{ value }}" est invalide.',
+                        // vous pouvez ajouter plus de contraintes ici si nécessaire
+                    ]),
+                ],
+            ])
+            
+        ;
+    }
 
     public function configureOptions(OptionsResolver $resolver): void
     {

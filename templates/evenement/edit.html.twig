@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+{% block css %} 
+
+ <link rel="stylesheet" href="{{asset("assets/css/button_anime.css")}}">
+
+   {% endblock %}
+
+
+
+{% block title %}Edit Evenement{% endblock %}
+
+{% block body %}
+<button class="custom-btn btn-11"><a href="{{ path('app_evenement_index') }}"><span class="sp">Retour aux evenements</span> </a></button>
+    <h1>Editer Evenement</h1>
+    
+    {{ include('evenement/_form.html.twig', {'button_label': 'Valider'}) }}
+    <div id="map"></div>
+
+    <a href="{{ path('app_evenement_index') }}">Retour aux evenements</a>
+
+    {{ include('evenement/_delete_form.html.twig') }}
+{% endblock %}

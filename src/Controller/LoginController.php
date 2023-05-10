@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Utilisateur;
+use App\Entity\User;
 use App\Form\LoginType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-use App\Repository\UtilisateurRepository;
+use App\Repository\UserRepository;
 
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -49,13 +49,13 @@ class LoginController extends AbstractController
 
         // Créer une session pour l'utilisateur
         $session = $request->getSession();
-        $session->set('id_user', $user->getId());
+        $session->set('user_id', $user->getId());
 
         // Rediriger l'utilisateur vers la page d'accueil
         return $this->redirectToRoute('app_home');
     }
 
-    return $this->render('Security/login.html.twig', [
+    return $this->render('login/login.html.twig', [
         'form' => $form->createView(),
         'last_email' => $lastEmail,
         'error' => $error,

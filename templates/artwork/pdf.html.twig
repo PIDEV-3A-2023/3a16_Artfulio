@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Mon PDF personnalisé</title>
+    
+</head>
+<body>
+
+<h1> List Artwork </h1>
+
+{% for artwork in artworks %}
+<div class="header">
+    <h1> {{ artwork.nomArtwork }} </h1>
+</div>
+<div class="content">
+    {# <p>{{ artwork.nomArtwork }}</p> #}
+                    <p>{{ artwork.descriptionArtwork }}</td>
+                    <p>{{ artwork.prixArtwork }}</p>
+                    <p>{{ artwork.date ? artwork.date|date('Y-m-d') : '' }}</p>
+                    <p>{{ artwork.lienArtwork }}</p>
+                    <p>{{ artwork.dimensionArtwork }}</p>
+                          <img src="{{ asset('uploads/images/' ~ artwork.imgArtwork) }}" alt="">
+
+</div>
+                    {% endfor %}
+
+</body>
+</html>
+
+<style>
+    body {
+      
+        background-color: #f2f2f2;
+        font-family: Arial, sans-serif;
+    }
+    .header {
+         text-align:center;
+        background-color: #b8236e;
+        color: #fff;
+        padding: 20px;
+    }
+    .content {
+        padding: 20px;
+    }
+    .footer {
+        background-color: #b8236e;
+        color: #fff;
+        padding: 10px;
+        text-align: center;
+        font-size: 12px;
+    }
+</style>

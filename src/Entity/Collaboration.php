@@ -2,59 +2,51 @@
 
 namespace App\Entity;
 
-use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping as ORM;
-
-use Repository;
 use App\Repository\CollaborationRepository;
+use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CollaborationRepository::class)]
 class Collaboration
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id_collaboration   = null;
+    #[ORM\Column(type: "integer")]
+    private ?int $idCollaboration = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $type_collaboration = null;
+    #[ORM\Column(type: "string", length: 50)]
+    private ?string $typeCollaboration = null;
 
-
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: "string", length: 50)]
     private ?string $titre = null;
-   
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: "string", length: 300)]
     private ?string $description = null;
-    
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $date_sortie = null;
-   
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: "date")]
+    private ?\DateTimeInterface $dateSortie = null;
+
+    #[ORM\Column(type: "string", length: 20)]
     private ?string $status = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $nom_user = null;
+    #[ORM\Column(type: "string", length: 50)]
+    private ?string $nomUser = null;
 
+    #[ORM\Column(type: "string", length: 50)]
+    private ?string $emailUser = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $email_user = null;
-
-   
     public function getIdCollaboration(): ?int
     {
-        return $this->id_collaboration ;
+        return $this->idCollaboration;
     }
 
     public function getTypeCollaboration(): ?string
     {
-        return $this->type_collaboration;
+        return $this->typeCollaboration;
     }
 
     public function setTypeCollaboration(string $typeCollaboration): self
     {
-        $this->type_collaboration = $typeCollaboration;
+        $this->typeCollaboration = $typeCollaboration;
 
         return $this;
     }
@@ -85,12 +77,12 @@ class Collaboration
 
     public function getDateSortie(): ?\DateTimeInterface
     {
-        return $this->date_sortie;
+        return $this->dateSortie;
     }
 
     public function setDateSortie(\DateTimeInterface $dateSortie): self
     {
-        $this->date_sortie = $dateSortie;
+        $this->dateSortie = $dateSortie;
 
         return $this;
     }
@@ -109,27 +101,25 @@ class Collaboration
 
     public function getNomUser(): ?string
     {
-        return $this->nom_user;
+        return $this->nomUser;
     }
 
     public function setNomUser(string $nomUser): self
     {
-        $this->nom_user = $nomUser;
+        $this->nomUser = $nomUser;
 
         return $this;
     }
 
     public function getEmailUser(): ?string
     {
-        return $this->email_user;
+        return $this->emailUser;
     }
 
     public function setEmailUser(string $emailUser): self
     {
-        $this->email_user = $emailUser;
+        $this->emailUser = $emailUser;
 
         return $this;
     }
-
-
 }

@@ -63,4 +63,76 @@ class ArtworkRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+public function findonly5(): array
+   {
+       return $this->createQueryBuilder('a')
+          
+           ->orderBy('a.likes_count', 'Desc')
+           ->setMaxResults(5)
+           ->getQuery()
+           ->getResult()
+       ;
+   }
+public function findByname($value): array
+   {
+       return $this->createQueryBuilder('a')
+           ->Where('a.nom_artwork like :val')
+           ->setParameter('val', '%'.$value.'%')
+           ->getQuery()
+           ->getResult()
+       ;
+   }
+   public function findBytypevideo(): array
+   {
+       return $this->createQueryBuilder('a')
+           ->Where('a.id_type  = 3')
+           ->orderBy('a.date', 'asc')
+           ->getQuery()
+           ->getResult()
+       ;
+   }
+   public function findBytypemusic(): array
+   {
+       return $this->createQueryBuilder('a')
+       
+           ->Where('a.id_type  = 4')
+           ->orderBy('a.date', 'asc')
+           ->getQuery()
+           ->getResult()
+       ;
+   } public function findBytypeimage(): array
+   {
+       return $this->createQueryBuilder('a')
+           ->Where('a.id_type  = 2')
+           ->orderBy('a.date', 'asc')
+           ->getQuery()
+           ->getResult()
+       ;
+   }
+   public function orderbyname(){
+  
+    return $this->createQueryBuilder('a')
+               ->orderBy('a.nom_artwork', 'asc')
+               ->getQuery()
+               ->getResult()
+           ;
+   }
+   public function orderbyprice(){
+  
+    return $this->createQueryBuilder('a')
+               ->orderBy('a.prix_artwork', 'asc')
+               ->getQuery()
+               ->getResult()
+           ;
+   }
+   public function orderbydate(){
+  
+    return $this->createQueryBuilder('a')
+               ->orderBy('a.date', 'asc')
+               ->getQuery()
+               ->getResult()
+           ;
+   }
+   
 }

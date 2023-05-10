@@ -77,9 +77,9 @@ class RegisterType extends AbstractType
                     'message' => 'Veuillez saisir votre adresse',
                 ]),
                 new Length([
-                    'min' => 20,
-                    'max' => 20,
-                    'exactMessage' => 'votre adresse doit contenir exactement {{ limit }} lettres',
+                    'min' => 3,
+                    
+                    'minMessage' => 'votre adresse doit contenir exactement {{ limit }} lettres',
                 ]),
             ],
         ])

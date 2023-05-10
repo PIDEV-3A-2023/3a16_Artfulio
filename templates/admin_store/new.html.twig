@@ -1,0 +1,11 @@
+{% extends 'admin/index.html.twig' %}
+
+{% block title %}New Store{% endblock %}
+
+{% block body %}
+    <h1>Create new Store</h1>
+
+    {{ include('admin_store/_form.html.twig') }}
+
+    <a href="{{ path('app_admin_store_index') }}">back to list</a>
+{% endblock %}

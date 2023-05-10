@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\ArtworkRepository;
 
 #[Route('/commentaire')]
 class CommentaireController extends AbstractController
@@ -27,17 +28,19 @@ class CommentaireController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_commentaire_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, CommentaireRepository $commentaireRepository): Response
+    #[Route('/new/{id_artwork}', name: 'app_commentaire_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, ArtworkRepository $artworkRepository,CommentaireRepository $commentaireRepository,$id_artwork): Response
     {
         $commentaire = new Commentaire();
+        $commentaire->setIdArtwork($artworkRepository->find($id_artwork));
         $form = $this->createForm(CommentaireType::class, $commentaire);
+        
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $commentaireRepository->save($commentaire, true);
 
-            return $this->redirectToRoute('app_commentaire_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_artwork_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('commentaire/new.html.twig', [
@@ -72,13 +75,13 @@ class CommentaireController extends AbstractController
         ]);
     }
 
-    #[Route('/{Id_com}', name: 'app_commentaire_delete', methods: ['POST'])]
-    public function delete(Request $request, Commentaire $commentaire, CommentaireRepository $commentaireRepository): Response
+    #[Route('/{Id_com}/{id_artwork}', name: 'app_commentaire_delete', methods: ['POST'])]
+    public function delete(Request $request, Commentaire $commentaire, CommentaireRepository $commentaireRepository,$id_artwork): Response
     {
         if ($this->isCsrfTokenValid('delete'.$commentaire->getIdcom(), $request->request->get('_token'))) {
             $commentaireRepository->remove($commentaire, true);
         }
 
-        return $this->redirectToRoute('app_commentaire_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_artwork_show', ['id' => $id_artwork], Response::HTTP_SEE_OTHER);
     }
 }

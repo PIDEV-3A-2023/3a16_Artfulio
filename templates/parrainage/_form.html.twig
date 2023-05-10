@@ -1,0 +1,24 @@
+<div style="display: flex; justify-content: center; ">
+    <img src="https://lh3.googleusercontent.com/eUNfxhISFx8fq3MzmV4nCz1NN3dUswkOikndgSMPdlJ8znzsPSHjFArHzhQhIxbuKbL0PYGvzy7hot9NYRTR22e4UZ0B4DjwLQgO0KY81GghWMP091fQQM6oVO8X5oNnVIvc5h51uA=w2400" alt="image" style="width: 100%; height: auto;">
+</div>
+{{ form_start(form,{
+    'attr': {
+        'novalidate': 'novalidate'}, 
+    'style': 'width: 300px;',}) }}
+    {{ form_widget(form) }}
+    {% if app.user %}
+        <button type="submit" class="btn btn-secondary display-4" style="width: 200px;">
+            {# {% if is_granted('ROLE_USER') and not ParrainageRepository.hasRequest(app.user) %} #}
+                Envoyer parrainage
+            {# {% else %}
+                Vous avez déjà effectué une demande de parrainage.
+            {% endif %} #}
+        </button>
+    {% else %}
+        <p>Veuillez vous connecter pour effectuer une demande de parrainage.</p>
+        <button type="submit" class="btn btn-secondary display-4 mx-auto" style="width: 200px;" disabled>
+
+            Inscrivez-vous
+        </button>
+    {% endif %}
+{{ form_end(form) }}

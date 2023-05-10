@@ -12,6 +12,7 @@ use App\Repository\CommentaireRepository;
 class Commentaire
 {
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"peut pas etre vide")]
     private ?string $texte = null;
   
 
@@ -40,6 +41,7 @@ class Commentaire
    private ?Artwork $idArtwork = null;
 
      #[ORM\ManyToOne(inversedBy: 'commentaires')]
+
      #[ORM\JoinColumn(name: 'id_util', referencedColumnName: 'id')]
 
      private ?User $id_util = null;

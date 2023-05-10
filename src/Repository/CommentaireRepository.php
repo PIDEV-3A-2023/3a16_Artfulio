@@ -63,4 +63,14 @@ class CommentaireRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+public function findall(): array
+   {
+       return $this->createQueryBuilder('c')
+           ->orderBy('c.Date_post', 'desc')
+          
+           ->getQuery()
+           ->getResult()
+       ;
+   }
 }

@@ -18,14 +18,20 @@ class ArtisteCollaboration
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date_entree = null;
 
-    #[ORM\ManyToOne(targetEntity: Collaboration::class, inversedBy: 'ArtisteCollaboration')]
-    #[ORM\JoinColumn(name: 'id_collaboration_fk', referencedColumnName: 'id_collaboration')]
+    #[ORM\Column]
+    private ?int $id_collaboration_fk = null;
 
-    private ?int $id_collaboration_fk  = null;
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'ArtisteCollaboration')]
-    #[ORM\JoinColumn(name: 'id_artiste_fk', referencedColumnName: 'id')]
+    #[ORM\Column]
+    private ?int $id_artiste_fk = null;
 
-    private ?int $id_artiste_fk  = null;
+    // #[ORM\ManyToOne(targetEntity: Collaboration::class, inversedBy: 'ArtisteCollaboration')]
+    // #[ORM\JoinColumn(name: 'id_collaboration_fk', referencedColumnName: 'id_collaboration')]
+    //#[ORM\Column]
+  //  private ?int $id_collaboration_fk  = null;
+    // #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'ArtisteCollaboration')]
+    // #[ORM\JoinColumn(name: 'id_artiste_fk', referencedColumnName: 'id')]
+   // #[ORM\Column]
+    //private ?int $id_artiste_fk  = null;
 
     public function getDateEntree(): ?\DateTimeInterface
     {
@@ -39,24 +45,24 @@ class ArtisteCollaboration
         return $this;
     }
 
-    public function getIdCollaborationFk(): ?Collaboration
+    public function getIdCollaborationFk(): ?int
     {
         return $this->id_collaboration_fk;
     }
 
-    public function setIdCollaborationFk(?Collaboration $idCollaborationFk): self
+    public function setIdCollaborationFk(?int $idCollaborationFk): self
     {
-        $this->id_collaboration_fk = $id_collaboration_fk;
+        $this->id_collaboration_fk = $idCollaborationFk;
 
         return $this;
     }
 
-    public function getIdArtisteFk(): ?User
+    public function getIdArtisteFk(): ?int
     {
         return $this->id_artiste_fk;
     }
 
-    public function setIdArtisteFk(?User $idArtisteFk): self
+    public function setIdArtisteFk(?int $idArtisteFk): self
     {
         $this->id_artiste_fk = $idArtisteFk;
 

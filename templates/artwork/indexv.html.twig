@@ -1,0 +1,636 @@
+{% extends 'base.html.twig' %}
+{% block title %}Artwork{% endblock %}
+
+{% block body %}
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap");
+
+:root {
+	--primary-font: "Roboto", sans-serif;
+	--secondary-font: "Montserrat", sans-serif;
+}
+
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+body {
+	background-color: #f2ebe9;
+	font-family: var(--primary-font);
+	font-size: 100%;
+}
+
+img {
+	vertical-align: top;
+}
+
+/* Create post */
+.create-post {
+	width: 95%;
+	max-width: 660px;
+	margin: 50px auto;
+	display: flex;
+	gap: 20px;
+}
+
+.create-post__avatar {
+	width: 65px;
+	height: 65px;
+	border-radius: 5px;
+}
+
+.create-post__form {
+	background-color: #fff;
+	padding: 20px;
+	width: 100%;
+	position: relative;
+	border-radius: 5px;
+}
+
+.create-post__form::after {
+	content: " ";
+	position: absolute;
+	width: 0;
+	height: 0;
+	left: -19px;
+	right: auto;
+	top: 20px;
+	bottom: auto;
+	border: 10px solid;
+	border-color: transparent;
+	border-right-color: #fff;
+}
+
+/* Dynamic height for text-area:
+https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas/ */
+.create-post__text-wrap {
+	display: grid;
+	margin-bottom: 20px;
+}
+
+.create-post__text-wrap::after {
+	content: attr(data-replicated-value) " ";
+	white-space: pre-wrap;
+	visibility: hidden;
+}
+
+.create-post__text-wrap > textarea {
+	min-height: 70px;
+	font-size: 16px;
+	color: #757a91;
+	resize: none;
+	overflow: hidden;
+}
+
+.create-post__text-wrap > textarea::placeholder {
+	color: #999999;
+}
+
+.create-post__text-wrap > textarea,
+.create-post__text-wrap::after {
+	border: none;
+	font: inherit;
+	grid-area: 1 / 1 / 2 / 2;
+	line-height: 1.5;
+	word-break: break-all;
+}
+
+.create-post__media-wrap {
+	margin-bottom: 20px;
+}
+
+.create-post__media-item {
+	width: 100%;
+	max-width: 140px;
+	position: relative;
+}
+
+.create-post__media-item button {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	background-color: #fff;
+	border: none;
+	padding: 5px;
+	border-radius: 50%;
+}
+
+.create-post__media-item img {
+	width: 100%;
+}
+
+.create-post__buttons {
+	display: flex;
+	gap: 40px;
+	justify-content: space-between;
+}
+
+.create-post__assets-buttons {
+	width: 100%;
+	display: grid;
+	grid-template-columns: repeat(6, 1fr);
+}
+
+#create-post-media {
+	display: none;
+}
+
+/* Post */
+.post {
+	width: 95%;
+	max-width: 660px;
+	margin: 0 auto 40px;
+	display: flex;
+	gap: 20px;
+}
+
+.post__avatar {
+	width: 65px;
+	height: 65px;
+	border-radius: 5px;
+}
+
+.post__content {
+	border-radius: 5px;
+	width: 100%;
+	padding: 20px;
+	position: relative;
+}
+
+.post__content::after {
+	content: " ";
+	position: absolute;
+	width: 0;
+	height: 0;
+	left: -19px;
+	right: auto;
+	top: 20px;
+	bottom: auto;
+	border: 10px solid;
+	border-color: transparent;
+	border-right-color: #fff;
+}
+
+.post__header {
+	display: flex;
+	gap: 15px;
+	margin-bottom: 15px;
+	align-items: center;
+	font-family: var(--secondary-font);
+	justify-content: space-between;
+}
+
+.post__user {
+	font-weight: 600;
+	font-size: 14px;
+	color: #aeaeae;
+}
+
+.post__meta {
+	display: flex;
+	align-items: center;
+	gap: 15px;
+}
+
+.post__reblogs {
+	color: #fff;
+	font-size: 12px;
+	font-weight: bold;
+	display: inline-block;
+	padding: 3px 5px;
+	background-color: #aeaeae;
+	border-radius: 5px;
+}
+
+.post__header-btn {
+	border: none;
+	background-color: transparent;
+	width: 20px;
+}
+
+.post__content {
+	background-color: #fff;
+}
+
+.post__body {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 20px;
+	margin-bottom: 15px;
+}
+
+.post__text {
+	font-size: 16px;
+	color: #000;
+	line-height: 1.5;
+}
+
+.post__img {
+	width: 100%;
+}
+
+.post__footer {
+	color: #aeaeae;
+	font-size: 14px;
+}
+
+/* Buttons */
+.create-post__submit {
+	background: none;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.create-post__asset-btn {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 5px 15px;
+	color: #51595e;
+	font-size: 16px;
+	gap: 10px;
+	background: none;
+	border: none;
+}
+
+.create-post__asset-btn:not(:last-child) {
+	border-right: 1px solid rgba(100, 117, 137, 0.2);
+}
+
+.create-post__asset-btn:disabled {
+	opacity: 0.3;
+}
+
+.create-post__asset-btn .icon {
+	transition: all 0.3s ease;
+	width: 40px;
+	height: 35px;
+}
+
+.create-post__asset-btn:not(:disabled):hover .icon,
+.create-post__asset-btn:not(:disabled):focus .icon {
+	transform: translateY(-3px);
+}
+
+.create-post__submit {
+	background-color: #5596e6;
+	border: 1px solid transparent;
+	border: none;
+	color: #fff;
+	font-family: inherit;
+	font-size: 16px;
+	padding: 5px 15px;
+	border-radius: 5px;
+	transition: background-color 0.3s ease;
+}
+
+.create-post__submit:disabled {
+	background-color: rgb(186, 235, 255);
+}
+.img {
+  --g: 2px;     /* the gap */
+  --b: 4px;    /* border thickness*/
+  --c: #669706; /* the color */
+  
+  
+  padding: calc(var(--g) + var(--b));
+  --_c: #0000 0 25%, var(--c) 0 50%;
+  --_g1: repeating-linear-gradient(90deg ,var(--_c)) repeat-x;
+  --_g2: repeating-linear-gradient(180deg,var(--_c)) repeat-y;
+  background:
+    var(--_g1) var(--_p, 25%) 0   ,var(--_g2) 0    var(--_p,125%),
+    var(--_g1) var(--_p,125%) 100%,var(--_g2) 100% var(--_p, 25%);
+  background-size: 200% var(--b),var(--b) 200%;
+  cursor: pointer;
+  filter: grayscale(50%);
+  transition: .3s;
+}
+.img:hover {
+  --_p: 75%;
+  filter: grayscale(0%);
+  
+}
+
+
+#slider {
+  position: relative;
+  width: 50%;
+  height: 32vw;
+  margin: 150px auto;
+  font-family: 'Helvetica Neue', sans-serif;
+  perspective: 1400px;
+  transform-style: preserve-3d;
+}
+
+input[type=radio] {
+  position: relative;
+  top: 108%;
+  left: 50%;
+  width: 18px;
+  height: 18px;
+  margin: 0 15px 0 0;
+  opacity: 0.4;
+  transform: translateX(-83px);
+  cursor: pointer;
+}
+
+
+input[type=radio]:nth-child(5) {
+  margin-right: 0px;
+}
+
+input[type=radio]:checked {
+  opacity: 1;
+}
+
+
+
+
+#slider label,
+#slider label img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  color: white;
+  font-size: 70px;
+  font-weight: bold;
+  border-radius: 3px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 400ms ease;
+}
+
+
+
+/* Slider Functionality */
+
+/* Active Slide */
+#s1:checked ~ #slide1,
+ #s2:checked ~ #slide2,
+  #s3:checked ~ #slide3,
+   #s4:checked ~ #slide4,
+    #s5:checked ~ #slide5 {
+  box-shadow: 0 13px 26px rgba(0,0,0, 0.3), 0 12px 6px rgba(0,0,0, 0.2);
+  transform: translate3d(0%, 0, 0px);
+}
+
+/* Next Slide */
+#s1:checked ~ #slide2,
+ #s2:checked ~ #slide3,
+  #s3:checked ~ #slide4,
+   #s4:checked ~ #slide5,
+    #s5:checked ~ #slide1 {
+  box-shadow: 0 6px 10px rgba(0,0,0, 0.3), 0 2px 2px rgba(0,0,0, 0.2);
+  transform: translate3d(20%, 0, -100px);
+}
+
+
+/* Next to Next Slide */
+#s1:checked ~ #slide3,
+ #s2:checked ~ #slide4,
+  #s3:checked ~ #slide5,
+   #s4:checked ~ #slide1,
+    #s5:checked ~ #slide2 {
+  box-shadow: 0 1px 4px rgba(0,0,0, 0.4);
+  transform: translate3d(40%, 0, -250px);
+}
+
+/* Previous to Previous Slide */
+#s1:checked ~ #slide4,
+ #s2:checked ~ #slide5,
+  #s3:checked ~ #slide1,
+   #s4:checked ~ #slide2,
+    #s5:checked ~ #slide3 {
+  box-shadow: 0 1px 4px rgba(0,0,0, 0.4);
+  transform: translate3d(-40%, 0, -250px);
+}
+
+/* Previous Slide */
+#s1:checked ~ #slide5,
+ #s2:checked ~ #slide1,
+  #s3:checked ~ #slide2,
+   #s4:checked ~ #slide3,
+    #s5:checked ~ #slide4 {
+  box-shadow: 0 6px 10px rgba(0,0,0, 0.3), 0 2px 2px rgba(0,0,0, 0.2);
+  transform: translate3d(-20%, 0, -100px);
+}
+.neonText {
+  color: #fff;
+  text-shadow:
+      
+      0 0 4px #ca1b73,
+      0 0 11px #ce4088,
+      0 0 19px #ce4088,
+      0 0 40px #ca1b73,
+      0 0 80px #ce4088,
+      0 0 90px #ce4088,
+      0 0 100px #ca1b73,
+      0 0 150px #ca1b73;
+}
+
+h1 {
+  font-size: 4.2rem;
+  animation: flicker 1.5s infinite alternate;     
+}
+
+/* Flickering animation */
+@keyframes flicker {
+    
+  0%, 18%, 22%, 25%, 53%, 57%, 100% {
+
+      text-shadow:
+      0 0 4px #ca1b73,
+      0 0 11px #ce4088,
+      0 0 19px #ce4088,
+      0 0 40px #ca1b73,
+      0 0 80px #ce4088,
+      0 0 90px #ce4088,
+      0 0 100px #ca1b73,
+      0 0 150px #ca1b73;
+  
+  }
+  
+  20%, 24%, 55% {        
+      text-shadow: none;
+  }    
+}
+
+
+
+</style>
+<section data-bs-version="5.1" class="slider2 cid-tue4YqiKkn" id="slider2-4">
+    
+  
+<section class="slider2 cid-tue4YqiKkn" id="slider">
+  <input type="radio" name="slider" id="s1" checked>
+  <input type="radio" name="slider" id="s2">
+  <input type="radio" name="slider" id="s3">
+  <input type="radio" name="slider" id="s4">
+  <input type="radio" name="slider" id="s5">
+{% for artwork in artworks %}
+  <label for="s{{ loop.index }}" id="slide{{ loop.index }}">
+    <div >
+     
+      <img src="{{ asset('uploads/images/' ~ artwork.imgArtwork) }}" alt="">
+    
+	  <div style="position: absolute; bottom: 0; left: 0; width: 100%; background-image: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0)); padding: 10px; color: white; text-transform: capitalize; font-weight: bold;">{{ artwork.nomArtwork }} By :{{ artwork.IdArtist.username }}        <a href="{{ path('app_artwork_show', {'id': artwork.getIdArtwork()}) }}">details
+</a></div>
+    </div>
+  </label>
+{% endfor %}
+
+  {# <label for="s2" id="slide2"><img src="https://images6.alphacoders.com/462/thumb-1920-462371.jpg" alt=""></label>
+  <label for="s3" id="slide3"><img src="https://wallpaperaccess.com/full/1154341.jpg" alt=""></label>
+  <label for="s4" id="slide4"><img src="https://wallpapercave.com/wp/wp2634222.jpg" alt=""></label>
+  <label for="s5" id="slide5"><img src="https://images5.alphacoders.com/343/thumb-1920-343645.jpg" alt=""></label> #}
+</section>
+
+    
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10">
+                {# <div class="carousel slide" id="twwwZvLyHA" data-interval="5000" data-bs-interval="5000">
+                    
+                    <ol class="carousel-indicators">
+                        <li data-slide-to="0" data-bs-slide-to="0" class="active" data-target="#twwwZvLyHA" data-bs-target="#twwwZvLyHA"></li>
+                        <li data-slide-to="1" data-bs-slide-to="1" data-target="#twwwZvLyHA" data-bs-target="#twwwZvLyHA"></li>
+                        <li data-slide-to="2" data-bs-slide-to="2" data-target="#twwwZvLyHA" data-bs-target="#twwwZvLyHA"></li><li data-slide-to="3" data-bs-slide-to="3" data-target="#twwwZvLyHA" data-bs-target="#twwwZvLyHA"></li><li data-slide-to="4" data-bs-slide-to="4" data-target="#twwwZvLyHA" data-bs-target="#twwwZvLyHA"></li><li data-slide-to="5" data-bs-slide-to="5" data-target="#twwwZvLyHA" data-bs-target="#twwwZvLyHA"></li><li data-slide-to="6" data-bs-slide-to="6" data-target="#twwwZvLyHA" data-bs-target="#twwwZvLyHA"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="carousel-item slider-image item active">
+                            <div class="item-wrapper">
+                                <img class="d-block w-100" src="{{ asset('assets/images/background3.jpg') }}" alt="Mobirise Website Builder" data-slide-to="0" data-bs-slide-to="0">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5 class="mbr-section-subtitle mbr-fonts-style display-5">
+                                        <strong>Check some of our </strong>
+                                    </h5>
+                                    <p class="mbr-section-text mbr-fonts-style display-7">
+                                        Popular artowrks</p>
+                                </div>
+                            </div>
+                        </div>
+                            {# {% for artwork in artworks %} #}
+
+                        {# <div class="carousel-item slider-image item">
+                            <div class="item-wrapper">
+                                <img class="d-block w-100" src="{{ asset('uploads/images/' ~ artwork.imgArtwork) }}" alt="Mobirise Website Builder" data-slide-to="1" data-bs-slide-to="1">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5 class="mbr-section-subtitle mbr-fonts-style display-5">
+                                        <strong>{{ artwork.nomArtwork }}</strong>
+                                    </h5>
+                                    <p class="mbr-section-text mbr-fonts-style display-7">
+                                    
+                                       By {{ artwork.IdArtist.username }}</p>
+                                </div>
+                            </div>
+                        </div>
+                                {% endfor %} #}
+{# 
+                    </div>
+                    <a class="carousel-control carousel-control-prev" role="button" data-slide="prev" data-bs-slide="prev" href="#twwwZvLyHA">
+                        <span class="mobi-mbri mobi-mbri-arrow-prev" aria-hidden="true"></span>
+                        <span class="sr-only visually-hidden">Previous</span>
+                    </a>
+                    <a class="carousel-control carousel-control-next" role="button" data-slide="next" data-bs-slide="next" href="#twwwZvLyHA">
+                        <span class="mobi-mbri mobi-mbri-arrow-next" aria-hidden="true"></span>
+                        <span class="sr-only visually-hidden">Next</span>
+                    </a>
+                </div> #} 
+            </div>
+        </div>
+    </div>
+</section>
+<section data-bs-version="5.1" class="timeline3 cid-tue5rhUPY8" id="timeline3-6">
+    
+
+    
+    <div class="container">
+        <div class="mbr-section-head">
+            <h3 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2">
+           
+               <div class="container">
+    
+    <h2 ><h1 class="neonText">
+        Videos
+    </h1></h2> 
+
+ </div>
+                 
+            </h3>
+            <br><br>
+    {% for artwork in paginator %}
+    
+	<article class="  post">
+                                         <a href="{{ path('app_profile_index', {'id': artwork.IdArtist.id}) }}">
+
+		<img style="--c: #b8236e ;"class=" img post__avatar" src="{{asset('uploads/images/' ~  artwork.IdArtist.ImgUser) }}" alt="" />
+</a>
+		<div class="post__content">
+			<header class="post__header">
+				<p style="text-transform: capitalize;" class="post__user">{{ artwork.IdArtist.username }}</p>
+
+				<div class="post__meta">
+					<p class="post__reblogs">{{artwork.likesCount}}</p>
+
+					<button class="post__header-btn">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ app.request.schemeAndHttpHost }}{{ path('app_artwork_show', {'id': artwork.getIdArtwork()}) }}"
+       target="_blank" rel="noopener noreferrer" >						<img src="https://raw.githubusercontent.com/Javieer57/create-post-component/43c8008a45b699957d2070cc23362f1953c65d78/icons/reblog-tumblr.svg" alt="" />
+</a>
+<form method="post" action="{{path('like',{'id_artwork': artwork.idartwork})}}">
+					<button class="post__header-btn">
+
+						<img src="https://raw.githubusercontent.com/Javieer57/create-post-component/43c8008a45b699957d2070cc23362f1953c65d78/icons/heart-tumblr.svg" alt="" />
+					</form>
+					</button>
+					
+				</div>
+			</header>
+
+			<div class="post__body">
+            <a href="{{ path('app_artwork_show', {'id': artwork.getIdArtwork()}) }}">
+				<img style="--c: #b8236e ;"class=" img post__img" src="{{ asset('uploads/images/' ~ artwork.imgArtwork) }}" alt="" /></a>
+				<a href="{{ artwork.lienArtwork }}" style="font-size:40px;text-transform: capitalize;" class="post__text"><strong>{{ artwork.nomArtwork }}</strong></a>
+                
+			</div>
+
+			<div class="post__footer">
+				<span>#{{ artwork.idtype.typesouscat }}</span>
+                <p style="color:black;">{{ artwork.descriptionArtwork  }}</p>
+				{# <span>#{{ artwork.idtype.NomSousCat}}</span> #}
+<img style="
+ 
+  width: 100px;
+  height: 100px;" src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl={{artwork.lienArtwork }}" alt="QR code for artwork link">
+
+			</div>
+		</div>
+	</article>
+            
+            {% endfor %} 
+            
+            
+            
+           
+            
+        </div>
+    </div>
+    
+</section>
+
+              <div class="container">
+    <div class="row">
+        <div class=" pagination d-flex align-items-center justify-content-center">
+            {{ knp_pagination_render(paginator) }}
+        </div>
+    </div>
+</div>
+        
+      
+{% endblock %}

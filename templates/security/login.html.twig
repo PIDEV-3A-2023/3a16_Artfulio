@@ -1,45 +1,132 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
+{% block title %}Log in!{% endblock %}
 
-   <div id="main">
-           <!-- Post -->
-	 <section class="post">
-	 {% for message in app.flashes('message') %}
-            <div class="alert alert-success" role="alert">
-             {{ message }}
-            </div>
-         {% endfor %}
-         {% for message in app.flashes('warning') %}
-            <div class="alert alert-warning" role="alert">
-               {{ message }}
-            </div>
-         {% endfor %}
-         {% for message in app.flashes('danger') %}
-            <div class="alert alert-danger" role="alert">
-               {{ message }}
-            </div>
-         {% endfor %}
-		<header class="major">
-		  <span class="date">Mars 10, 2022</span>
-			 <h1>Se<br />
-				Connecter</h1>
-			  </header>
-			    <form action="{{ path('app_login') }}" method="post">
-					<div class="row gtr-uniform">
-					  <div class="col-6 col-12-xsmall">
-					    <input type="email" name="_username" required id="demo-name"  placeholder="Adresse email...." />
-					  </div>
-					  <div class="col-6 col-12-xsmall">
-						<input type="password" name="_password" required id="demo-email"  placeholder="Mot de passe...." />
-					  </div>
-                      <div class="col-12">
-					  <ul class="actions">
-						  <li><input type="submit" value="Se Connecter" class="primary" /></li>
-					  </ul>
-					</div>
-   
-				</form>
-    </section> 
-</div>
+{% block body %}
+<style>
+		body {
+                background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent); /* Add the gradient here */
+  backdrop-filter: blur(5px);
+
+    background-image: url("");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: Arial, Helvetica, sans-serif;
+    position: relative; /* Add position relative to the body */
+}
+		
+		{# form {
+			background-color: rgba(255,255,255,0.8);
+			padding: 20px;
+			border-radius: 10px;
+			box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.2);
+		} #}
+
+		input[type=text], input[type=password] {
+            			background-color: rgba(255, 255, 255, 0.5); /* set background color with opacity */
+
+			padding: 12px 20px;
+			margin: 8px 0;
+			display: inline-block;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			box-sizing: border-box;
+		}
+		
+		button {
+			background-color: #4CAF50;
+			color: white;
+			padding: 14px 20px;
+			margin: 8px 0;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+		}
+		
+		button:hover {
+			background-color: #45a049;
+		}
+	</style>
+    <body onload="changeBackground()">
+<form method="post">
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+<br><br><br><br>
+    {% if app.user %}
+        <div style=" text-shadow: -1px -1px 0 #000,  
+              1px -1px 0 #000,
+             -1px 1px 0 #000,
+              1px 1px 0 #000; color:white;" class="mb-3">
+            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+        </div>
+    {% endif %}
+
+    <h1 class="h3 mb-3 font-weight-normal  "style="text-shadow: -1px -1px 0 #000,  
+              1px -1px 0 #000,
+             -1px 1px 0 #000,
+              1px 1px 0 #000;color:white;"><strong>Please sign in</h1>
+    <label style=" text-shadow: -1px -1px 0 #000,  
+              1px -1px 0 #000,
+             -1px 1px 0 #000,
+              1px 1px 0 #000;color:white;" for="inputUsername">Username</label>
+    <input style="			background-color: rgba(255, 255, 255, 0.5); /* set background color with opacity */
+" type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" required autofocus>
+    <label style="color:white;text-shadow: -1px -1px 0 #000,  
+              1px -1px 0 #000,
+             -1px 1px 0 #000,
+              1px 1px 0 #000;" for="inputPassword">Password</label>
+    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+
+    <input type="hidden" name="_csrf_token"
+           value="{{ csrf_token('authenticate') }}"
+    >
+
+    {#
+        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+        See https://symfony.com/doc/current/security/remember_me.html
+
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" name="_remember_me"> Remember me
+            </label>
+        </div>
+    #}
+<br><br><br><br>
+    <button style="margin-left:285px;" class="btn btn-lg btn-primary" type="submit">
+        Sign in
+    </button>
+     <br><br><br>
+    <div style="color:white;text-shadow: -1px -1px 0 #000,  
+              1px -1px 0 #000,
+             -1px 1px 0 #000,
+              1px 1px 0 #000;"> If you don't have an account yet, please
+    <a style=" "  href="{{ path('app_register') }}">
+        Sign Up
+    </a>
+    </div>
+    <br><br><br>
+</form>
+<script>
+		function changeBackground() {
+			const images = [
+				"https://w0.peakpx.com/wallpaper/117/281/HD-wallpaper-artwork-space-landscape-sunset-alone-horizon-nature-sunrise-midjourney-ai-ai-generated.jpg",
+				"https://mcdn.wallpapersafari.com/medium/66/37/xA5NOd.jpg"
+				,"https://mcdn.wallpapersafari.com/medium/0/5/pkKz3W.png"
+                ,"https://mcdn.wallpapersafari.com/medium/93/32/4tB7JS.jpg"
+                ,"https://mcdn.wallpapersafari.com/medium/93/32/4tB7JS.jpg"
+                ,"https://mcdn.wallpapersafari.com/medium/16/62/OZLGXq.png"
+			];
+			const randomIndex = Math.floor(Math.random() * images.length);
+			const imageUrl = images[randomIndex];
+			document.body.style.backgroundImage = `url(${imageUrl})`;
+		}
+	</script>
+</body>
 {% endblock %}
